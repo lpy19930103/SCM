@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lpy.scm.dao.UserMapper">
+
+    <!--auto generated Code-->
+    <sql id="Base_Column_List">
+        id,
+        parent_id,
+        `name`,
+        status,
+        sort_order,
+        is_parent,
+        created,
+        updated
+    </sql>
+
+
+    <select id="listItem" resultType="com.shop.pojo.TbItemCat">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM tb_item_cat
+
+    </select>
+</mapper>
+

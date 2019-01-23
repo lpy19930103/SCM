@@ -6,10 +6,18 @@
 
     <groupId>com.lpy</groupId>
     <artifactId>scm-parent</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>scm-core</module>
+        <module>scm-common</module>
+        <module>scm-domain</module>
+        <module>scm-dal</module>
+        <module>scm-biz</module>
+    </modules>
     <properties>
         <!-- Global -->
-        <scm.version>1.0-SNAPSHOT</scm.version>
+        <com.lpy.scm.version>1.0-SNAPSHOT</com.lpy.scm.version>
         <java.version>1.8</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
@@ -32,7 +40,7 @@
         <!-- test -->
         <junit.version>4.12</junit.version>
         <!-- servlet -->
-        <servlet-api.version>3.1.0</servlet-api.version>
+        <servlet-api.version>2.5</servlet-api.version>
         <jsp-api.version>2.0</jsp-api.version>
         <jstl.version>1.2</jstl.version>
         <!-- spring -->
@@ -258,6 +266,11 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
             <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
         </dependency>
     </dependencies>
 
