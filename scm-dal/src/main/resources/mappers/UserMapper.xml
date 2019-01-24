@@ -5,20 +5,15 @@
     <!--auto generated Code-->
     <sql id="Base_Column_List">
         id,
-        parent_id,
-        `name`,
-        status,
-        sort_order,
-        is_parent,
-        created,
-        updated
+        user_name,
+        phone,
     </sql>
 
 
-    <select id="listItem" resultType="com.shop.pojo.TbItemCat">
+    <select id="queryUserByid" resultType="com.lpy.scm.DO.UserDO">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM tb_item_cat
+        FROM `user`
 
     </select>
 </mapper>

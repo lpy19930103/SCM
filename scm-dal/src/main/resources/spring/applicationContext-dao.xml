@@ -34,19 +34,19 @@
         <property name="dataSource" ref="dataSource"/>
         <!-- 加载mybatis的全局配置文件 -->
         <property name="configLocation" value="classpath:mybatis/SqlMapConfig.xml"/>
-        <property name="mapperLocations" value="classpath:mappers/UserMapper.xml"/>
+        <property name="mapperLocations" value="classpath:mappers/*.xml"/>
         <!-- 别名包扫描 -->
         <!--<property name="typeAliasesPackage" value="com.shop.pojo"/>-->
     </bean>
     <!-- mapper扫描器 -->
-    <!--<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.shop.mapper" />
-        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
-    </bean>-->
-    <!-- TKmybatis自动扫描注册Mybatis mapper -->
-    <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.lpy.scm.dao"/>
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.lpy.scm.dao" />
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
+    <!-- TKmybatis自动扫描注册Mybatis mapper -->
+    <!--<bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">-->
+        <!--<property name="basePackage" value="com.lpy.scm.dao"/>-->
+        <!--<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>-->
+    <!--</bean>-->
 
 </beans>
