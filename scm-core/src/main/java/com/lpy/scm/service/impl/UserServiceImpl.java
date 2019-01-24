@@ -12,7 +12,7 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
 
     @Override
-    public UserDO test() {
-        return userMapper.queryUserByid();
+    public UserDO queryUserById(Long id) {
+        return userMapper.queryUserByid(id);
     }
 }

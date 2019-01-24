@@ -4,6 +4,7 @@ import com.lpy.scm.DO.UserDO;
 import com.lpy.scm.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,10 +15,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(method = RequestMethod.GET)
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
     @ResponseBody
-    public UserDO index() {
-        return userService.test();
+    public UserDO queryUserById(@PathVariable("id") Long id) {
+        return userService.queryUserById(id);
     }
 
 }

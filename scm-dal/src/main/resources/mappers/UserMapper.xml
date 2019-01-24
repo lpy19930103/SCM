@@ -6,14 +6,14 @@
     <sql id="Base_Column_List">
         id,
         user_name,
-        phone,
+        phone
     </sql>
 
 
-    <select id="queryUserByid" resultType="com.lpy.scm.DO.UserDO">
+    <select id="queryUserByid" parameterType="java.lang.Long" resultType="com.lpy.scm.DO.UserDO">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM `user`
+        FROM `user` where id=#{id}
 
     </select>
 </mapper>

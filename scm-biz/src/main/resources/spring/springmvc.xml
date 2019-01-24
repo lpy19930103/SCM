@@ -15,6 +15,11 @@
         <property name="suffix" value=".jsp"/>
     </bean>
 
+    <!--<import resource="classpath*:spring/applicationContext-activemq.xml"/>-->
+    <import resource="classpath*:spring/applicationContext-dao.xml"/>
+    <import resource="classpath*:spring/applicationContext-service.xml"/>
+    <!--<import resource="classpath*:spring/applicationContext-transaction.xml"/>-->
+    <!--<import resource="classpath*:spring/applicationContext-redis.xml"/>-->
     <!-- 配置静态资源映射  -->
     <!-- 指定/WEB-INF/js   /WEB-INF/css/  下的所有的静态资源包括子目录下的静态资源  都不被拦截-->
     <!--  mapping=/js/**  :表示访问静态资源的路径的形式    可以访问 /js/下的静态资源或者所有的子目录下的静态资源-->
