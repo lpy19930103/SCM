@@ -1,31 +1,33 @@
-package com.lpy.scm.exception;
+package com.lpy.scm.bean;
 
 /**
  * @author lpy
  * @date 2019/1/24 16:10
  */
-public class ExResponse {
+public class ApiResponse<T> extends BaseBean {
     //0代表成功
-    Integer code=0;
-    String msg;
-    Object data;
+    private Integer code = 0;
+    private String msg;
+    private T data;
 
-    public static ExResponse instance(){
-        ExResponse res= new ExResponse();
+    public static ApiResponse instance() {
+        ApiResponse<String> res = new ApiResponse();
         res.setCode(0);
         res.setMsg("");
         res.setData("");
-        return new ExResponse();
+        return new ApiResponse();
     }
-    public static ExResponse error(){
-        ExResponse res= new ExResponse();
+
+    public static ApiResponse error() {
+        ApiResponse<String> res = new ApiResponse();
         res.setCode(1);
         res.setMsg("请求失败");
         res.setData("");
         return res;
     }
-    public static ExResponse success(){
-        ExResponse res= new ExResponse();
+
+    public static ApiResponse success() {
+        ApiResponse<String> res = new ApiResponse();
         res.setCode(0);
         res.setMsg("请求成功");
         res.setData("");
@@ -33,12 +35,11 @@ public class ExResponse {
     }
 
 
-
     public Integer getCode() {
         return code;
     }
 
-    public ExResponse setCode(Integer code) {
+    public ApiResponse setCode(Integer code) {
         this.code = code;
         return this;
     }
@@ -47,16 +48,16 @@ public class ExResponse {
         return msg;
     }
 
-    public ExResponse setMsg(String msg) {
+    public ApiResponse setMsg(String msg) {
         this.msg = msg;
         return this;
     }
 
-    public Object getData() {
+    public T getData() {
         return data;
     }
 
-    public ExResponse setData(Object data) {
+    public ApiResponse setData(T data) {
         this.data = data;
         return this;
     }

@@ -2,6 +2,7 @@ package com.lpy.scm.interceptor;
 
 import com.alibaba.fastjson.JSON;
 import com.lpy.scm.aop.ControllerLogAspect;
+import com.lpy.scm.bean.ApiResponse;
 import com.lpy.scm.exception.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +30,7 @@ public class ExceptionInterceptor extends BaseInterceptor {
     public void afterCompletion(HttpServletRequest request,
                                 HttpServletResponse response, Object handler, Exception ex)
             throws Exception {
-        ExResponse apiResponse = ExResponse.error();
+        ApiResponse apiResponse = ApiResponse.error();
         if (ex != null) {
             // 记录输入输出日志, 该部分日志跳出了切面日志捕获 
             ControllerLogAspect aspect = new ControllerLogAspect();

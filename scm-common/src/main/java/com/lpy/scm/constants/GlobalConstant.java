@@ -1,8 +1,6 @@
 package com.lpy.scm.constants;
 
-/**
- * Created by Administrator on 2015-8-10.
- */
+
 public class GlobalConstant {
 
     private GlobalConstant() {}
