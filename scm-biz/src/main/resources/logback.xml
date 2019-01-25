@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================== -->
+<!-- logback 配置文件 ，刷新配置文件间隔 -->
+<!-- ====================================== -->
+<configuration scan="true" scanPeriod="60 seconds" debug="true">
+
+    <!-- ====================================== -->
+    <!-- 全局配置 -->
+    <!-- ====================================== -->
+    <statusListener class="ch.qos.logback.core.status.OnConsoleStatusListener"/>
+    <property name="appname" value="scm"/>
+    <property name="appid" value="log"/>
+    <!---->
+    <property name="LOG_HOME" value="/logs/scm"/>
+    <property name="loggingCharset" value="utf-8"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoder 默认配置为 PatternLayoutEncoder -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+        <encoder>
+            <pattern>[${appname}]: %d{yyyy-MM-dd HH:mm:ss.SSS} [%c:%L]-[%p] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- ====================================== -->
+    <!-- 通用业务日志文件 -->
+    <!-- ====================================== -->
+    <appender name="bizLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--<encoding>${loggingCharset}</encoding>-->
+        <file>${LOG_HOME}/bizLog.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/biz-${appid}-%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>70</maxHistory>
+            <!--<maxFileSize>100MB</maxFileSize>-->
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] [%c:%L]-[%p] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- ====================================== -->
+    <!-- controller 层调用日志 -->
+    <!-- ====================================== -->
+    <appender name="controller" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--<encoding>${loggingCharset}</encoding>-->
+        <file>${LOG_HOME}/trace/controller.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/trace/controller-trace-log-%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>70</maxHistory>
+            <!--<maxFileSize>100MB</maxFileSize>-->
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] [%c:%L]-[%p] %msg%n</pattern>
+        </encoder>
+    </appender>
+    <logger name="com.lpy.scm.aop.ControllerLogAspect" additivity="false">
+        <appender-ref ref="controller"/>
+        <appender-ref ref="error-log"/>
+        <appender-ref ref="exception-log"/>
+    </logger>
+    <!-- controller 层调用日志 结束 -->
+
+    <!-- redis任务日志 开始 -->
+    <appender name="redisLogLocal" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/redisLog/redisLog-${appid}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/redisLog/redisLog-${appid}.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <maxFileSize>100MB</maxFileSize>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %msg%n</pattern>
+            <!--<charset>UTF-8</charset>-->
+        </encoder>
+    </appender>
+    <!-- 配置异步记录日志-->
+    <appender name="redisLog" class="ch.qos.logback.classic.AsyncAppender">
+        <!-- 		不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志
+         -->
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>512</queueSize>
+        <includeCallerData>true</includeCallerData>
+        <appender-ref ref="redisLogLocal"/>
+    </appender>
+    <!--additivity的作用在于 children-logger是否使用 rootLogger配置的appender进行输出。
+    false：表示只用当前logger的appender-ref。
+    true：表示当前logger的appender-ref和rootLogger的appender-ref都有效。-->
+    <logger name="com.lpy.scm.log.RedisLog" level="INFO" additivity="false">
+        <appender-ref ref="redisLog"/>
+    </logger>
+    <!-- redis任务日志 结束 -->
+
+
+    <!-- redis针对路径一定频率拦截的相关日志-->
+    <appender name="globalLogLocal" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/globalLog/globalLog-${appid}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/globalLog/globalLog-${appid}.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>14</maxHistory>
+            <maxFileSize>100MB</maxFileSize>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 配置异步记录日志-->
+    <appender name="globalLog" class="ch.qos.logback.classic.AsyncAppender">
+        <!-- 		不丢失日志.默认的,如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志-->
+        <discardingThreshold>0</discardingThreshold>
+        <queueSize>512</queueSize>
+        <includeCallerData>true</includeCallerData>
+        <appender-ref ref="globalLogLocal"/>
+    </appender>
+    <!--additivity的作用在于 children-logger是否使用 rootLogger配置的appender进行输出。false：表示只用当前logger的appender-ref。
+    true：表示当前logger的appender-ref和rootLogger的appender-ref都有效。-->
+    <logger name="com.lpy.scm.log.GlobalLog" level="INFO" additivity="false">
+        <appender-ref ref="globalLog"/>
+    </logger>
+    <!-- redis针对路径一定频率拦截的相关日志-->
+
+    <!-- ====================================== -->
+    <!-- error输入输出日志 -->
+    <!-- ====================================== -->
+    <appender name="error-log" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--<encoding>${loggingCharset}</encoding>-->
+        <file>${LOG_HOME}/error/error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/error/error-log-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>70</maxHistory>
+            <!--<maxFileSize>100MB</maxFileSize>-->
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] [%c:%L]-[%p] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- ====================================== -->
+    <!-- exception输入输出日志 -->
+    <!-- ====================================== -->
+    <appender name="exception-log" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--<encoding>${loggingCharset}</encoding>-->
+        <file>${LOG_HOME}/error/exception.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/error/exception-log-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>70</maxHistory>
+            <!--<maxFileSize>100MB</maxFileSize>-->
+        </rollingPolicy>
+        <!-- 求值过滤器，评估、鉴别日志是否符合指定条件. 需要额外的两个JAR包，commons-compiler.jar和janino.jar -->
+        <filter class="ch.qos.logback.core.filter.EvaluatorFilter">
+            <!--默认为 ch.qos.logback.classic.boolex.JaninoEventEvaluator -->
+            <evaluator>
+                <!--过滤掉所有日志消息中不包含"Exception"字符串的日志 -->
+                <expression>throwableProxy!=null</expression>
+            </evaluator>
+            <OnMatch>ACCEPT</OnMatch>
+            <OnMismatch>DENY</OnMismatch>
+        </filter>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] [%c:%L]-[%p] %msg%n</pattern>
+        </encoder>
+    </appender>
+    <!-- MYBATIS log-->
+
+
+    <!-- ibatis打印sql日志，按照每天生成日志文件 -->
+    <appender name="IBatis" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/sql/sql.log</file>
+        <encoding>${loggingCharset}</encoding>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/sql/sql-%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>70</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss}] [%thread] %level %logger{35} %msg %n</pattern>
+        </encoder>
+    </appender>
+
+
+    <logger name="com.lpy.scm.dao" level="DEBUG">
+        <appender-ref ref="IBatis"/>
+    </logger>
+    <root level="INFO">
+        <!--<appender-ref ref="STDOUT"/>-->
+        <appender-ref ref="bizLog"/>
+        <appender-ref ref="error-log"/>
+        <appender-ref ref="exception-log"/>
+    </root>
+
+</configuration>
