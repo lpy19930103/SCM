@@ -11,10 +11,12 @@ import java.util.Date;
 @Setter
 @Getter
 @Table(name = "sys_user")
-public class UserDO extends BaseDO{
+public class UserDO extends BaseDO {
 
     @Id
-    private Long id;
+    @Column(name = "id")
+    private Long userId;
+
     @Column(name = "user_name")
     private String userName;
     @Column(name = "user_pwd")
