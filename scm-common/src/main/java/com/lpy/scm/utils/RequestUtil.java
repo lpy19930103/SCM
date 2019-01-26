@@ -23,8 +23,8 @@ import static com.lpy.scm.constants.WebConstants.UTF8;
  * @author lpy
  * @date 2019/1/24 15:56
  */
-public class RequestUtils {
-    private static final Logger log = LoggerFactory.getLogger(RequestUtils.class);
+public class RequestUtil {
+    private static final Logger log = LoggerFactory.getLogger(RequestUtil.class);
 
     /**
      * 获取QueryString的参数，并使用URLDecoder以UTF-8格式转码。如果请求是以post方法提交的，
@@ -217,7 +217,7 @@ public class RequestUtils {
             return sid;
         } else {
             // 手动从cookie获取
-            Cookie cookie = CookieUtils.getCookie(request, WebConstants.JSESSION_COOKIE);
+            Cookie cookie = CookieUtil.getCookie(request, WebConstants.JSESSION_COOKIE);
             if (cookie != null) {
                 return cookie.getValue();
             } else {

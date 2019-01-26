@@ -36,7 +36,7 @@
         <property name="configLocation" value="classpath:mybatis/SqlMapConfig.xml"/>
         <property name="mapperLocations" value="classpath:mappers/*.xml"/>
         <!-- 别名包扫描 -->
-        <!--<property name="typeAliasesPackage" value="com.shop.pojo"/>-->
+        <!--<property name="typeAliasesPackage" value="com.lpy.scm.pojo"/>-->
     </bean>
     <!-- mapper扫描器 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">

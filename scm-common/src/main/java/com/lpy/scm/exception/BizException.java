@@ -5,7 +5,7 @@ package com.lpy.scm.exception;
  * @author lpy
  * @date 2019/1/25 9:13
  */
-public class BusinessException extends RuntimeException {
+public class BizException extends RuntimeException {
 
     private ErrorEnum error;
     private String msg;
@@ -26,24 +26,24 @@ public class BusinessException extends RuntimeException {
     }
 
 
-    public BusinessException(ErrorEnum error) {
+    public BizException(ErrorEnum error) {
         super(error == null ? "" : error.getMsg());
         this.error = error;
     }
 
-    public BusinessException(ErrorEnum error, Object data) {
+    public BizException(ErrorEnum error, Object data) {
         super(error == null ? "" : error.getMsg());
         this.error = error;
         this.data = data;
     }
 
-    public BusinessException(String errorCode, String errorMessage) {
+    public BizException(String errorCode, String errorMessage) {
         super(errorMessage);
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;
     }
 
-    public BusinessException(String errorMessage) {
+    public BizException(String errorMessage) {
         super(errorMessage);
         this.errorCode = ExceptionCode.BIZ_ERROR;
         this.errorMessage = errorMessage;

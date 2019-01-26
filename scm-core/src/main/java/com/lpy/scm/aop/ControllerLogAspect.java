@@ -2,7 +2,7 @@ package com.lpy.scm.aop;
 
 import com.alibaba.fastjson.JSON;
 import com.lpy.scm.constants.GlobalConstant;
-import com.lpy.scm.utils.RequestUtils;
+import com.lpy.scm.utils.RequestUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.aspectj.lang.reflect.MethodSignature;
@@ -33,9 +33,9 @@ public class ControllerLogAspect extends MethodLogAspect {
 
         try {
             HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-            requestMap = RequestUtils.getRequestMap(request);
-            requestHeaders = RequestUtils.getQueryHeaders(request);
-            url = RequestUtils.getLocation(request);
+            requestMap = RequestUtil.getRequestMap(request);
+            requestHeaders = RequestUtil.getQueryHeaders(request);
+            url = RequestUtil.getLocation(request);
         } catch (Exception ex) {
             getLogger().error("获取HttpServletRequest出错", ex);
         }
@@ -58,9 +58,9 @@ public class ControllerLogAspect extends MethodLogAspect {
         String url = "";
 
         try {
-            requestMap = RequestUtils.getRequestMap(request);
-            requestHeaders = RequestUtils.getQueryHeaders(request);
-            url = RequestUtils.getLocation(request);
+            requestMap = RequestUtil.getRequestMap(request);
+            requestHeaders = RequestUtil.getQueryHeaders(request);
+            url = RequestUtil.getLocation(request);
         } catch (Exception ex) {
             getLogger().error("获取HttpServletRequest出错", ex);
         }

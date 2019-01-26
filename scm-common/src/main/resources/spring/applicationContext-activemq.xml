@@ -32,8 +32,8 @@
     </bean>
 
     <!-- messageListener实现类 -->
-    <!--<bean id="myMessageListener" class="com.shop.activemq.spring.MyMessageListener"/>-->
-    <!--<bean id="myMessageListener2" class="com.shop.activemq.spring.MyMessageListener2"/>-->
+    <!--<bean id="myMessageListener" class="com.lpy.scm.activemq.spring.MyMessageListener"/>-->
+    <!--<bean id="myMessageListener2" class="com.lpy.scm.activemq.spring.MyMessageListener2"/>-->
 
 
     <!-- 配置一个jsm监听容器 -->

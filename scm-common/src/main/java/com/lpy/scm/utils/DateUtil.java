@@ -1,5 +1,7 @@
 package com.lpy.scm.utils;
 
+import com.lpy.scm.exception.BizException;
+import com.lpy.scm.exception.ExceptionCode;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
@@ -246,7 +248,7 @@ public class DateUtil {
      * @param weeks 第几周
      * @return 返回第几周的开始与结束日期
      */
-    public static Map<String, Object> getScopeForWeeks(int year, int month, int weeks) throws RuntimeException {
+    public static Map<String, Object> getScopeForWeeks(int year, int month, int weeks) throws BizException {
         Map<String, Object> map = new HashMap<>();
         String time = year + "-" + getMonthToStr(month);
         Map<String, Object> result = getDateScope(time);
@@ -259,7 +261,7 @@ public class DateUtil {
          * 默认设置为当前 天数+1
          */
         if (weeks > resultWeeks) {
-            throw new RuntimeException("周数非法");
+            throw new BizException(ExceptionCode.BIZ_ERROR, "周数非法");
            /* int days = resultDays + 1;
             String beginDate = year + "-" + getMonthToStr(month) + "-" + days;
             map.put("beginDate", beginDate);
@@ -295,7 +297,7 @@ public class DateUtil {
                 map.put("days", days);
                 map.put("weeks", weeks);
             } else {
-                throw new RuntimeException("日期格式不正确");
+                throw new BizException(ExceptionCode.BIZ_ERROR, "日期格式不正确");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -738,7 +740,7 @@ public class DateUtil {
             Date date = sdf.parse(sdf.format(new Date(Long.valueOf(seconds + "000"))));
             return date;
         } catch (Exception e) {
-            throw new RuntimeException("时间格式转换异常");
+            throw new BizException(ExceptionCode.BIZ_ERROR, "时间格式转换异常");
         }
     }
 
@@ -754,7 +756,7 @@ public class DateUtil {
             SimpleDateFormat sdf = new SimpleDateFormat(pattern);
             return sdf.format(date);
         } catch (Exception e) {
-            throw new RuntimeException("时间格式转换异常");
+            throw new BizException(ExceptionCode.BIZ_ERROR, "时间格式转换异常");
         }
     }
 

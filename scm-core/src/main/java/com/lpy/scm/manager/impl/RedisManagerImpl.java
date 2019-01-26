@@ -2,8 +2,6 @@ package com.lpy.scm.manager.impl;
 
 import com.lpy.scm.BaseLockSign;
 import com.lpy.scm.constants.RedisConstants;
-import com.lpy.scm.exception.BusinessException;
-import com.lpy.scm.exception.ErrorEnum;
 import com.lpy.scm.log.RedisLog;
 import com.lpy.scm.manager.RedisManager;
 import com.lpy.scm.utils.DateUtil;

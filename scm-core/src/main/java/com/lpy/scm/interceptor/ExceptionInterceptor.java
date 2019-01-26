@@ -1,9 +1,12 @@
 package com.lpy.scm.interceptor;
 
 import com.alibaba.fastjson.JSON;
+import com.lpy.scm.HeaderParamHolder;
 import com.lpy.scm.aop.ControllerLogAspect;
 import com.lpy.scm.bean.ApiResponse;
 import com.lpy.scm.exception.*;
+import com.lpy.scm.param.HeaderParam;
+import com.lpy.scm.utils.BeanUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,6 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.PrintWriter;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -22,9 +28,26 @@ public class ExceptionInterceptor extends BaseInterceptor {
     private static Logger log = LoggerFactory.getLogger(ExceptionInterceptor.class);
 
     @Override
-    public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
+    public boolean preHandle(HttpServletRequest request,
+                             HttpServletResponse response, Object handler) throws Exception {
+
+        Map headerInfoMap = new HashMap();
+        Enumeration headerNames = request.getHeaderNames();
+        while (headerNames.hasMoreElements()) {
+            String key = (String) headerNames.nextElement();
+            String value = request.getHeader(key);
+            headerInfoMap.put(key, value);
+        }
+        HeaderParam info = new HeaderParam();
+        try {
+            info = BeanUtil.mapToObject(headerInfoMap, HeaderParam.class);
+            HeaderParamHolder.setHeaderInfo(info);
+        } catch (Exception e) {
+            log.error("Header map transfer to bean error!", e);
+        }
         return true;
     }
+
 
     @Override
     public void afterCompletion(HttpServletRequest request,
@@ -39,8 +62,8 @@ public class ExceptionInterceptor extends BaseInterceptor {
             } else {
                 log.error(ex.getMessage());
             }
-            if (ex instanceof BusinessException) {
-                BusinessException exception = (BusinessException) ex;
+            if (ex instanceof BizException) {
+                BizException exception = (BizException) ex;
                 ErrorEnum errorEnum = exception.getErrorEnum();
                 if (errorEnum != null) {
                     apiResponse.setCode(errorEnum.getCode()).setMsg(errorEnum.getMsg());

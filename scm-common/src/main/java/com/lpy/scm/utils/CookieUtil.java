@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Cookie 辅助类
  */
-public class CookieUtils {
+public class CookieUtil {
 
-    private CookieUtils() {}
+    private CookieUtil() {}
 
     /**
      * 每页条数cookie名称

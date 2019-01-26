@@ -2,9 +2,9 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee"
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
          version="2.5">
-    <display-name>shop-manager-web</display-name>
+    <display-name>scm-web</display-name>
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>login.html</welcome-file>
     </welcome-file-list>
 
     <listener>
@@ -39,7 +39,7 @@
 
     <!-- springmvc的前端控制器 -->
     <servlet>
-        <servlet-name>shop-manager-web</servlet-name>
+        <servlet-name>scm-web</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <!-- contextConfigLocation不是必须的， 如果不配置contextConfigLocation， springmvc的配置文件默认在：WEB-INF/servlet的name+"-servlet.xml" -->
         <init-param>
@@ -52,7 +52,7 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>shop-manager-web</servlet-name>
+        <servlet-name>scm-web</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
