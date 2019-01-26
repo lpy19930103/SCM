@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>进销存管理系统——登录</title>
+    <!-- 引入ElementUI -->
+    <link rel="stylesheet" href="./styles/elementUI.css">
+    <!-- 引入自定义css -->
+    <link rel="stylesheet" href="./styles/login.css">
+</head>
+
+<body>
+<div id="app">
+    <el-card class="box-card">
+        <!-- 标题 -->
+        <div slot="header" class="clearfix">
+            <h1><span class="el-icon-d-arrow-right"></span>登录进销存管理系统</h1>
+        </div>
+        <!-- 账户密码输入框 -->
+        <div class="text item">
+            <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px"
+                     class="demo-ruleForm">
+                <el-form-item label="用户名" prop="userName">
+                    <el-input type="text" v-model="ruleForm.userName" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item label="密码" prop="userPass">
+                    <el-input type="password" v-model="ruleForm.userPass" autocomplete="off"></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
+                    <el-button @click="resetForm('ruleForm')">重置</el-button>
+                </el-form-item>
+            </el-form>
+        </div>
+    </el-card>
+</div>
+<!-- 引入jQuery -->
+<script src="./javascripts/jquery.min.js"></script>
+<!-- 引入Vue -->
+<script src="./javascripts/vue.min.js"></script>
+<!-- 引入ElementUI -->
+<script src="./javascripts/elementUI.js"></script>
+<script>
+    //创建Vue实例
+    new Vue({
+        el: "#app",
+        data: {
+            // return {
+            ruleForm: {
+                userName: '',
+                userPass: '',
+            },
+            rules: {
+                userName: [
+                    {required: true, message: '请输入用户名', trigger: 'blur'},
+                ],
+                userPass: [
+                    {required: true, message: '请输入密码', trigger: 'blur'}
+                ]
+            }
+            // };
+        },
+        methods: {
+            submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        //前端验证通过时执行
+                        $.post('/user/login', this.ruleForm, (data) => {
+                            //接收后端返回的数据进行处理
+                            if (data.code === 0) {
+                                alert(data.msg);
+                                this.setCookie("USER", JSON.stringify(data.data), 1 * 60 * 1000);
+                                //跳转到后台管理首页
+                                location.href = 'index.html';
+                            } else {
+                                alert(data.msg);
+                            }
+                        })
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+            },
+            resetForm(formName) {
+                //$refs是Vue中的一个方法，用来收集有ref属性的集合
+                this.$refs[formName].resetFields();
+            },
+            setCookie: function (c_name, value, expiredays) {
+                var exdate = new Date()
+                exdate.setDate(exdate.getDate() + expiredays)
+                document.cookie = c_name + "=" + value +
+                    ((expiredays == null) ? "" : ";expires=" + exdate.toGMTString())
+            }
+        }
+    })
+</script>
+</body>
+
+</html>

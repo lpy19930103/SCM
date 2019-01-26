@@ -1,5 +1,6 @@
 package com.lpy.scm.api.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.lpy.scm.dataobject.UserDO;
 import com.lpy.scm.bean.ApiResponse;
 import com.lpy.scm.dto.UserDTO;
@@ -13,6 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 
 @Controller
 @RequestMapping("user")
@@ -37,7 +41,7 @@ public class UserController {
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     @ResponseBody
-    public ApiResponse<UserDTO> login(LoginParam param) throws Exception {
+    public ApiResponse<UserDTO> login(LoginParam param, HttpServletResponse response) throws Exception {
         ApiResponse instance = ApiResponse.<UserDTO>instance();
         instance.setData(userService.login(param));
         instance.setMsg("登录成功");
