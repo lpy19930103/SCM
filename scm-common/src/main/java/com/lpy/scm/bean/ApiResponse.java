@@ -10,27 +10,27 @@ public class ApiResponse<T> extends BaseBean {
     private String msg;
     private T data;
 
-    public static ApiResponse instance() {
-        ApiResponse<String> res = new ApiResponse();
+    public static <T> ApiResponse instance() {
+        ApiResponse<T> res = new ApiResponse<>();
         res.setCode(0);
         res.setMsg("");
-        res.setData("");
+//        res.setData("");
         return new ApiResponse();
     }
 
-    public static ApiResponse error() {
-        ApiResponse<String> res = new ApiResponse();
+    public static <T> ApiResponse error() {
+        ApiResponse<T> res = new ApiResponse<>();
         res.setCode(1);
         res.setMsg("请求失败");
-        res.setData("");
+//        res.setData("");
         return res;
     }
 
-    public static ApiResponse success() {
-        ApiResponse<String> res = new ApiResponse();
+    public static <T> ApiResponse success() {
+        ApiResponse<T> res = new ApiResponse<>();
         res.setCode(0);
         res.setMsg("请求成功");
-        res.setData("");
+//        res.setData("");
         return res;
     }
 
@@ -57,7 +57,7 @@ public class ApiResponse<T> extends BaseBean {
         return data;
     }
 
-    public ApiResponse setData(T data) {
+    public ApiResponse<T> setData(T data) {
         this.data = data;
         return this;
     }

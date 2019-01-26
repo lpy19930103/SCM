@@ -1,21 +1,63 @@
-package com.lpy.scm.dto;
+package com.lpy.scm.dataobject;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
-/**
- * @author lpy
- * @date 2019/1/26 9:53
- */
-public class UserDTO {
+@Table(name = "sys_user")
+public class UserDO {
 
+    @Id
+    @Column(name = "id")
     private String userId;
+
+    @Column(name = "user_name")
     private String userName;
+    @Column(name = "user_pwd")
+    private String userPwd;
+    @Column(name = "role_id")
     private Long roleId;
+    @Column(name = "role_name")
     private String roleName;
+    @Column(name = "emp_id")
     private Long empId;
+    @Column
     private Integer status;
+    @Column(name = "is_locked")
     private Integer isLocked;
+    @Column(name = "user_pwd")
     private Date lockedTo;
+    @Column
+    private String creater;
+    @Column(name = "create_at")
+    private Date createAt;
+    @Column(name = "update_at")
+    private Date updateAt;
+
+    public String getCreater() {
+        return creater;
+    }
+
+    public void setCreater(String creater) {
+        this.creater = creater;
+    }
+
+    public Date getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(Date createAt) {
+        this.createAt = createAt;
+    }
+
+    public Date getUpdateAt() {
+        return updateAt;
+    }
+
+    public void setUpdateAt(Date updateAt) {
+        this.updateAt = updateAt;
+    }
 
     public String getUserId() {
         return userId;
@@ -31,6 +73,14 @@ public class UserDTO {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getUserPwd() {
+        return userPwd;
+    }
+
+    public void setUserPwd(String userPwd) {
+        this.userPwd = userPwd;
     }
 
     public Long getRoleId() {

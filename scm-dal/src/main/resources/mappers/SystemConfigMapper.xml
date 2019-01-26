@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lpy.scm.dao.SystemConfigMapper">
+    <resultMap id="BaseResultMap" type="com.lpy.scm.dataobject.SystemConfigDO">
+
+        <id column="system_config_id" property="systemConfigId" jdbcType="VARCHAR"/>
+        <result column="master_key" property="masterKey" jdbcType="VARCHAR"/>
+        <result column="sub_key" property="subKey" jdbcType="VARCHAR"/>
+        <result column="config_key" property="configKey" jdbcType="VARCHAR"/>
+        <result column="key_description" property="keyDescription" jdbcType="VARCHAR"/>
+        <result column="config_value" property="configValue" jdbcType="VARCHAR"/>
+        <result column="need_cache" property="needCache" jdbcType="VARCHAR"/>
+        <result column="create_time" property="createAt" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="updateAt" jdbcType="TIMESTAMP"/>
+        <result column="update_time" property="creater" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        system_config_id, master_key, sub_key, config_key, key_description, config_value,
+        need_cache, create_at, update_at,creater
+    </sql>
+
+    <select id="selectGlobalIdConfigForUpdate" parameterType="Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"></include>
+        from sys_config
+        where
+        master_key=#{dbName}
+        and sub_key=#{tableName}
+        and config_key=#{bizType}
+        for UPDATE
+    </select>
+
+</mapper>

@@ -1,9 +1,10 @@
 package com.lpy.scm.api.controller;
 
-import com.lpy.scm.DO.UserDO;
+import com.lpy.scm.dataobject.UserDO;
 import com.lpy.scm.bean.ApiResponse;
 import com.lpy.scm.dto.UserDTO;
 import com.lpy.scm.exception.BizException;
+import com.lpy.scm.param.LoginParam;
 import com.lpy.scm.service.UserService;
 import com.lpy.scm.log.GlobalLog;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class UserController {
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     @ResponseBody
-    public UserDO queryUserById(@PathVariable("id") Long id) {
+    public UserDO queryUserById(@PathVariable("id") String id) {
         if (id == null) {
             throw new BizException("10000", "测试异常相应");
         }
@@ -36,10 +37,11 @@ public class UserController {
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     @ResponseBody
-    public ApiResponse<UserDTO> login(String username, String pass) {
-        System.out.println("username = " + username + pass);
-        ApiResponse<UserDTO> objectApiResponse = new ApiResponse<>();
-        return objectApiResponse;
+    public ApiResponse<UserDTO> login(LoginParam param) throws Exception {
+        ApiResponse instance = ApiResponse.<UserDTO>instance();
+        instance.setData(userService.login(param));
+        instance.setMsg("登录成功");
+        return instance;
     }
 
 }

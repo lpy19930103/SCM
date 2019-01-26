@@ -1,10 +1,12 @@
 package com.lpy.scm.param;
 
+import java.io.Serializable;
+
 /**
  * @author lpy
  * @date 2019/1/26 9:39
  */
-public class HeaderParam {
+public class HeaderParam implements Serializable {
 
     private String clientType;
     private String userId;

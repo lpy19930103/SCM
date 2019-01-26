@@ -20,7 +20,7 @@ import java.util.concurrent.*;
  * @author lpy
  * @date 2019/1/24 17:45
  */
-@Component("redisManager")
+//@Component("redisManager")
 public class RedisManagerImpl extends RedisConstants implements RedisManager {
 
     private static JedisPool jedisPool = null;

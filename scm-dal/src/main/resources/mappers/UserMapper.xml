@@ -6,15 +6,49 @@
     <sql id="Base_Column_List">
         id,
         user_name,
-        phone
+        user_pwd,
+        role_id,
+        role_name,
+        emp_id,
+        status,
+        is_locked,
+        locked_to,
+        create_at,
+        update_at
     </sql>
 
-
-    <select id="queryUserByid" parameterType="java.lang.Long" resultType="com.lpy.scm.DO.UserDO">
+    <resultMap id="BaseResultMap" type="com.lpy.scm.dataobject.UserDO">
+        <id column="id" property="userId" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="user_pwd" property="userPwd" jdbcType="VARCHAR"/>
+        <result column="role_id" property="roleId" jdbcType="VARCHAR"/>
+        <result column="role_name" property="roleName" jdbcType="VARCHAR"/>
+        <result column="emp_id" property="empId" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="is_locked" property="isLocked" jdbcType="INTEGER"/>
+        <result column="locked_to" property="lockedTo" jdbcType="TIMESTAMP"/>
+        <result column="create_at" property="createAt" jdbcType="TIMESTAMP"/>
+        <result column="update_at" property="updateAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
+    <select id="queryUserById" parameterType="java.lang.String" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM `user` where id=#{id}
+        FROM `sys_user` WHERE id=#{id}
 
+    </select>
+
+    <select id="login" parameterType="com.lpy.scm.param.LoginParam" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM `sys_user`
+        WHERE user_name=#{userName}
+        AND user_pwd=#{userPass}
+    </select>
+    <select id="loginCheck" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM `sys_user`
+        WHERE user_name=#{userName}
     </select>
 </mapper>
 

@@ -39,14 +39,14 @@
         <!--<property name="typeAliasesPackage" value="com.lpy.scm.pojo"/>-->
     </bean>
     <!-- mapper扫描器 -->
-    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.lpy.scm.dao" />
-        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
-    </bean>
-    <!-- TKmybatis自动扫描注册Mybatis mapper -->
-    <!--<bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">-->
-        <!--<property name="basePackage" value="com.lpy.scm.dao"/>-->
+    <!--<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
+        <!--<property name="basePackage" value="com.lpy.scm.dao" />-->
         <!--<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>-->
     <!--</bean>-->
+    <!-- TKmybatis自动扫描注册Mybatis mapper -->
+    <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.lpy.scm.dao"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
 
 </beans>
