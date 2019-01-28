@@ -71,7 +71,6 @@
                         $.post('/user/login', this.ruleForm, (data) => {
                             //接收后端返回的数据进行处理
                             if (data.code === 0) {
-                                alert(data.msg);
                                 this.setCookie("USER", JSON.stringify(data.data), 60 * 1000);
                                 //跳转到后台管理首页
                                 location.href = 'index.html';

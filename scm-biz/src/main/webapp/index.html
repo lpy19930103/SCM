@@ -25,8 +25,8 @@
             <div id="navTitle">
                 <h2>进销存管理系统</h2>
                 <p>您好，<span>{{ user.userName }}</span></p>
-                <p><a href="main.html" target="iframeContent">管理首页</a> | <a href="/user/loginOut"
-                                                                            onclick="return confirm('确认退出登录？')">退出系统</a>
+                <p><a href="main.html" target="iframeContent">管理首页</a> |
+                    <button @click="logout()">退出系统</button>
                 </p>
             </div>
             <!-- 导航栏 -->
@@ -182,13 +182,21 @@
                 console.log(key, keyPath);
             },
             init() {
-                if (this.user == null || getCookie("USER") === "") {
+                if (this.user == null) {
                     alert("请重新登录");
                     location.href = "/"
                 }
             },
             getUser: function () {
                 return getCookie("USER") === "" ? null : JSON.parse(getCookie("USER"))
+            },
+            logout: function () {
+                if (confirm('确认退出登录？')) {
+                    document.cookie = "USER=";
+                    location.href = "/"
+                } else {
+
+                }
             }
 
         },

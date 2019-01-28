@@ -34,7 +34,7 @@ public class UserController {
         if (userDO == null) {
             throw new BizException("10001", "测试异常响应");
         }
-        globalLog.warn("测试log");
+        globalLog.warn("测试log");·
         return userDO;
     }
 
