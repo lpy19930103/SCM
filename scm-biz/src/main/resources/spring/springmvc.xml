@@ -23,7 +23,7 @@
     <!-- 配置静态资源映射  -->
     <!-- 指定/WEB-INF/js   /WEB-INF/css/  下的所有的静态资源包括子目录下的静态资源  都不被拦截-->
     <!--  mapping=/js/**  :表示访问静态资源的路径的形式    可以访问 /js/下的静态资源或者所有的子目录下的静态资源-->
-    <mvc:resources mapping="/image/**" location="/images/"/>
+    <mvc:resources mapping="/images/**" location="/images/"/>
     <mvc:resources mapping="/fonts/**" location="/fonts/"/>
     <mvc:resources mapping="/javascripts/**" location="/javascripts/"/>
     <mvc:resources mapping="/styles/**" location="/styles/"/>

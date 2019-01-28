@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
@@ -29,11 +28,11 @@ public class UserController {
     @ResponseBody
     public UserDO queryUserById(@PathVariable("id") String id) {
         if (id == null) {
-            throw new BizException("10000", "测试异常相应");
+            throw new BizException("10000", "测试异常响应");
         }
         UserDO userDO = userService.queryUserById(id);
         if (userDO == null) {
-            throw new BizException("10001", "测试异常相应");
+            throw new BizException("10001", "测试异常响应");
         }
         globalLog.warn("测试log");
         return userDO;
