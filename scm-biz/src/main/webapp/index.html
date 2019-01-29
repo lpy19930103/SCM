@@ -12,8 +12,6 @@
     <link rel="stylesheet" href="./styles/elementUI.css">
     <!-- 引入自定义css -->
     <link rel="stylesheet" href="./styles/index.css">
-    <!-- 引入围墙 -->
-    <script src="/user/checkState"></script>
 </head>
 
 <body>
@@ -30,9 +28,10 @@
                 </p>
             </div>
             <!-- 导航栏 -->
-            <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose"
+            <el-menu default-active="2" class="el-menu-vertical-demo" @open="handleOpen"
+                     @close="handleClose"
                      unique-opened="true">
-                <el-submenu index="1">
+                <el-submenu v-if="menu1" index="1">
                     <template slot="title">
                         <span>分类管理</span>
                     </template>
@@ -42,7 +41,7 @@
                         <el-menu-item index="1-2"><a href="sort_add.html" target="iframeContent">添加分类</a></el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
-                <el-submenu index="2">
+                <el-submenu v-if="menu2" index="2">
                     <template slot="title">
                         <span>商品管理</span>
                     </template>
@@ -53,7 +52,7 @@
                         </el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
-                <el-submenu index="3">
+                <el-submenu v-if="menu3" index="3">
                     <template slot="title">
                         <span>进货管理</span>
                     </template>
@@ -64,7 +63,7 @@
                         </el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
-                <el-submenu index="4">
+                <el-submenu v-if="menu4" index="4">
                     <template slot="title">
                         <span>出货管理</span>
                     </template>
@@ -77,7 +76,7 @@
                         </el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
-                <el-submenu index="5">
+                <el-submenu v-if="menu5" index="5">
                     <template slot="title">
                         <span>统计管理</span>
                     </template>
@@ -86,7 +85,7 @@
                         <el-menu-item index="5-2">进货统计</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
-                <el-submenu index="6">
+                <el-submenu v-if="menu6" index="6">
                     <template slot="title">
                         <span>账号管理</span>
                     </template>
@@ -99,7 +98,7 @@
                         </el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
-                <el-submenu index="7">
+                <el-submenu v-if="menu7" index="7">
                     <template slot="title">
                         <span>会员管理</span>
                     </template>
@@ -110,7 +109,7 @@
                         </el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
-                <el-submenu index="8">
+                <el-submenu v-if="menu8" index="8">
                     <template slot="title">
                         <span>系统管理</span>
                     </template>
@@ -168,11 +167,20 @@
             }],
             src: 'main.html',
             isActive: false,
-            user: null
+            user: null,
+            menu1: true,
+            menu2: true,
+            menu3: true,
+            menu4: true,
+            menu5: true,
+            menu6: true,
+            menu7: false,
+            menu8: false,
         },
         mounted: function () {
             this.user = this.getUser();
             this.init();
+            this.changeMenu();
         },
         methods: {
             handleOpen(key, keyPath) {
@@ -187,24 +195,62 @@
                     location.href = "/"
                 }
             },
-            getUser: function () {
+            getUser() {
                 return getCookie("USER") === "" ? null : JSON.parse(getCookie("USER"))
             },
-            logout: function () {
+            logout() {
                 if (confirm('确认退出登录？')) {
                     document.cookie = "USER=";
                     location.href = "/"
                 } else {
 
                 }
-            }
+            },
+            changeMenu() {
+                if (this.user != null) {
+                    console.log("user role id = " + this.user.roleId)
+                    switch (this.user.roleId) {
+                        case 1:
+                            this.menu1 = true;
+                            this.menu2 = true;
+                            this.menu3 = true;
+                            this.menu4 = true;
+                            this.menu5 = true;
+                            this.menu6 = true;
+                            this.menu7 = true;
+                            this.menu8 = true;
+                            break;
+                        case 2:
+                            this.menu1 = true;
+                            this.menu2 = true;
+                            this.menu3 = true;
+                            this.menu4 = true;
+                            this.menu5 = true;
+                            this.menu6 = true;
+                            this.menu7 = true;
+                            this.menu8 = false;
+                            break;
+                        case 3:
+                            this.menu1 = true;
+                            this.menu2 = true;
+                            this.menu3 = true;
+                            this.menu4 = true;
+                            this.menu5 = true;
+                            this.menu6 = false;
+                            this.menu7 = false;
+                            this.menu8 = false;
+                            break;
+                    }
+                }
 
+            },
         },
         filters: {
             /*getUserName() {
                 return JSON.parse(getCookie("USER")).userName
             }*/
         }
+
     });
 
     function getCookie(cname) {
