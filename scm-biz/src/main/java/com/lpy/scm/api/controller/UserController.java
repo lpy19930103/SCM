@@ -2,6 +2,7 @@ package com.lpy.scm.api.controller;
 
 import com.lpy.scm.bean.ApiResponse;
 import com.lpy.scm.dto.UserDTO;
+import com.lpy.scm.exception.ParamException;
 import com.lpy.scm.param.AddUserParam;
 import com.lpy.scm.param.LoginParam;
 import com.lpy.scm.service.UserService;
@@ -25,15 +26,12 @@ public class UserController {
     @RequestMapping(value = "login", method = RequestMethod.POST)
     @ResponseBody
     public ApiResponse<UserDTO> login(LoginParam param, HttpServletResponse response) throws Exception {
-        ApiResponse instance = ApiResponse.<UserDTO>instance();
-        instance.setData(userService.login(param));
-        instance.setMsg("登录成功");
-        return instance;
+        return ApiResponse.<UserDTO>instance().setData(userService.login(param)).setMsg("登录成功");
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     @ResponseBody
-    public ApiResponse addUser(AddUserParam addUserParam) {
+    public ApiResponse addUser(AddUserParam addUserParam) throws ParamException {
         userService.addUser(addUserParam);
         return ApiResponse.success().setMsg("添加用户成功");
     }

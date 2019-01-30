@@ -27,6 +27,16 @@ public class AssertUtil {
 
     }
 
+    public static void isNotNullList(List list, String code, String msg) throws ParamException {
+
+        if (list != null && list.size() > 0) {
+
+            throw new ParamException(code, msg);
+        }
+
+    }
+
+
     /**
      * @description 此方法多用于判断传入参数非空  属于ParameterException
      */
@@ -74,8 +84,15 @@ public class AssertUtil {
     }
 
     /**
-     * @description 判断是否是数字  非数字则抛出异常
+     * @description 判断是否是数字0  否则抛出异常
      */
+    public static void isZeroNumber(Long num, String code, String msg) throws ParamException {
+        if (num == 0) {
+            throw new ParamException(code, msg);
+        }
+
+    }
+
     public static void isNumber(String num, String code, String msg) throws ParamException {
         String regEx = "^[0-9]+$";
         Pattern pat = Pattern.compile(regEx);

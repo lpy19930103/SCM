@@ -11,6 +11,6 @@ public interface UserService {
 
     UserDTO login(LoginParam loginParam) throws ParamException;
 
-    void addUser(AddUserParam addUserParam);
+    void addUser(AddUserParam addUserParam) throws ParamException;
 
 }

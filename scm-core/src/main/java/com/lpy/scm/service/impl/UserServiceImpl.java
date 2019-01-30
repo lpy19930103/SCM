@@ -13,6 +13,7 @@ import com.lpy.scm.manager.SystemConfigManager;
 import com.lpy.scm.param.AddUserParam;
 import com.lpy.scm.param.LoginParam;
 import com.lpy.scm.service.UserService;
+import com.lpy.scm.utils.AssertUtil;
 import com.lpy.scm.utils.BeanUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -59,13 +61,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addUser(AddUserParam addUserParam) {
+    public void addUser(AddUserParam addUserParam) throws ParamException {
         UserDO userDO = new UserDO();
-        EmpDO empDO = new EmpDO();
-        empDO.setEmpPhone(addUserParam.getPhone());
-        empMapper.insert(empDO);
+        AssertUtil.isNullStr(addUserParam.getUsername(), ExceptionCode.BIZ_ERROR, "用户名不能为空");
+        AssertUtil.isNullStr(addUserParam.getPass(), ExceptionCode.BIZ_ERROR, "密码不能为空");
+        AssertUtil.isNullStr(addUserParam.getRoleName(), ExceptionCode.BIZ_ERROR, "用户组不能为空");
+        AssertUtil.isZeroNumber(addUserParam.getRoleId(), ExceptionCode.BIZ_ERROR, "用户组不能为空");
+
+        userDO.setUserName(addUserParam.getUsername());
+        List<UserDO> select = userMapper.select(userDO);
+        AssertUtil.isNotNullList(select, ExceptionCode.BIZ_ERROR, "用户已存在");
         String nextGlobalId = systemConfigManager.getNextGlobalId(GlobalIdBizType.SCM_USER);
         userDO.setUserId(nextGlobalId);
+
+        EmpDO empDO = new EmpDO();
+        empDO.setUserId(userDO.getUserId());
+        empDO.setEmpPhone(addUserParam.getPhone());
+        empMapper.insert(empDO);
         userDO.setIsLocked(0);
         userDO.setCreateAt(new Date());
         userDO.setCreater(addUserParam.getCreater());
@@ -73,7 +85,6 @@ public class UserServiceImpl implements UserService {
         userDO.setStatus(1);
         userDO.setRoleName(addUserParam.getRoleName());
         userDO.setUserPwd(addUserParam.getPass());
-        userDO.setUserName(addUserParam.getUsername());
         EmpDO selectOne = empMapper.selectOne(empDO);
         userDO.setEmpId(selectOne.getId());
         userMapper.insert(userDO);
