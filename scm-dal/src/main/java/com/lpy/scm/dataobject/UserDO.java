@@ -26,7 +26,7 @@ public class UserDO {
     private Integer status;
     @Column(name = "is_locked")
     private Integer isLocked;
-    @Column(name = "user_pwd")
+    @Column(name = "locked_to")
     private Date lockedTo;
     @Column
     private String creater;

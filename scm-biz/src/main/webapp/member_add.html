@@ -39,8 +39,11 @@
                     <el-form-item label="确认密码：" prop="checkPass">
                         <el-input type="password" v-model="ruleForm2.checkPass" autocomplete="off"></el-input>
                     </el-form-item>
-                    <el-form-item label="选择用户组：" prop="group">
-                        <el-select v-model="ruleForm2.group" placeholder="请选择">
+                    <el-form-item label="手机号：" prop="phone">
+                        <el-input v-model="ruleForm2.phone"></el-input>
+                    </el-form-item>
+                    <el-form-item label="选择用户组：" prop="roleName">
+                        <el-select v-model="ruleForm2.roleName" placeholder="请选择">
                             <el-option v-for="role in roles" v-bind:value="role.roleName">{{role.roleName}}
                             </el-option>
                             <!--<el-option value="管理员">管理员</el-option>-->
@@ -82,8 +85,10 @@
                     pass: '',
                     checkPass: '',
                     username: '',
-                    group: '',
-                    roleId: 0
+                    roleName: '',
+                    roleId: 0,
+                    phone: '',
+                    creater: 'admin'
                 },
                 rules2: {
                     username: [
@@ -98,8 +103,12 @@
                         {required: true, message: "请输入确认密码", trigger: 'blur'},
                         {validator: validatePass2, trigger: 'blur'}
                     ],
-                    group: [
+                    roleName: [
                         {required: true, message: "请选择用户组", trigger: 'blur'}
+                    ],
+                    phone: [
+                        {required: true, message: "请输入手机号", trigger: 'blur'},
+                        {min: 11, max: 11, message: "请输入正确的手机号", trigger: "blur"}
                     ],
                 },
                 roles: []
@@ -107,7 +116,7 @@
             };
         },
         watch: {
-            "ruleForm2.group": function (value) {
+            "ruleForm2.roleName": function (value) {
                 for (var i = 0; i < this.roles.length; i++) {
                     var role = this.roles[i];
                     if (value === role.roleName) {
@@ -125,8 +134,8 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         //验证成功时执行
-                        $.post('/users/add', this.ruleForm2, (data) => {
-                            if (data.isOk) {
+                        $.post('/user', this.ruleForm2, (data) => {
+                            if (data.code === 0) {
                                 alert(data.msg);
                                 //跳转到账号管理页面
                                 location.href = 'member_list.html';

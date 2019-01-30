@@ -1,5 +1,7 @@
 package com.lpy.scm.service.impl;
 
+import com.lpy.scm.dao.EmpMapper;
+import com.lpy.scm.dataobject.EmpDO;
 import com.lpy.scm.dataobject.UserDO;
 import com.lpy.scm.dao.UserMapper;
 import com.lpy.scm.dto.UserDTO;
@@ -8,6 +10,7 @@ import com.lpy.scm.exception.BizException;
 import com.lpy.scm.exception.ExceptionCode;
 import com.lpy.scm.exception.ParamException;
 import com.lpy.scm.manager.SystemConfigManager;
+import com.lpy.scm.param.AddUserParam;
 import com.lpy.scm.param.LoginParam;
 import com.lpy.scm.service.UserService;
 import com.lpy.scm.utils.BeanUtil;
@@ -22,6 +25,9 @@ import java.util.Date;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private EmpMapper empMapper;
 
     @Autowired
     private SystemConfigManager systemConfigManager;
@@ -50,6 +56,27 @@ public class UserServiceImpl implements UserService {
             }
         }
         return doPwdJudgePassWork(userDo);
+    }
+
+    @Override
+    public void addUser(AddUserParam addUserParam) {
+        UserDO userDO = new UserDO();
+        EmpDO empDO = new EmpDO();
+        empDO.setEmpPhone(addUserParam.getPhone());
+        empMapper.insert(empDO);
+        String nextGlobalId = systemConfigManager.getNextGlobalId(GlobalIdBizType.SCM_USER);
+        userDO.setUserId(nextGlobalId);
+        userDO.setIsLocked(0);
+        userDO.setCreateAt(new Date());
+        userDO.setCreater(addUserParam.getCreater());
+        userDO.setRoleId(addUserParam.getRoleId());
+        userDO.setStatus(1);
+        userDO.setRoleName(addUserParam.getRoleName());
+        userDO.setUserPwd(addUserParam.getPass());
+        userDO.setUserName(addUserParam.getUsername());
+        EmpDO selectOne = empMapper.selectOne(empDO);
+        userDO.setEmpId(selectOne.getId());
+        userMapper.insert(userDO);
     }
 
     /**

@@ -2,6 +2,7 @@ package com.lpy.scm.api.controller;
 
 import com.lpy.scm.bean.ApiResponse;
 import com.lpy.scm.dto.UserDTO;
+import com.lpy.scm.param.AddUserParam;
 import com.lpy.scm.param.LoginParam;
 import com.lpy.scm.service.UserService;
 import com.lpy.scm.log.GlobalLog;
@@ -28,6 +29,13 @@ public class UserController {
         instance.setData(userService.login(param));
         instance.setMsg("登录成功");
         return instance;
+    }
+
+    @RequestMapping(value = "add", method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResponse addUser(AddUserParam addUserParam) {
+        userService.addUser(addUserParam);
+        return ApiResponse.success().setMsg("添加用户成功");
     }
 
 
