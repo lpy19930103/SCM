@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80013
 File Encoding         : 65001
 
-Date: 2019-01-28 17:12:45
+Date: 2019-01-30 15:48:24
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,6 +32,10 @@ CREATE TABLE `base_category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of base_category
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for base_depot
 -- ----------------------------
 DROP TABLE IF EXISTS `base_depot`;
@@ -48,6 +52,10 @@ CREATE TABLE `base_depot` (
   `status` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of base_depot
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for base_employee
@@ -67,8 +75,15 @@ CREATE TABLE `base_employee` (
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
+  `user_id` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of base_employee
+-- ----------------------------
+INSERT INTO `base_employee` VALUES ('2', null, null, '18519121233', null, null, null, null, null, null, null, null, null, '201901301526150000000001009001');
+INSERT INTO `base_employee` VALUES ('4', null, null, '18519121233', null, null, null, null, null, null, null, null, null, '201901301545070000000001011001');
 
 -- ----------------------------
 -- Table structure for base_goods
@@ -94,6 +109,10 @@ CREATE TABLE `base_goods` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品';
 
 -- ----------------------------
+-- Records of base_goods
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for order_item
 -- ----------------------------
 DROP TABLE IF EXISTS `order_item`;
@@ -109,6 +128,10 @@ CREATE TABLE `order_item` (
   `goods_total` bigint(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of order_item
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for purchase_order
@@ -136,6 +159,10 @@ CREATE TABLE `purchase_order` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of purchase_order
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for purchase_supplier
 -- ----------------------------
 DROP TABLE IF EXISTS `purchase_supplier`;
@@ -154,6 +181,10 @@ CREATE TABLE `purchase_supplier` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of purchase_supplier
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for sale_customer
 -- ----------------------------
 DROP TABLE IF EXISTS `sale_customer`;
@@ -170,6 +201,10 @@ CREATE TABLE `sale_customer` (
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sale_customer
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for sale_order
@@ -197,6 +232,10 @@ CREATE TABLE `sale_order` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of sale_order
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for stock
 -- ----------------------------
 DROP TABLE IF EXISTS `stock`;
@@ -219,6 +258,10 @@ CREATE TABLE `stock` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of stock
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for sys_config
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_config`;
@@ -237,6 +280,11 @@ CREATE TABLE `sys_config` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
+-- Records of sys_config
+-- ----------------------------
+INSERT INTO `sys_config` VALUES ('20190126140946000001001001', 'SYS_ID_scm', 'sys_user', '0001', '生成用户id', '012000', 'false', null, null, 'root');
+
+-- ----------------------------
 -- Table structure for sys_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_menu`;
@@ -250,7 +298,20 @@ CREATE TABLE `sys_menu` (
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sys_menu
+-- ----------------------------
+INSERT INTO `sys_menu` VALUES ('1', '分类管理', '0', '0', '1', 'admin', '2019-01-29 13:38:50', null);
+INSERT INTO `sys_menu` VALUES ('2', '商品管理', '0', '0', '1', 'admin', '2019-01-29 13:39:10', null);
+INSERT INTO `sys_menu` VALUES ('3', '进货管理', '0', '0', '1', 'admin', '2019-01-29 13:43:06', null);
+INSERT INTO `sys_menu` VALUES ('4', '出货管理', '0', '0', '1', 'admin', '2019-01-29 13:43:32', null);
+INSERT INTO `sys_menu` VALUES ('5', '统计管理', '0', '0', '1', 'admin', '2019-01-29 13:43:32', null);
+INSERT INTO `sys_menu` VALUES ('6', '账号管理', '0', '0', '1', 'admin', '2019-01-29 13:43:32', null);
+INSERT INTO `sys_menu` VALUES ('7', '会员管理', '0', '0', '1', 'admin', '2019-01-29 13:43:32', null);
+INSERT INTO `sys_menu` VALUES ('8', '系统管理', '0', '0', '1', 'admin', '2019-01-29 13:43:32', null);
+INSERT INTO `sys_menu` VALUES ('9', '权限管理', '8', '1', '1', 'admin', '2019-01-29 13:47:11', null);
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -267,7 +328,14 @@ CREATE TABLE `sys_role` (
   `create_at` datetime DEFAULT NULL,
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sys_role
+-- ----------------------------
+INSERT INTO `sys_role` VALUES ('1', '超级管理员', '超级管理员，拥有所有权限', null, null, '1', 'admin', '2019-01-29 13:03:39', null);
+INSERT INTO `sys_role` VALUES ('2', '系统管理员', '系统管理员', '1,2,3,4,5,6,7', '分类管理,商品管理,进货管理,出货管理,统计管理,账号管理,会员管理', '1', 'admin', '2019-01-29 13:49:28', null);
+INSERT INTO `sys_role` VALUES ('3', '商品管理员', '商品管理员', '1,2,3,4,5', '分类管理,商品管理,进货管理,出货管理,统计管理', '1', 'admin', '2019-01-29 13:50:43', null);
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -288,3 +356,10 @@ CREATE TABLE `sys_user` (
   `update_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of sys_user
+-- ----------------------------
+INSERT INTO `sys_user` VALUES ('201901261409460000000001001001', 'root', 'root', '1', '超级管理员', '2', 'lpy', '2019-01-26 14:31:38', '2', '0', null, '2019-01-29 08:08:21');
+INSERT INTO `sys_user` VALUES ('201901301526150000000001009001', 'lpy1993', '123456', '3', '商品管理员', '2', 'admin', '2019-01-30 07:26:16', '1', '0', null, null);
+INSERT INTO `sys_user` VALUES ('201901301545070000000001011001', 'lpy', '123456', '2', '系统管理员', '4', 'admin', '2019-01-30 07:45:08', '1', '0', null, null);
