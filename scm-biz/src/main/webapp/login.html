@@ -63,6 +63,11 @@
             }
             // };
         },
+        mounted: function () {
+            if (getCookie("USER") != "") {
+                location.href = 'index.html';
+            }
+        },
         methods: {
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
@@ -96,6 +101,18 @@
             }
         }
     })
+
+    function getCookie(cname) {
+        var ss = document.cookie;
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i].trim();
+            if (c.indexOf(name) == 0)
+                return c.substring(name.length, c.length);
+        }
+        return "";
+    }
 </script>
 </body>
 
