@@ -113,8 +113,10 @@ public class UserServiceImpl implements UserService {
         userDO.setStatus(1);
         userDO.setRoleName(addUserParam.getRoleName());
         userDO.setUserPwd(addUserParam.getPass());
-        EmpDO selectOne = empMapper.selectOne(empDO);
-        userDO.setEmpId(selectOne.getId());
+        EmpDO queryEmp = new EmpDO();
+        queryEmp.setUserId(userDO.getUserId());
+        queryEmp= empMapper.selectOne(queryEmp);
+        userDO.setEmpId(queryEmp.getId());
         userMapper.insert(userDO);
     }
 

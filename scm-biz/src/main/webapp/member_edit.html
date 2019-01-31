@@ -114,9 +114,9 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         //验证成功时执行将数据回填到数据库
-                        $.post('/users/edit', this.ruleForm2, (data) => {
+                        $.post('/user/edit', this.ruleForm2, (data) => {
                             //接收后端返回的数据进行处理
-                            if (data.isOk) {
+                            if (data.code === 0) {
                                 alert(data.msg);
                                 //跳转到账号管理页面
                                 location.href = 'member_list.html';
