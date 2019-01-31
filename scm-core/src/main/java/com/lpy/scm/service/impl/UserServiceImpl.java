@@ -36,8 +36,24 @@ public class UserServiceImpl implements UserService {
     private SystemConfigManager systemConfigManager;
 
     @Override
-    public UserDO queryUserById(String id) {
-        return userMapper.queryUserById(id);
+    public UserDTO queryUserById(String id) {
+        UserDO userDO = userMapper.queryUserById(id);
+        if (userDO == null) {
+            throw new BizException(ExceptionCode.BIZ_ERROR, "未查询到该用户");
+        }
+        EmpDO empDO = new EmpDO();
+        empDO.setUserId(id);
+        EmpDO empDO1 = empMapper.selectOne(empDO);
+        if (empDO1 == null) {
+            throw new BizException(ExceptionCode.BIZ_ERROR, "用户信息异常");
+        }
+        UserDTO userDTO = BeanUtil.convertObject(userDO, UserDTO.class);
+        userDTO.setIdCard(empDO1.getEmpIdCard());
+        userDTO.setPhone(empDO1.getEmpPhone());
+        userDTO.setSex(empDO1.getSex());
+        userDTO.setAddress(empDO1.getAddress());
+        userDTO.setEmail(empDO1.getEmpEmail());
+        return userDTO;
     }
 
     @Override
@@ -67,20 +83,31 @@ public class UserServiceImpl implements UserService {
         AssertUtil.isNullStr(addUserParam.getUsername(), ExceptionCode.BIZ_ERROR, "用户名不能为空");
         AssertUtil.isNullStr(addUserParam.getPass(), ExceptionCode.BIZ_ERROR, "密码不能为空");
         AssertUtil.isNullStr(addUserParam.getRoleName(), ExceptionCode.BIZ_ERROR, "用户组不能为空");
+        AssertUtil.isNullStr(addUserParam.getPhone(), ExceptionCode.BIZ_ERROR, "电话号码不能为空");
+        AssertUtil.isNullStr(addUserParam.getIdCard(), ExceptionCode.BIZ_ERROR, "身份证号码不能为空");
         AssertUtil.isZeroNumber(addUserParam.getRoleId(), ExceptionCode.BIZ_ERROR, "用户组不能为空");
-
         userDO.setUserName(addUserParam.getUsername());
         List<UserDO> select = userMapper.select(userDO);
         AssertUtil.isNotNullList(select, ExceptionCode.BIZ_ERROR, "用户已存在");
+
         String nextGlobalId = systemConfigManager.getNextGlobalId(GlobalIdBizType.SCM_USER);
         userDO.setUserId(nextGlobalId);
-
+        Date date = new Date();
         EmpDO empDO = new EmpDO();
         empDO.setUserId(userDO.getUserId());
         empDO.setEmpPhone(addUserParam.getPhone());
+        empDO.setAddress(addUserParam.getAddress());
+        empDO.setCreateAt(date);
+        empDO.setCreater(addUserParam.getCreater());
+        empDO.setEmpEmail(addUserParam.getEmail());
+        empDO.setEmpIdCard(addUserParam.getIdCard());
+        empDO.setEmpType(1);
+        empDO.setSex(addUserParam.getSex());
+        empDO.setEmpName(addUserParam.getUsername());
         empMapper.insert(empDO);
+
         userDO.setIsLocked(0);
-        userDO.setCreateAt(new Date());
+        userDO.setCreateAt(date);
         userDO.setCreater(addUserParam.getCreater());
         userDO.setRoleId(addUserParam.getRoleId());
         userDO.setStatus(1);

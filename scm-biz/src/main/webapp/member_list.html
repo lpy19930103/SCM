@@ -48,11 +48,11 @@
                         </template> -->
                     </el-table-column>
                     <el-table-column label="管理">
-                        <template slot-scope="scope">
-                            <el-button size="mini" @click="handleEdit(scope.row.u_id)" type="primary" plain><i
+                        <template slot-scope="tableData">
+                            <el-button size="mini" @click="handleEdit(tableData.row.userId)" type="primary" plain><i
                                     class="el-icon-edit"></i>编辑
                             </el-button>
-                            <el-button size="mini" @click="handleDelete(scope.row.u_id)" type="danger" plain><i
+                            <el-button size="mini" @click="handleDelete(tableData.row.userId)" type="danger" plain><i
                                     class="el-icon-delete"></i>删除
                             </el-button>
                         </template>

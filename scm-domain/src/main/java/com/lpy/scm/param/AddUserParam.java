@@ -10,8 +10,43 @@ public class AddUserParam {
     private String pass;
     private String roleName;
     private String phone;
+    private String idCard;
+    private String email;
+    private Integer sex;
+    private String address;
     private Long roleId;
 
+    public String getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Integer getSex() {
+        return sex;
+    }
+
+    public void setSex(Integer sex) {
+        this.sex = sex;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public String getCreater() {
         return creater;
