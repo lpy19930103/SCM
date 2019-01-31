@@ -36,5 +36,10 @@ public class UserController {
         return ApiResponse.success().setMsg("添加用户成功");
     }
 
+    @RequestMapping(value = "list", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResponse getUsers() {
+        return ApiResponse.success().setData(userService.getUsers());
+    }
 
 }

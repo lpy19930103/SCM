@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -88,6 +89,17 @@ public class UserServiceImpl implements UserService {
         EmpDO selectOne = empMapper.selectOne(empDO);
         userDO.setEmpId(selectOne.getId());
         userMapper.insert(userDO);
+    }
+
+    @Override
+    public List<UserDTO> getUsers() {
+        List<UserDO> select = userMapper.select(null);
+        ArrayList<UserDTO> userDTOS = new ArrayList<>();
+        for (UserDO u :
+                select) {
+            userDTOS.add(BeanUtil.convertObject(u, UserDTO.class));
+        }
+        return userDTOS;
     }
 
     /**

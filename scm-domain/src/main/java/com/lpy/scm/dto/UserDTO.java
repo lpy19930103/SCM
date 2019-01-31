@@ -16,6 +16,15 @@ public class UserDTO {
     private Integer status;
     private Integer isLocked;
     private Date lockedTo;
+    private Date createAt;
+
+    public Date getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(Date createAt) {
+        this.createAt = createAt;
+    }
 
     public String getUserId() {
         return userId;
