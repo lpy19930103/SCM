@@ -10,6 +10,7 @@ import com.lpy.scm.param.AddUserParam;
 import com.lpy.scm.param.LoginParam;
 import com.lpy.scm.service.UserService;
 import com.lpy.scm.log.GlobalLog;
+import com.lpy.scm.service.impl.EditUserParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,6 +53,13 @@ public class UserController {
     @ResponseBody
     public ApiResponse getUsers() {
         return ApiResponse.success().setData(userService.getUsers());
+    }
+
+    @RequestMapping(value = "edit", method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResponse updateUser(EditUserParam editUserParam) {
+        userService.updateUsers(editUserParam);
+        return ApiResponse.instance().setMsg("修改成功");
     }
 
 }

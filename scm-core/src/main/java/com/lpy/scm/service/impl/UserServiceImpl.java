@@ -115,7 +115,7 @@ public class UserServiceImpl implements UserService {
         userDO.setUserPwd(addUserParam.getPass());
         EmpDO queryEmp = new EmpDO();
         queryEmp.setUserId(userDO.getUserId());
-        queryEmp= empMapper.selectOne(queryEmp);
+        queryEmp = empMapper.selectOne(queryEmp);
         userDO.setEmpId(queryEmp.getId());
         userMapper.insert(userDO);
     }
@@ -129,6 +129,30 @@ public class UserServiceImpl implements UserService {
             userDTOS.add(BeanUtil.convertObject(u, UserDTO.class));
         }
         return userDTOS;
+    }
+
+    @Override
+    public void updateUsers(EditUserParam editUserParam) {
+        Date date = new Date();
+        UserDO userDO = new UserDO();
+        userDO.setRoleName(editUserParam.getRoleName());
+        userDO.setRoleId(editUserParam.getRoleId());
+        userDO.setUpdateAt(date);
+        Example example1 = new Example(UserDO.class);
+        example1.createCriteria().andEqualTo("userId", editUserParam.getUserId());
+        userMapper.updateByExampleSelective(userDO, example1);
+
+        EmpDO empDO = new EmpDO();
+        empDO.setUserId(editUserParam.getUserId());
+        empDO.setEmpEmail(editUserParam.getEmail());
+        empDO.setSex(editUserParam.getSex());
+        empDO.setEmpPhone(editUserParam.getPhone());
+        empDO.setAddress(editUserParam.getAddress());
+        empDO.setUpdateAt(date);
+        Example example = new Example(EmpDO.class);
+        example.createCriteria().andEqualTo("userId", editUserParam.getUserId());
+        empMapper.updateByExampleSelective(empDO, example);
+
     }
 
     /**
