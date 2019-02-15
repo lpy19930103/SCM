@@ -3,6 +3,7 @@ package com.lpy.scm.service;
 import com.lpy.scm.base.service.BaseService;
 import com.lpy.scm.dataobject.RoleDO;
 import com.lpy.scm.dto.RoleDTO;
+import com.lpy.scm.exception.ParamException;
 
 import java.util.List;
 
@@ -11,5 +12,5 @@ import java.util.List;
  * @date 2019/1/30 10:59
  */
 public interface RoleService extends BaseService<RoleDO> {
-    List<RoleDTO> getRoles();
+    List<RoleDTO> getRoles() throws ParamException;
 }

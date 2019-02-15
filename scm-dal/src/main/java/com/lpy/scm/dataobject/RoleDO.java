@@ -8,6 +8,7 @@ import java.util.Date;
 /**
  * @author lpy
  * @date 2019/1/29 17:28
+ * @description 角色
  */
 @Table(name = "sys_role")
 public class RoleDO {

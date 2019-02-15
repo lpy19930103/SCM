@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>进销存管理系统——添加分类</title>
+    <!-- 引入reset样式 -->
+    <link rel="stylesheet" href="./styles/reset.css">
+    <!-- 引入elementUi样式 -->
+    <link rel="stylesheet" href="./styles/elementUI.css">
+    <!-- 引入index.css -->
+    <link rel="stylesheet" href="./styles/index.css">
+    <!-- 引入围墙 -->
+</head>
+
+<body>
+<div id="app">
+    <!-- 详细内容 -->
+    <el-main>
+        <!-- 大卡片 -->
+        <el-card class="box-card">
+            <!-- 大卡片标题 -->
+            <div slot="header" class="clearfix">
+                <span>添加分类</span>
+            </div>
+            <!-- 大卡片内容 -->
+            <div class="text item">
+                <el-form label-position="top" :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2"
+                         label-width="100px" class="demo-ruleForm">
+                    <el-form-item label="所属分类：" prop="sortPart">
+                        <el-select v-model="ruleForm2.sortPart" filterable placeholder="---请选择分类---">
+                            <el-option label="顶级分类" value="0"></el-option>
+                            <el-option v-for="(item,index) in options" :key="index" :label="item.cg_name"
+                                       :value="item.cg_id">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="分类名称：" prop="sortName">
+                        <el-input v-model="ruleForm2.sortName"></el-input>
+                    </el-form-item>
+                    <el-form-item label="计量单位：" prop="sortUnit">
+                        <el-input v-model="ruleForm2.sortUnit"></el-input>
+                    </el-form-item>
+                    <el-form-item label="材质：">
+                        <el-input v-model="ruleForm2.sortMate"></el-input>
+                    </el-form-item>
+                    <el-form-item label="状态：" prop="sortStatus">
+                        <el-radio v-model="ruleForm2.sortStatus" label="1">启用</el-radio>
+                        <el-radio v-model="ruleForm2.sortStatus" label="0">禁用</el-radio>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" @click="submitForm('ruleForm2')">添加</el-button>
+                        <el-button @click="resetForm('ruleForm2')">重置</el-button>
+                    </el-form-item>
+                </el-form>
+            </div>
+        </el-card>
+    </el-main>
+</div>
+</body>
+<!-- 引入jQuery.js -->
+<script src="./javascripts/jquery.min.js"></script>
+<!-- 引入Vue.js -->
+<script src="./javascripts/vue.min.js"></script>
+<!-- 引入elementUI.js -->
+<script src="./javascripts/elementUI.js"></script>
+<script>
+    //读取数据
+    //定义变量存储数据
+    let tableData;
+    $.get('/user/list', (data) => {
+        tableData = data;
+    })
+    //实例化Vue对象
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                ruleForm2: {
+                    sortPart: '',
+                    sortName: '',
+                    sortUnit: '',
+                    sortMate: '',
+                    sortStatus: '1'
+                },
+                rules2: {
+                    sortName: [
+                        {required: true, message: "请输入品类名称", trigger: 'blur'}
+                    ],
+                    sortUnit: [
+                        {required: true, message: "请输入品类计量单位", trigger: 'blur'}
+                    ],
+                    sortPart: [
+                        {required: true, message: "请选择父品类", trigger: 'change'}
+                    ]
+                },
+                options: []
+            };
+        },
+        methods: {
+            submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        //前端验证成功时向后台请求数据
+                        $.get('/sort/add', this.ruleForm2, (data) => {
+                            //处理数据
+                            if (data.isOk) {
+                                alert(data.msg);
+                                location.href = 'sort_list.html';
+                            } else {
+                                alert(data.msg);
+                            }
+                        })
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+            },
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
+            }
+        },
+        mounted() {
+            $.get('/sort/getSort', (data) => {
+                this.options = data;
+            })
+        }
+    })
+</script>
+
+</html>

@@ -5,6 +5,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 
+/**
+ * @author lpy
+ * @date 2019/2/15 16:14
+ * @description 用户信息
+ */
 @Table(name = "sys_user")
 public class UserDO {
 

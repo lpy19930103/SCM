@@ -2,6 +2,7 @@ package com.lpy.scm.api.controller;
 
 import com.lpy.scm.bean.ApiResponse;
 import com.lpy.scm.dto.RoleDTO;
+import com.lpy.scm.exception.ParamException;
 import com.lpy.scm.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,7 +23,7 @@ public class RoleController {
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    public ApiResponse<RoleDTO> getRoles() {
+    public ApiResponse<RoleDTO> getRoles() throws ParamException {
         return ApiResponse.<RoleDTO>success().setData(roleService.getRoles());
     }
 }

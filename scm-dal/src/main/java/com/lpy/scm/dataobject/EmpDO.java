@@ -6,6 +6,7 @@ import java.util.Date;
 /**
  * @author lpy
  * @date 2019/1/30 15:02
+ * @description 员工信息
  */
 @Table(name = "base_employee")
 public class EmpDO {

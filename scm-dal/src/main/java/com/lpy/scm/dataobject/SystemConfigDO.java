@@ -6,6 +6,11 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * @author lpy
+ * @date 2019/2/15 16:14
+ * @description 系统配置
+ */
 @Table(name = "sys_config")
 public class SystemConfigDO {
     /**
