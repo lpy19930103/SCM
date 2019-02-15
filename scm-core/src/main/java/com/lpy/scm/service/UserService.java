@@ -4,7 +4,7 @@ import com.lpy.scm.dto.UserDTO;
 import com.lpy.scm.exception.ParamException;
 import com.lpy.scm.param.AddUserParam;
 import com.lpy.scm.param.LoginParam;
-import com.lpy.scm.service.impl.EditUserParam;
+import com.lpy.scm.param.EditUserParam;
 
 import java.util.List;
 

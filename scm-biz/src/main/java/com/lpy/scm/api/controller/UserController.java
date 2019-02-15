@@ -1,16 +1,14 @@
 package com.lpy.scm.api.controller;
 
 import com.lpy.scm.bean.ApiResponse;
-import com.lpy.scm.dataobject.UserDO;
 import com.lpy.scm.dto.UserDTO;
-import com.lpy.scm.exception.BizException;
 import com.lpy.scm.exception.ExceptionCode;
 import com.lpy.scm.exception.ParamException;
 import com.lpy.scm.param.AddUserParam;
 import com.lpy.scm.param.LoginParam;
 import com.lpy.scm.service.UserService;
 import com.lpy.scm.log.GlobalLog;
-import com.lpy.scm.service.impl.EditUserParam;
+import com.lpy.scm.param.EditUserParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;

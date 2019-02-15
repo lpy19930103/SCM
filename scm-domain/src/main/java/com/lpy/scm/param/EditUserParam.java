@@ -1,4 +1,4 @@
-package com.lpy.scm.service.impl;
+package com.lpy.scm.param;
 
 /**
  * @author lpy
