@@ -81,13 +81,6 @@
 <!-- 引入elementUI.js -->
 <script src="./javascripts/elementUI.js"></script>
 <script>
-    //读取数据
-    //定义变量存储数据
-    let tableData;
-    $.get('/user/list', (data) => {
-        tableData = data;
-    })
-    //实例化Vue对象
     new Vue({
         el: '#app',
         data() {
