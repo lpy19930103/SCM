@@ -19,4 +19,6 @@ public interface UserService {
 
     void updateUsers(EditUserParam editUserParam);
 
+    void editPwd(String userName,String oldPass, String newPass) throws ParamException;
+
 }

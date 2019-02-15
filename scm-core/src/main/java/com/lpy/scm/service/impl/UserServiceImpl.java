@@ -155,6 +155,24 @@ public class UserServiceImpl implements UserService {
 
     }
 
+    @Override
+    public void editPwd(String userName, String oldPass, String newPass) throws ParamException {
+        LoginParam loginParam = new LoginParam();
+        loginParam.setUserName(userName);
+        loginParam.setUserPass(oldPass);
+        UserDO userDo = userMapper.loginCheck(loginParam);
+        if (userDo == null) {
+            throw new BizException(ExceptionCode.PARAM_ERROR, "用户名不存在");
+        }
+        if (!pwdAvailable(userDo.getUserPwd(), loginParam.getUserPass())) {
+            throw new ParamException(ExceptionCode.PARAM_ERROR, "密码错误");
+        }
+        userDo.setUserPwd(newPass);
+        Example example = new Example(UserDO.class);
+        example.createCriteria().andEqualTo("userId", userDo.getUserId());
+        userMapper.updateByExampleSelective(userDo, example);
+    }
+
     /**
      * @description 密码校验通过更新错误登陆次数 增加登录记录
      */

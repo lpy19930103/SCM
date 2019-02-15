@@ -62,4 +62,11 @@ public class UserController {
         return ApiResponse.instance().setMsg("修改成功");
     }
 
+    @RequestMapping(value = "editPwd", method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResponse editPwd(String userName, String oldPass, String newPass) throws ParamException {
+        userService.editPwd(userName, oldPass, newPass);
+        return ApiResponse.instance().setMsg("修改成功");
+    }
+
 }
