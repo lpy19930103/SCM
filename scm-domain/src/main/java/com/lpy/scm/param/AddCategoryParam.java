@@ -6,6 +6,7 @@ package com.lpy.scm.param;
  * @date 2019/2/15 17:07
  */
 public class AddCategoryParam {
+    private String id;
 
     private String parentId;
 
@@ -18,6 +19,14 @@ public class AddCategoryParam {
     private String material;
 
     private Integer status;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getParentId() {
         return parentId;

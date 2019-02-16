@@ -17,5 +17,9 @@ public interface CategoryService extends BaseService<CategoryDO> {
 
     List<CategoryDTO> getCategory() throws ParamException;
 
+    CategoryDTO queryCategoryById(String id) throws ParamException;
+
     void addCategory(AddCategoryParam addCategoryParam) throws ParamException;
+
+    void editCategory(AddCategoryParam addCategoryParam) throws ParamException;
 }

@@ -8,6 +8,7 @@ public enum ErrorEnum {
     APP_IDENTIFIER_NOT_EXIST(900003, "为了您的产品体验，请去官网下载最新版本 !"),
     APP_VERSION_NEED_UPDATE(900004, "为了您的产品体验，请升级至最新版本 !"),
     SYSTEM_BUSY(900005, "当前系统繁忙,请稍后再试!"),
+    TYPE_CONVERSION(900006, "数据转换异常!"),
 
     /**
      * 平台全局系统日常

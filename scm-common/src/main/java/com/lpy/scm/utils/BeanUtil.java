@@ -47,7 +47,7 @@ public class BeanUtil {
             BeanUtils.copyProperties(sourceObj, targetObj);
             return (T) targetObj;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new BizException(ErrorEnum.TYPE_CONVERSION);
         }
     }
 }

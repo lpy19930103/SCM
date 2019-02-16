@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>进销存管理系统——修改分类</title>
+    <!-- 引入reset样式 -->
+    <link rel="stylesheet" href="./styles/reset.css">
+    <!-- 引入elementUi样式 -->
+    <link rel="stylesheet" href="./styles/elementUI.css">
+    <!-- 引入index.css -->
+    <link rel="stylesheet" href="./styles/index.css">
+    <!-- 引入围墙 -->
+</head>
+
+<body>
+<div id="app">
+    <!-- 详细内容 -->
+    <el-main>
+        <!-- 大卡片 -->
+        <el-card class="box-card">
+            <!-- 大卡片标题 -->
+            <div slot="header" class="clearfix">
+                <span>添加分类</span>
+            </div>
+            <!-- 大卡片内容 -->
+            <div class="text item">
+                <el-form label-position="top" :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2"
+                         label-width="100px" class="demo-ruleForm">
+                    <el-form-item label="所属分类：" prop="sortPart">
+                        <el-select v-model="sortPart" filterable placeholder="---请选择分类---" :rules="rules1">
+                            <el-option v-for="(item,index) in options" :key="index" :label="item.categoryName"
+                                       v-bind:value="index">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="分类名称：" prop="categoryName">
+                        <el-input v-model="ruleForm2.categoryName"></el-input>
+                    </el-form-item>
+                    <el-form-item label="计量单位：" prop="categoryUnit">
+                        <el-input v-model="ruleForm2.categoryUnit"></el-input>
+                    </el-form-item>
+                    <el-form-item label="材质：">
+                        <el-input v-model="ruleForm2.material"></el-input>
+                    </el-form-item>
+                    <el-form-item label="状态：" prop="status">
+                        <el-radio v-model="ruleForm2.status" label="1">启用</el-radio>
+                        <el-radio v-model="ruleForm2.status" label="0">禁用</el-radio>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" @click="submitForm('ruleForm2')">修改</el-button>
+                        <!--<el-button @click="resetForm('ruleForm2')">重置</el-button>-->
+                    </el-form-item>
+                </el-form>
+            </div>
+        </el-card>
+    </el-main>
+</div>
+</body>
+<!-- 引入jQuery.js -->
+<script src="./javascripts/jquery.min.js"></script>
+<!-- 引入Vue.js -->
+<script src="./javascripts/vue.min.js"></script>
+<!-- 引入elementUI.js -->
+<script src="./javascripts/elementUI.js"></script>
+<script>
+    //实例化Vue对象
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                ruleForm2: {
+                    categoryName: '',
+                    categoryUnit: '',
+                    material: '',
+                    status: '1',
+                    parentName: "",
+                    parentId: "",
+                    id: "",
+                },
+                rules2: {
+                    categoryName: [
+                        {required: true, message: "请输入品类名称", trigger: 'blur'}
+                    ],
+                    categoryUnit: [
+                        {required: true, message: "请输入品类计量单位", trigger: 'blur'}
+                    ],
+
+                }, rules1: {
+
+                    sortPart: [
+                        {required: true, message: "请选择父品类", trigger: 'change'}
+                    ]
+                },
+                sortPart: 0,
+                options: []
+            };
+        },
+        methods: {
+            submitForm(formName) {
+                var jsonData = JSON.stringify(this.options[this.sortPart]);// 转成JSON格式
+                var result = $.parseJSON(jsonData)
+                this.ruleForm2.parentName = result.categoryName;
+                this.ruleForm2.parentId = result.id;
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        $.post('/category/edit', this.ruleForm2, (data) => {
+                            //处理数据
+                            if (data.code === 0) {
+                                alert(data.msg);
+                                location.href = 'sort_list.html';
+                            } else {
+                                alert(data.msg);
+                            }
+                        })
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+            },
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
+            },
+            getsort() {
+                $.get('/category/list', (data) => {
+                    if (data.code === 0) {
+                        this.options = data.data;
+                        this.options.forEach((value, index) => {
+                            if (value.parentId === this.ruleForm2.parentId) {
+                                this.sortPart = index;
+                            }
+                        });
+                    } else {
+                        alert(data.msg)
+                    }
+
+                })
+            },
+            queryCategoryById() {
+                //获取地址栏的参数id
+                let index = (location.href.indexOf('=') + 1);
+                let id = location.href.substr(index);
+                $.get('/category/' + id, (data) => {
+                    if (data.code === 0) {
+                        this.ruleForm2.categoryName = data.data.categoryName;
+                        this.ruleForm2.material = data.data.material;
+                        this.ruleForm2.status = data.data.status + '';
+                        this.ruleForm2.parentName = data.data.parentName;
+                        this.ruleForm2.parentId = data.data.parentId;
+                        this.ruleForm2.categoryUnit = data.data.categoryUnit;
+                        this.ruleForm2.id = id;
+                        this.getsort();
+                    } else {
+                        alert(data.msg)
+                    }
+
+                })
+            }
+        },
+        mounted() {
+            this.queryCategoryById();
+        }
+    })
+</script>
+
+</html>
