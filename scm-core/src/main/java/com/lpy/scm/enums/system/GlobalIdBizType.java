@@ -8,8 +8,8 @@ package com.lpy.scm.enums.system;
  */
 public enum GlobalIdBizType {
 
-
-    SCM_USER("scm", "sys_user", "0001");
+    SCM_USER("scm", "sys_user", "0001"),
+    SCM_CATEGORY("scm", "base_category", "0002");
 
 
     private String dbName;

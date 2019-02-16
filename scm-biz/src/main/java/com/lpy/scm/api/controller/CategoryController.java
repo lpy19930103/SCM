@@ -34,6 +34,7 @@ public class CategoryController {
     @ResponseBody
     public ApiResponse<List<CategoryDTO>> addCategory(AddCategoryParam addCategoryParam) throws ParamException {
         System.out.println(addCategoryParam.toString());
+        categoryService.addCategory(addCategoryParam);
         return ApiResponse.<List<CategoryDTO>>success().setMsg("添加成功");
     }
 }

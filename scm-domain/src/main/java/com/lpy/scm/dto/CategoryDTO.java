@@ -8,9 +8,9 @@ import java.util.Date;
  */
 public class CategoryDTO {
 
-    private Long id;
+    private String id;
 
-    private Long parentId;
+    private String parentId;
 
     private String parentName;
 
@@ -36,19 +36,19 @@ public class CategoryDTO {
         this.parentName = parentName;
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Long getParentId() {
+    public String getParentId() {
         return parentId;
     }
 
-    public void setParentId(Long parentId) {
+    public void setParentId(String parentId) {
         this.parentId = parentId;
     }
 

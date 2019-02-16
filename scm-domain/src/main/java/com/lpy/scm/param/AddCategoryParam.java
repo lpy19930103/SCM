@@ -7,7 +7,7 @@ package com.lpy.scm.param;
  */
 public class AddCategoryParam {
 
-    private Long parentId;
+    private String parentId;
 
     private String parentName;
 
@@ -19,11 +19,11 @@ public class AddCategoryParam {
 
     private Integer status;
 
-    public Long getParentId() {
+    public String getParentId() {
         return parentId;
     }
 
-    public void setParentId(Long parentId) {
+    public void setParentId(String parentId) {
         this.parentId = parentId;
     }
 
