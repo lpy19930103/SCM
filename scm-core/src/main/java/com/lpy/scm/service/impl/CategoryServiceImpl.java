@@ -92,4 +92,11 @@ public class CategoryServiceImpl extends BaseServiceImpl<CategoryDO> implements 
         example.createCriteria().andEqualTo("id", addCategoryParam.getId());
         categoryMapper.updateByExampleSelective(categoryDO, example);
     }
+
+    @Override
+    public void deleteCategory(String id) {
+        Example example = new Example(CategoryDO.class);
+        example.createCriteria().andEqualTo("id", id);
+        categoryMapper.deleteByExample(example);
+    }
 }

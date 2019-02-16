@@ -51,4 +51,13 @@ public class CategoryController {
         categoryService.editCategory(addCategoryParam);
         return ApiResponse.<List<CategoryDTO>>success().setMsg("修改成功");
     }
+
+
+    @RequestMapping(value = "delete/{id}")
+    @ResponseBody
+    public ApiResponse editCategory(@PathVariable(value = "id") String id)  {
+        categoryService.deleteCategory(id);
+        return ApiResponse.<List<CategoryDTO>>success().setMsg("删除成功");
+    }
+
 }

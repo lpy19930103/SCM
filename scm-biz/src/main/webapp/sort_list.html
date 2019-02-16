@@ -95,8 +95,8 @@
             handleDelete(id) {
                 var result = confirm('确认删除？');
                 if (result) {
-                    $.get('/sort/del/' + id, (data) => {
-                        if (data.isOk) {
+                    $.get('/category/delete/' + id, (data) => {
+                        if (data.code === 0) {
                             alert(data.msg);
                             this.getsort();
                         } else {

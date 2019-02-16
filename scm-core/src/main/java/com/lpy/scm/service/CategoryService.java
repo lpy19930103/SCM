@@ -22,4 +22,6 @@ public interface CategoryService extends BaseService<CategoryDO> {
     void addCategory(AddCategoryParam addCategoryParam) throws ParamException;
 
     void editCategory(AddCategoryParam addCategoryParam) throws ParamException;
+
+    void deleteCategory(String id);
 }
