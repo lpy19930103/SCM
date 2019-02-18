@@ -31,7 +31,7 @@
                     <el-form :inline="true" :model="pageSearchData" class="demo-form-inline">
                         <el-form-item>
                             <el-select v-model="pageSearchData.sort" placeholder="---选择分类---">
-                                <el-option v-for="(item,index) in options" :key="index" :label="item.cg_name" :value="item.cg_id">
+                                <el-option v-for="(item,index) in options" :key="index" :label="item.categoryName" :value="item.id">
                                 </el-option>
                             </el-select>
                         </el-form-item>
@@ -121,13 +121,6 @@
 <!-- 引入elementUI.js -->
 <script src="./javascripts/elementUI.js"></script>
 <script>
-    //读取数据
-    //定义变量存储数据
-    let tableData;
-    $.get('/user/list', (data) => {
-        tableData = data;
-    })
-    //cg_id,barcode,goodsname,goodsprice,marketprice,saleprice,stockNum,weigth,unit,discount,promotion,goodsDetails
     //实例化Vue对象
     new Vue({
         el: '#app',
@@ -167,14 +160,40 @@
                     this.pageSearchData.total = data.total;
                     this.tableData = data.productList;
                 })
+            },
+
+            getsort() {
+                $.get('/category/list', (data) => {
+                    //处理后端发送过来的数据，如果父类ID为0，则修改为顶级分类
+                    //遍历数组
+                    if (data.code === 0) {
+                        this.options.splice(0,this.options.length);
+                        data.data.forEach(value => {
+                            if (value.parentName === null) {
+                                value.parentName = '顶级分类';
+                            }
+                            if (value.material === null) {
+                                value.material = '无';
+                            }
+                            if (value.status === 1) {
+                                value.status = '启用';
+                                this.options.push(value)
+                            } else {
+                                value.status = '禁用';
+                            }
+                        });
+
+                    } else {
+                        alert(data.msg)
+                    }
+
+                })
             }
         },
         mounted() {
+            this.getsort();
             this.getProduct();
             //获取商品分类
-            $.get('/sort/getSort', (data) => {
-                this.options = data;
-            })
         },
         filters: {
             formatPrice(price) {
