@@ -2,9 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.lpy.scm.dao.ProductMapper">
 
+    <sql id="Base_Column_List">
+        id,
+        goods_name,
+        goods_code,
+        category_id,
+        category_name,
+        brand,
+        unit,
+        purchase_price,
+        sale_price,
+        goods_image,
+        storage_num,
+        status
+    </sql>
+
+    <resultMap id="BaseResultMap" type="com.lpy.scm.dataobject.ProductDO">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="goods_name" property="name" jdbcType="VARCHAR"/>
+        <result column="goods_code" property="code" jdbcType="VARCHAR"/>
+        <result column="category_id" property="categoryId" jdbcType="VARCHAR"/>
+        <result column="category_name" property="categoryName" jdbcType="VARCHAR"/>
+        <result column="goods_image" property="image" jdbcType="VARCHAR"/>
+        <result column="brand" property="brand" jdbcType="VARCHAR"/>
+        <result column="unit" property="unit" jdbcType="VARCHAR"/>
+        <result column="purchase_price" property="purchasePrice" jdbcType="BIGINT"/>
+        <result column="sale_price" property="salePrice" jdbcType="BIGINT"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="storage_num" property="num" jdbcType="INTEGER"/>
+    </resultMap>
 
     <select id="queryProduct" parameterType="com.lpy.scm.param.ProductQueryParam"
-            resultType="com.lpy.scm.dataobject.ProductDO">
+            resultMap="BaseResultMap">
 
     </select>
 </mapper>
