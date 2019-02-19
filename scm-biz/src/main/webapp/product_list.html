@@ -16,103 +16,108 @@
 </head>
 
 <body>
-    <div id="app">
-        <!-- 详细内容 -->
-        <el-main>
-            <!-- 大卡片 -->
-            <el-card class="box-card">
-                <!-- 大卡片标题 -->
-                <div slot="header" class="clearfix">
-                    <span>商品管理</span>
-                </div>
-                <!-- 大卡片内容 -->
-                <div class="text item">
-                    <!-- 搜索 -->
-                    <el-form :inline="true" :model="pageSearchData" class="demo-form-inline">
-                        <el-form-item>
-                            <el-select v-model="pageSearchData.sort" placeholder="---选择分类---">
-                                <el-option v-for="(item,index) in options" :key="index" :label="item.categoryName" :value="item.id">
-                                </el-option>
-                            </el-select>
-                        </el-form-item>
-                        <el-form-item label="关键字">
-                            <el-input v-model="pageSearchData.keyWords" placeholder=""></el-input> （商品名称，条形码）
-                        </el-form-item>
-                        <el-form-item>
-                            <el-button type="primary" @click="onSubmit">查询</el-button>
-                        </el-form-item>
-                    </el-form>
-                    <!-- 数据中心 -->
-                    <el-table :data="tableData" style="width: 100%" stripe="true">
-                        <el-table-column label="商品编号" width="80">
-                            <template slot-scope="scope">
-                                <span style="margin-left: 10px">{{ scope.row.goods_id }}</span>
-                            </template>
-                        </el-table-column>
-                        <el-table-column label="商品条形码" width="180">
-                            <template slot-scope="scope">
-                                <span style="margin-left: 10px">{{ scope.row.barcode }}</span>
-                            </template>
-                        </el-table-column>
-                        <el-table-column label="商品名称" width="200">
-                            <template slot-scope="scope">
-                                <span style="margin-left: 10px">{{ scope.row.goodsname }}</span>
-                            </template>
-                        </el-table-column>
-                        <el-table-column label="所属分类" width="180">
-                            <template slot-scope="scope">
-                                <span style="margin-left: 10px">{{ scope.row.fatherName }}</span>
-                            </template>
-                        </el-table-column>
-                        <el-table-column label="售价（元）" width="100">
-                            <template slot-scope="scope">
-                                <span style="margin-left: 10px" class="cRed">{{ scope.row.goodsprice | formatPrice }}</span>
-                            </template>
-                        </el-table-column>
-                        <el-table-column label="促销价（元）" width="120">
-                            <template slot-scope="scope">
-                                <span style="margin-left: 10px">{{ scope.row.saleprice | formatPrice}}</span>
-                            </template>
-                        </el-table-column>
-                        <el-table-column label="市场价（元）" width="120">
-                            <template slot-scope="scope">
-                                <span style="margin-left: 10px">{{ scope.row.marketprice | formatPrice }}</span>
-                            </template>
-                        </el-table-column>
-                        <el-table-column label="库存" width="80">
-                            <template slot-scope="scope">
-                                <span style="margin-left: 10px">{{ scope.row.stockNum }}</span>
-                            </template>
-                        </el-table-column>
-                        <!--                         <el-table-column label="库存总额（元）" width="140">
-                            <template slot-scope="scope">
-                                <span style="margin-left: 10px">{{ scope.row.name }}</span>
-                            </template>
-                        </el-table-column>
-                        <el-table-column label="销售总额（元）" width="140">
-                            <template slot-scope="scope">
-                                <span style="margin-left: 10px">{{ scope.row.name }}</span>
-                            </template>
-                        </el-table-column> -->
-                        <el-table-column label="管理" fixed="right" width="180px">
-                            <template slot-scope="scope">
-                                <el-button size="mini" @click="handleEdit(scope.$index, scope.row)" type="primary"
-                                    plain><i class="el-icon-edit"></i>编辑</el-button>
-                                <el-button size="mini" @click="handleDelete(scope.$index, scope.row)" type="danger"
-                                    plain><i class="el-icon-delete"></i>删除</el-button>
-                            </template>
-                        </el-table-column>
-                    </el-table>
-                    <br>
-                    <!-- 页码 -->
-                    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" background
-                        :current-page="pageSearchData.currentPage" :page-sizes="[5, 10, 15, 20]" :page-size="pageSearchData.pageSize"
-                        layout="total, sizes, prev, pager, next, jumper" :total="pageSearchData.total">
-                    </el-pagination>
-                </div>
-            </el-card>
-        </el-main>
-    </div>
+<div id="app">
+    <!-- 详细内容 -->
+    <el-main>
+        <!-- 大卡片 -->
+        <el-card class="box-card">
+            <!-- 大卡片标题 -->
+            <div slot="header" class="clearfix">
+                <span>商品管理</span>
+            </div>
+            <!-- 大卡片内容 -->
+            <div class="text item">
+                <!-- 搜索 -->
+                <el-form :inline="true" :model="pageSearchData" class="demo-form-inline">
+                    <el-form-item>
+                        <el-select v-model="pageSearchData.sort" placeholder="---选择分类---">
+                            <el-option v-for="(item,index) in options" :key="index" :label="item.categoryName"
+                                       :value="item.id">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="关键字">
+                        <el-input v-model="pageSearchData.keyWords" placeholder=""></el-input>
+                        （商品名称，条形码）
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" @click="onSubmit">查询</el-button>
+                    </el-form-item>
+                </el-form>
+                <!-- 数据中心 -->
+                <el-table :data="tableData" style="width: 100%" stripe="true">
+                    <el-table-column label="商品编号" width="80">
+                        <template slot-scope="scope">
+                            <span style="margin-left: 10px">{{ scope.row.goods_id }}</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="商品条形码" width="180">
+                        <template slot-scope="scope">
+                            <span style="margin-left: 10px">{{ scope.row.barcode }}</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="商品名称" width="200">
+                        <template slot-scope="scope">
+                            <span style="margin-left: 10px">{{ scope.row.goodsname }}</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="所属分类" width="180">
+                        <template slot-scope="scope">
+                            <span style="margin-left: 10px">{{ scope.row.fatherName }}</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="售价（元）" width="100">
+                        <template slot-scope="scope">
+                            <span style="margin-left: 10px" class="cRed">{{ scope.row.goodsprice | formatPrice }}</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="促销价（元）" width="120">
+                        <template slot-scope="scope">
+                            <span style="margin-left: 10px">{{ scope.row.saleprice | formatPrice}}</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="市场价（元）" width="120">
+                        <template slot-scope="scope">
+                            <span style="margin-left: 10px">{{ scope.row.marketprice | formatPrice }}</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="库存" width="80">
+                        <template slot-scope="scope">
+                            <span style="margin-left: 10px">{{ scope.row.stockNum }}</span>
+                        </template>
+                    </el-table-column>
+                    <!--                         <el-table-column label="库存总额（元）" width="140">
+                        <template slot-scope="scope">
+                            <span style="margin-left: 10px">{{ scope.row.name }}</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="销售总额（元）" width="140">
+                        <template slot-scope="scope">
+                            <span style="margin-left: 10px">{{ scope.row.name }}</span>
+                        </template>
+                    </el-table-column> -->
+                    <el-table-column label="管理" fixed="right" width="180px">
+                        <template slot-scope="scope">
+                            <el-button size="mini" @click="handleEdit(scope.$index, scope.row)" type="primary"
+                                       plain><i class="el-icon-edit"></i>编辑
+                            </el-button>
+                            <el-button size="mini" @click="handleDelete(scope.$index, scope.row)" type="danger"
+                                       plain><i class="el-icon-delete"></i>删除
+                            </el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+                <br>
+                <!-- 页码 -->
+                <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" background
+                               :current-page="pageSearchData.pageNo" :page-sizes="[5, 10, 15, 20]"
+                               :page-size="pageSearchData.pageSize"
+                               layout="total, sizes, prev, pager, next, jumper" :total="pageSearchData.total">
+                </el-pagination>
+            </div>
+        </el-card>
+    </el-main>
+</div>
 </body>
 <!-- 引入jQuery.js -->
 <script src="./javascripts/jquery.min.js"></script>
@@ -130,7 +135,7 @@
                 pageSearchData: {
                     pageSize: 5,
                     total: 20,
-                    currentPage: 1,
+                    pageNo: 1,
                     keyWords: '',
                     sort: ''
                 },
@@ -152,13 +157,18 @@
                 this.getProduct();
             },
             handleCurrentChange(val) {
-                this.pageSearchData.currentPage = val;
+                this.pageSearchData.pageNo = val;
                 this.getProduct();
             },
             getProduct() {
                 $.post('/product/list', this.pageSearchData, (data) => {
-                    this.pageSearchData.total = data.total;
-                    this.tableData = data.productList;
+                    if (data.code == 0) {
+                        this.pageSearchData.total = data.total;
+                        this.tableData = data.productList;
+                    } else {
+                        alert(data.msg)
+                    }
+
                 })
             },
 
@@ -167,7 +177,7 @@
                     //处理后端发送过来的数据，如果父类ID为0，则修改为顶级分类
                     //遍历数组
                     if (data.code === 0) {
-                        this.options.splice(0,this.options.length);
+                        this.options.splice(0, this.options.length);
                         data.data.forEach(value => {
                             if (value.parentName === null) {
                                 value.parentName = '顶级分类';
