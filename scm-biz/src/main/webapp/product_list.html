@@ -64,45 +64,36 @@
 
                     <el-table-column label="进价（元）" width="100">
                         <template slot-scope="scope">
-                            <span style="margin-left: 10px"
+                            <span
                                   class="cRed">{{ scope.row.purchasePrice | formatPrice }}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column label="售价（元）" width="120">
+                    <el-table-column label="售价（元）" width="100">
                         <template slot-scope="scope">
-                            <span style="margin-left: 10px">{{ scope.row.salePrice | formatPrice}}</span>
+                            <span>{{ scope.row.salePrice | formatPrice}}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column label="库存" width="80">
+                    <el-table-column label=" 库存" width="100">
                         <template slot-scope="scope">
-                            <span style="margin-left: 10px">{{ scope.row.num }}</span>
+                            <span >{{ scope.row.num }}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column label="计量单位" width="180">
+                    <el-table-column label="计量单位" width="80">
                         <template slot-scope="scope">
                             <span style="margin-left: 10px">{{ scope.row.unit }}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column label="品牌" width="180">
+                    <el-table-column label=" 品牌" width="80">
                         <template slot-scope="scope">
-                            <span style="margin-left: 10px">{{ scope.row.brand }}</span>
+                            <span style="">{{ scope.row.brand }}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column label="所属分类" width="180">
+                    <el-table-column label="所属分类" width="80">
                         <template slot-scope="scope">
                             <span style="margin-left: 10px">{{ scope.row.categoryName }}</span>
                         </template>
                     </el-table-column>
-                    <!--                         <el-table-column label="库存总额（元）" width="140">
-                        <template slot-scope="scope">
-                            <span style="margin-left: 10px">{{ scope.row.name }}</span>
-                        </template>
-                    </el-table-column>
-                    <el-table-column label="销售总额（元）" width="140">
-                        <template slot-scope="scope">
-                            <span style="margin-left: 10px">{{ scope.row.name }}</span>
-                        </template>
-                    </el-table-column> -->
+
                     <el-table-column label="管理" fixed="right" width="180px">
                         <template slot-scope="scope">
                             <el-button size="mini" @click="handleEdit(scope.$index, scope.row)" type="primary"
