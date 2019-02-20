@@ -34,6 +34,22 @@
 
     <select id="queryProduct" parameterType="com.lpy.scm.param.ProductQueryParam"
             resultMap="BaseResultMap">
-
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM base_goods
+        <choose>
+            <when test="category!=null and category!=''">
+                WHERE
+                category_id=#{category}
+                <if test="keyWords!=null and keyWords!=''">
+                    AND goods_name LIKE '%${keyWords}%'
+                </if>
+            </when>
+            <otherwise>
+                <if test="keyWords!=null and keyWords!=''">
+                    WHERE goods_name LIKE '%${keyWords}%'
+                </if>
+            </otherwise>
+        </choose>
     </select>
 </mapper>

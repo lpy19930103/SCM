@@ -9,7 +9,6 @@ public class ApiResponse<T> extends BaseBean {
     private Integer code = 0;
     private String msg;
     private T data;
-    private Integer total;
 
 
     public static <T> ApiResponse instance() {
@@ -36,14 +35,6 @@ public class ApiResponse<T> extends BaseBean {
         return res;
     }
 
-    public Integer getTotal() {
-        return total;
-    }
-
-    public ApiResponse setTotal(Integer total) {
-        this.total = total;
-        return this;
-    }
 
     public Integer getCode() {
         return code;
