@@ -35,8 +35,7 @@ public class ProductController {
         PageInfo<ProductDO> list = productService.list(queryParam);
         ArrayList<ProductDTO> productDTOS = new ArrayList<>();
 
-        for (ProductDO p :
-                list.getList()) {
+        for (ProductDO p : list.getList()) {
             productDTOS.add(BeanUtil.convertObject(p, ProductDTO.class));
         }
         PageResponse<ProductDTO> productDTOPageResponse = new PageResponse<>();
@@ -47,5 +46,12 @@ public class ProductController {
         productDTOPageResponse.setCode(0);
         productDTOPageResponse.setMsg("查询成功");
         return productDTOPageResponse;
+    }
+
+    @RequestMapping(value = "add", method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResponse addProduct() {
+        return null;
+
     }
 }

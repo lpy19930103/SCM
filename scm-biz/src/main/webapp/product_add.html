@@ -16,73 +16,73 @@
 </head>
 
 <body>
-    <div id="app">
-        <!-- 详细内容 -->
-        <el-main>
-            <!-- 大卡片 -->
-            <el-card class="box-card">
-                <!-- 大卡片标题 -->
-                <div slot="header" class="clearfix">
-                    <span>添加商品</span>
-                </div>
-                <!-- 大卡片内容 -->
-                <div class="text item">
-                    <el-form label-position="top" :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2"
-                        label-width="100px" class="demo-ruleForm">
-                        <el-form-item label="所属分类：" prop="productPart">
-                            <el-select v-model="ruleForm2.productPart" filterable placeholder="---请选择分类---">
-                                <el-option v-for="(item,index) in options" :key="index" :label="item.categoryName" :value="item.id">
-                                </el-option>
-                            </el-select>
-                        </el-form-item>
-                        <el-form-item label="商品条形码：" prop="barCode">
-                            <el-input v-model="ruleForm2.barCode"></el-input>
-                            <el-button type="success" @click='buildCode'>生成条形码</el-button>
-                        </el-form-item>
-                        <el-form-item label="商品名称：" prop="productName">
-                            <el-input v-model="ruleForm2.productName"></el-input>
-                        </el-form-item>
-                        <el-form-item label="商品售价：" prop="productPrice">
-                            <el-input v-model="ruleForm2.productPrice" @blur='getPrice'></el-input> 元
-                        </el-form-item>
-                        <el-form-item label="市场价：" prop="marketPrice">
-                            <el-input v-model="ruleForm2.marketPrice"></el-input> 元
-                            <p>默认市场价是售价的1.2倍</p>
-                        </el-form-item>
-                        <el-form-item label="商品进价：" prop="purchasePrice">
-                            <el-input v-model="ruleForm2.purchasePrice"></el-input> 元
-                        </el-form-item>
-                        <el-form-item label="入库数量：" prop="storageNum">
-                            <el-input v-model="ruleForm2.storageNum"></el-input>
-                            <p>计重商品单位为千克</p>
-                        </el-form-item>
-                        <el-form-item label="商品重量：" prop="productWeight">
-                            <el-input v-model="ruleForm2.productWeight"></el-input>
-                        </el-form-item>
-                        <el-form-item label="商品单位：" prop="productUnit">
-                            <el-input v-model="ruleForm2.productUnit"></el-input>
-                        </el-form-item>
-                        <el-form-item label="会员优惠：" prop="isDiscounts">
-                            <el-radio v-model="ruleForm2.isDiscounts" label="1">享受</el-radio>
-                            <el-radio v-model="ruleForm2.isDiscounts" label="0">不享受</el-radio>
-                        </el-form-item>
-                        <el-form-item label="是否促销：" prop="isPromotion">
-                            <el-radio v-model="ruleForm2.isPromotion " label="1">启用</el-radio>
-                            <el-radio v-model="ruleForm2.isPromotion" label="0">禁用</el-radio>
-                        </el-form-item>
-                        <el-form-item label="商品简介：" prop="productIntro">
-                            <el-input type="textarea" :rows="4" placeholder="请输入商品简介" v-model="ruleForm2.productIntro"></el-input>
-                            <p>不超过200个汉字</p>
-                        </el-form-item>
-                        <el-form-item>
-                            <el-button type="primary" @click="submitForm('ruleForm2')">添加</el-button>
-                            <el-button @click="resetForm('ruleForm2')">重置</el-button>
-                        </el-form-item>
-                    </el-form>
-                </div>
-            </el-card>
-        </el-main>
-    </div>
+<div id="app">
+    <!-- 详细内容 -->
+    <el-main>
+        <!-- 大卡片 -->
+        <el-card class="box-card">
+            <!-- 大卡片标题 -->
+            <div slot="header" class="clearfix">
+                <span>添加商品</span>
+            </div>
+            <!-- 大卡片内容 -->
+            <div class="text item">
+                <el-form label-position="top" :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2"
+                         label-width="100px" class="demo-ruleForm">
+                    <el-form-item label="所属分类：" prop="productPart">
+                        <el-select v-model="ruleForm2.productPart" filterable placeholder="---请选择分类---">
+                            <el-option v-for="(item,index) in options" :key="index" :label="item.categoryName"
+                                       :value="item.id">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="商品条形码：" prop="code">
+                        <el-input v-model="ruleForm2.code"></el-input>
+                        <el-button type="success" @click='buildCode'>生成条形码</el-button>
+                    </el-form-item>
+                    <el-form-item label="商品名称：" prop="productName">
+                        <el-input v-model="ruleForm2.productName"></el-input>
+                    </el-form-item>
+                    <el-form-item label="商品进价：" prop="purchasePrice">
+                        <el-input v-model="ruleForm2.purchasePrice"></el-input>
+                        元
+                    </el-form-item>
+                    <el-form-item label="商品售价：" prop="productPrice">
+                        <el-input v-model="ruleForm2.productPrice" @blur='getPrice'></el-input>
+                        元
+                    </el-form-item>
+                    <el-form-item label="入库数量：" prop="storageNum">
+                        <el-input v-model="ruleForm2.storageNum"></el-input>
+                        <p>计重商品单位为千克</p>
+                    </el-form-item>
+                    <el-form-item label="商品品牌：" prop="brand">
+                        <el-input v-model="ruleForm2.brand"></el-input>
+                    </el-form-item>
+                    <el-form-item label="商品单位：" prop="productUnit">
+                        <el-input v-model="ruleForm2.productUnit"></el-input>
+                    </el-form-item>
+                    <!--           <el-form-item label="会员优惠：" prop="isDiscounts">
+                                   <el-radio v-model="ruleForm2.isDiscounts" label="1">享受</el-radio>
+                                   <el-radio v-model="ruleForm2.isDiscounts" label="0">不享受</el-radio>
+                               </el-form-item>
+                               <el-form-item label="是否促销：" prop="isPromotion">
+                                   <el-radio v-model="ruleForm2.isPromotion " label="1">启用</el-radio>
+                                   <el-radio v-model="ruleForm2.isPromotion" label="0">禁用</el-radio>
+                               </el-form-item>-->
+                    <el-form-item label="商品简介：" prop="productIntro">
+                        <el-input type="textarea" :rows="4" placeholder="请输入商品简介"
+                                  v-model="ruleForm2.productIntro"></el-input>
+                        <p>不超过200个汉字</p>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" @click="submitForm('ruleForm2')">添加</el-button>
+                        <el-button @click="resetForm('ruleForm2')">重置</el-button>
+                    </el-form-item>
+                </el-form>
+            </div>
+        </el-card>
+    </el-main>
+</div>
 </body>
 <!-- 引入jQuery.js -->
 <script src="./javascripts/jquery.min.js"></script>
@@ -98,31 +98,34 @@
             return {
                 ruleForm2: {
                     productPart: '', //所属分类
-                    barCode: '',  //条形码
+                    code: '',  //条形码
                     productName: '', //商品名称
                     productPrice: '', //商品售价
-                    marketPrice: '0', //市场价
                     purchasePrice: '0', //商品进价
                     storageNum: '', //入库数量
-                    productWeight: '', //商品重量
+                    brand: '', //商品品牌
                     productUnit: '', //商品单位
-                    isDiscounts: '0', //是否会员优惠
-                    isPromotion: '0', //是否促销
+                    /*      isDiscounts: '0', //是否会员优惠
+                          isPromotion: '0', //是否促销*/
                     productIntro: '' //商品简介
                 },
                 rules2: {
                     productPart: [
-                        { required: true, message: "请选择分类名称", trigger: 'blur' }
+                        {required: true, message: "请选择分类名称", trigger: 'blur'}
                     ],
-                    barCode: [
-                        { required: true, message: "请输入商品条形码", trigger: 'change' }
+                    code: [
+                        {required: true, message: "请输入商品条形码", trigger: 'change'}
                     ],
                     productName: [
-                        { required: true, message: "请输入商品名称", trigger: 'blur' }
+                        {required: true, message: "请输入商品名称", trigger: 'blur'}
                     ],
                     productPrice: [
-                        { required: true, message: "请输入商品售价", trigger: 'blur' }
-                    ]
+                        {required: true, message: "请输入商品售价", trigger: 'blur'}
+                    ], storageNum: [
+                        {required: true, message: "请输入商品数量", trigger: 'blur'}
+                    ], productUnit: [
+                        {required: true, message: "请输入商品品牌", trigger: 'blur'}
+                    ],
                 },
                 options: [],
             };
@@ -150,14 +153,15 @@
             },
             //生成条形码
             buildCode() {
-                this.ruleForm2.barCode = new Date().getTime()
+                this.ruleForm2.code = new Date().getTime()
             },
             //根据进价自动计算售价和市场价
             getPrice() {
                 if (this.ruleForm2.productPrice != '') {
                     this.ruleForm2.productPrice = parseFloat(this.ruleForm2.productPrice).toFixed(2);
-                    this.ruleForm2.marketPrice = (this.ruleForm2.productPrice * 1.2).toFixed(2);
-                    this.ruleForm2.purchasePrice = (this.ruleForm2.marketPrice * 0.9).toFixed(2);
+                    this.ruleForm2.purchasePrice = parseFloat(this.ruleForm2.purchasePrice).toFixed(2);
+                    // this.ruleForm2.productPrice = (this.ruleForm2.productPrice * 1.2).toFixed(2);
+                    // this.ruleForm2.purchasePrice = (this.ruleForm2.marketPrice * 0.9).toFixed(2);
                 }
             },
 
@@ -166,7 +170,7 @@
                     //处理后端发送过来的数据，如果父类ID为0，则修改为顶级分类
                     //遍历数组
                     if (data.code === 0) {
-                        this.options.splice(0,this.options.length);
+                        this.options.splice(0, this.options.length);
                         data.data.forEach(value => {
                             if (value.parentName === null) {
                                 value.parentName = '顶级分类';
