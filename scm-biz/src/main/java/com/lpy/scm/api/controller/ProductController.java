@@ -6,6 +6,7 @@ import com.lpy.scm.bean.PageResponse;
 import com.lpy.scm.dataobject.ProductDO;
 import com.lpy.scm.dto.ProductDTO;
 import com.lpy.scm.exception.ParamException;
+import com.lpy.scm.param.AddProductParam;
 import com.lpy.scm.param.ProductQueryParam;
 import com.lpy.scm.service.ProductService;
 import com.lpy.scm.utils.BeanUtil;
@@ -50,8 +51,7 @@ public class ProductController {
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     @ResponseBody
-    public ApiResponse addProduct() {
-        return null;
-
+    public ApiResponse addProduct(AddProductParam productParam) {
+        return ApiResponse.success().setMsg("添加成功");
     }
 }
