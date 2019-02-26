@@ -22,6 +22,7 @@ import java.util.List;
 /**
  * @author lpy
  * @date 2019/2/19 15:09
+ * @description 商品管理
  */
 @Controller
 @RequestMapping(value = "product")
@@ -52,6 +53,7 @@ public class ProductController {
     @RequestMapping(value = "add", method = RequestMethod.POST)
     @ResponseBody
     public ApiResponse addProduct(AddProductParam productParam) {
+        productService.addProduct(productParam);
         return ApiResponse.success().setMsg("添加成功");
     }
 }

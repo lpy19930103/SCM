@@ -8,8 +8,8 @@ public class AddProductParam {
     private String productPart;
     private String code;
     private String productName;
-    private Long productPrice;
-    private Long purchasePrice;
+    private Float productPrice;
+    private Float purchasePrice;
     private Integer storageNum;
     private String brand;
     private String productUnit;
@@ -39,19 +39,19 @@ public class AddProductParam {
         this.productName = productName;
     }
 
-    public Long getProductPrice() {
+    public Float getProductPrice() {
         return productPrice;
     }
 
-    public void setProductPrice(Long productPrice) {
+    public void setProductPrice(Float productPrice) {
         this.productPrice = productPrice;
     }
 
-    public Long getPurchasePrice() {
+    public Float getPurchasePrice() {
         return purchasePrice;
     }
 
-    public void setPurchasePrice(Long purchasePrice) {
+    public void setPurchasePrice(Float purchasePrice) {
         this.purchasePrice = purchasePrice;
     }
 

@@ -44,31 +44,24 @@
                         <el-input v-model="ruleForm2.productName"></el-input>
                     </el-form-item>
                     <el-form-item label="商品进价：" prop="purchasePrice">
-                        <el-input v-model="ruleForm2.purchasePrice"></el-input>
+                        <el-input v-model="ruleForm2.purchasePrice" @blur='getPrice'></el-input>
                         元
                     </el-form-item>
                     <el-form-item label="商品售价：" prop="productPrice">
                         <el-input v-model="ruleForm2.productPrice" @blur='getPrice'></el-input>
                         元
                     </el-form-item>
+
                     <el-form-item label="入库数量：" prop="storageNum">
                         <el-input v-model="ruleForm2.storageNum"></el-input>
-                        <p>计重商品单位为千克</p>
+                        <p v-model="unitTip">{{unitTip}}</p>
+                    </el-form-item>
+                    <el-form-item label="商品单位：" prop="productUnit">
+                        <el-input v-model="ruleForm2.productUnit" @blur='getUnit'></el-input>
                     </el-form-item>
                     <el-form-item label="商品品牌：" prop="brand">
                         <el-input v-model="ruleForm2.brand"></el-input>
                     </el-form-item>
-                    <el-form-item label="商品单位：" prop="productUnit">
-                        <el-input v-model="ruleForm2.productUnit"></el-input>
-                    </el-form-item>
-                    <!--           <el-form-item label="会员优惠：" prop="isDiscounts">
-                                   <el-radio v-model="ruleForm2.isDiscounts" label="1">享受</el-radio>
-                                   <el-radio v-model="ruleForm2.isDiscounts" label="0">不享受</el-radio>
-                               </el-form-item>
-                               <el-form-item label="是否促销：" prop="isPromotion">
-                                   <el-radio v-model="ruleForm2.isPromotion " label="1">启用</el-radio>
-                                   <el-radio v-model="ruleForm2.isPromotion" label="0">禁用</el-radio>
-                               </el-form-item>-->
                     <el-form-item label="商品简介：" prop="productIntro">
                         <el-input type="textarea" :rows="4" placeholder="请输入商品简介"
                                   v-model="ruleForm2.productIntro"></el-input>
@@ -101,12 +94,10 @@
                     code: '',  //条形码
                     productName: '', //商品名称
                     productPrice: '', //商品售价
-                    purchasePrice: '0', //商品进价
+                    purchasePrice: '', //商品进价
                     storageNum: '', //入库数量
                     brand: '', //商品品牌
                     productUnit: '', //商品单位
-                    /*      isDiscounts: '0', //是否会员优惠
-                          isPromotion: '0', //是否促销*/
                     productIntro: '' //商品简介
                 },
                 rules2: {
@@ -128,6 +119,7 @@
                     ],
                 },
                 options: [],
+                unitTip: '',
             };
         },
         methods: {
@@ -135,8 +127,7 @@
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
                         $.post('/product/add', this.ruleForm2, (data) => {
-                            if (data.isOk) {
-                                alert(data.msg);
+                            if (data.code === 0) {
                                 location.href = 'product_list.html';
                             } else {
                                 alert(data.msg);
@@ -157,12 +148,20 @@
             },
             //根据进价自动计算售价和市场价
             getPrice() {
-                if (this.ruleForm2.productPrice != '') {
-                    this.ruleForm2.productPrice = parseFloat(this.ruleForm2.productPrice).toFixed(2);
-                    this.ruleForm2.purchasePrice = parseFloat(this.ruleForm2.purchasePrice).toFixed(2);
-                    // this.ruleForm2.productPrice = (this.ruleForm2.productPrice * 1.2).toFixed(2);
-                    // this.ruleForm2.purchasePrice = (this.ruleForm2.marketPrice * 0.9).toFixed(2);
+                if (this.ruleForm2.productPrice !== '') {
+                    this.ruleForm2.productPrice = parseFloat(this.ruleForm2.productPrice).toFixed(2) ;
                 }
+                if (this.ruleForm2.purchasePrice !== '') {
+                    this.ruleForm2.purchasePrice = parseFloat(this.ruleForm2.purchasePrice).toFixed(2) ;
+                }
+            },
+            getUnit() {
+                if (this.ruleForm2.productUnit !== '') {
+                    this.unitTip = '计量商品单位为' + this.ruleForm2.productUnit;
+                } else {
+                    this.unitTip = ''
+                }
+
             },
 
             getsort() {
