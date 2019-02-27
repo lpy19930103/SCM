@@ -65,7 +65,7 @@
                     <el-table-column label="进价（元）" width="100">
                         <template slot-scope="scope">
                             <span
-                                  class="cRed">{{ scope.row.purchasePrice | formatPrice }}</span>
+                                    class="cRed">{{ scope.row.purchasePrice | formatPrice }}</span>
                         </template>
                     </el-table-column>
                     <el-table-column label="售价（元）" width="100">
@@ -75,7 +75,7 @@
                     </el-table-column>
                     <el-table-column label=" 库存" width="100">
                         <template slot-scope="scope">
-                            <span >{{ scope.row.num }}</span>
+                            <span>{{ scope.row.num }}</span>
                         </template>
                     </el-table-column>
                     <el-table-column label="计量单位" width="80">
@@ -96,10 +96,10 @@
 
                     <el-table-column label="管理" fixed="right" width="180px">
                         <template slot-scope="scope">
-                            <el-button size="mini" @click="handleEdit(scope.$index, scope.row)" type="primary"
+                            <el-button size="mini" @click="handleEdit(scope.row.id)" type="primary"
                                        plain><i class="el-icon-edit"></i>编辑
                             </el-button>
-                            <el-button size="mini" @click="handleDelete(scope.$index, scope.row)" type="danger"
+                            <el-button size="mini" @click="handleDelete(scope.row.id)" type="danger"
                                        plain><i class="el-icon-delete"></i>删除
                             </el-button>
                         </template>
@@ -141,11 +141,23 @@
             }
         },
         methods: {
-            handleEdit(index, row) {
-                console.log(index, row);
+            handleEdit(id) {
+                location.href = `product_edit.html?id=${id}`;
             },
-            handleDelete(index, row) {
-                console.log(index, row);
+            handleDelete(id) {
+                var result = confirm('确认删除？');
+                if (result) {
+                    $.get('/category/delete/' + id, (data) => {
+                        if (data.code === 0) {
+                            alert(data.msg);
+                            this.getsort();
+                        } else {
+                            alert(data.msg);
+                        }
+                    })
+                } else {
+                    return false;
+                }
             },
             onSubmit() {
                 this.getProduct();
@@ -205,7 +217,7 @@
         },
         filters: {
             formatPrice(price) {
-                return (price/100).toFixed(2);
+                return (price / 100).toFixed(2);
             }
         }
 

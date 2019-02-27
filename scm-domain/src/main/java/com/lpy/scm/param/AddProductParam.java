@@ -5,6 +5,7 @@ package com.lpy.scm.param;
  * @date 2019/2/22 14:20
  */
 public class AddProductParam {
+    private Long id;
     private String productPart;
     private String code;
     private String productName;
@@ -14,6 +15,14 @@ public class AddProductParam {
     private String brand;
     private String productUnit;
     private String productIntro;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getProductPart() {
         return productPart;

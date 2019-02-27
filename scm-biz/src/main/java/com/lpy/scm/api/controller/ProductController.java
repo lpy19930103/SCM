@@ -12,6 +12,7 @@ import com.lpy.scm.service.ProductService;
 import com.lpy.scm.utils.BeanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,6 +31,12 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    @RequestMapping("{id}")
+    @ResponseBody
+    public ApiResponse<ProductDTO> queryProductById(@PathVariable(value = "id") Long id) {
+        return ApiResponse.<ProductDTO>success().setMsg("查询商品成功");
+    }
 
     @RequestMapping(value = "list", method = RequestMethod.POST)
     @ResponseBody
@@ -54,6 +61,12 @@ public class ProductController {
     @ResponseBody
     public ApiResponse addProduct(AddProductParam productParam) {
         productService.addProduct(productParam);
+        return ApiResponse.success().setMsg("添加成功");
+    }
+
+    @RequestMapping(value = "edit", method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResponse editProduct(AddProductParam productParam) {
         return ApiResponse.success().setMsg("添加成功");
     }
 }
