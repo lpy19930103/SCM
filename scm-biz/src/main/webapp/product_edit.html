@@ -164,6 +164,8 @@
                         this.ruleForm2.brand = data.data.brand;
                         this.ruleForm2.productUnit = data.data.productUnit;
                         this.ruleForm2.productIntro = data.data.productIntro;
+                        this.ruleForm2.productPartName = data.data.categoryName;
+                        this.ruleForm2.productPartId = data.data.categoryId;
                         this.ruleForm2.id = id;
                         this.getsort();
                     } else {
@@ -171,7 +173,7 @@
                     }
 
                 })
-            }
+            },
 
             resetForm(formName) {
                 this.$refs[formName].resetFields();

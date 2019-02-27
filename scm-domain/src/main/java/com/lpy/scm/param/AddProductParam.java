@@ -6,7 +6,6 @@ package com.lpy.scm.param;
  */
 public class AddProductParam {
     private Long id;
-    private String productPart;
     private String code;
     private String productName;
     private Float productPrice;
@@ -15,6 +14,24 @@ public class AddProductParam {
     private String brand;
     private String productUnit;
     private String productIntro;
+    private String productPartName;
+    private String productPartId;
+
+    public String getProductPartName() {
+        return productPartName;
+    }
+
+    public void setProductPartName(String productPartName) {
+        this.productPartName = productPartName;
+    }
+
+    public String getProductPartId() {
+        return productPartId;
+    }
+
+    public void setProductPartId(String productPartId) {
+        this.productPartId = productPartId;
+    }
 
     public Long getId() {
         return id;
@@ -24,13 +41,6 @@ public class AddProductParam {
         this.id = id;
     }
 
-    public String getProductPart() {
-        return productPart;
-    }
-
-    public void setProductPart(String productPart) {
-        this.productPart = productPart;
-    }
 
     public String getCode() {
         return code;

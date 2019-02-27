@@ -43,7 +43,8 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductDO> implements Pr
         long productPrice = new BigDecimal(addProductParam.getProductPrice()).multiply(new BigDecimal(100)).longValue();
         ProductDO productDO = new ProductDO();
         productDO.setBrand(addProductParam.getBrand());
-        productDO.setCategoryId(addProductParam.getProductPart());
+        productDO.setCategoryId(addProductParam.getProductPartId());
+        productDO.setCategoryName(addProductParam.getProductPartName());
         productDO.setName(addProductParam.getProductName());
         productDO.setCode(addProductParam.getCode());
         productDO.setPurchasePrice(purchasePrice);
