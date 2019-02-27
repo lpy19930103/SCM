@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>进销存管理系统——修改商品</title>
+    <!-- 引入reset样式 -->
+    <link rel="stylesheet" href="./styles/reset.css">
+    <!-- 引入elementUi样式 -->
+    <link rel="stylesheet" href="./styles/elementUI.css">
+    <!-- 引入index.css -->
+    <link rel="stylesheet" href="./styles/index.css">
+    <!-- 引入围墙 -->
+</head>
+
+<body>
+<div id="app">
+    <!-- 详细内容 -->
+    <el-main>
+        <!-- 大卡片 -->
+        <el-card class="box-card">
+            <!-- 大卡片标题 -->
+            <div slot="header" class="clearfix">
+                <span>添加商品</span>
+            </div>
+            <!-- 大卡片内容 -->
+            <div class="text item">
+                <el-form label-position="top" :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2"
+                         label-width="100px" class="demo-ruleForm">
+                    <el-form-item label="所属分类：" prop="productPart">
+                        <el-select v-model="ruleForm2.productPart" filterable placeholder="---请选择分类---">
+                            <el-option v-for="(item,index) in options" :key="index" :label="item.categoryName"
+                                       :value="item.id">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="商品条形码：" prop="code">
+                        <el-input v-model="ruleForm2.code"></el-input>
+                        <el-button type="success" @click='buildCode'>生成条形码</el-button>
+                    </el-form-item>
+                    <el-form-item label="商品名称：" prop="productName">
+                        <el-input v-model="ruleForm2.productName"></el-input>
+                    </el-form-item>
+                    <el-form-item label="商品进价：" prop="purchasePrice">
+                        <el-input v-model="ruleForm2.purchasePrice" @blur='getPrice'></el-input>
+                        元
+                    </el-form-item>
+                    <el-form-item label="商品售价：" prop="productPrice">
+                        <el-input v-model="ruleForm2.productPrice" @blur='getPrice'></el-input>
+                        元
+                    </el-form-item>
+
+                    <el-form-item label="入库数量：" prop="storageNum">
+                        <el-input v-model="ruleForm2.storageNum"></el-input>
+                        <p v-model="unitTip">{{unitTip}}</p>
+                    </el-form-item>
+                    <el-form-item label="商品单位：" prop="productUnit">
+                        <el-input v-model="ruleForm2.productUnit" @blur='getUnit'></el-input>
+                    </el-form-item>
+                    <el-form-item label="商品品牌：" prop="brand">
+                        <el-input v-model="ruleForm2.brand"></el-input>
+                    </el-form-item>
+                    <el-form-item label="商品简介：" prop="productIntro">
+                        <el-input type="textarea" :rows="4" placeholder="请输入商品简介"
+                                  v-model="ruleForm2.productIntro"></el-input>
+                        <p>不超过200个汉字</p>
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" @click="submitForm('ruleForm2')">添加</el-button>
+                        <el-button @click="resetForm('ruleForm2')">重置</el-button>
+                    </el-form-item>
+                </el-form>
+            </div>
+        </el-card>
+    </el-main>
+</div>
+</body>
+<!-- 引入jQuery.js -->
+<script src="./javascripts/jquery.min.js"></script>
+<!-- 引入Vue.js -->
+<script src="./javascripts/vue.min.js"></script>
+<!-- 引入elementUI.js -->
+<script src="./javascripts/elementUI.js"></script>
+<script>
+    //实例化Vue对象
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                ruleForm2: {
+                    productPart: '', //所属分类
+                    code: '',  //条形码
+                    productName: '', //商品名称
+                    productPrice: '', //商品售价
+                    purchasePrice: '', //商品进价
+                    storageNum: '', //入库数量
+                    brand: '', //商品品牌
+                    productUnit: '', //商品单位
+                    productIntro: '' //商品简介
+                },
+                rules2: {
+                    productPart: [
+                        {required: true, message: "请选择分类名称", trigger: 'blur'}
+                    ],
+                    code: [
+                        {required: true, message: "请输入商品条形码", trigger: 'change'}
+                    ],
+                    productName: [
+                        {required: true, message: "请输入商品名称", trigger: 'blur'}
+                    ],
+                    productPrice: [
+                        {required: true, message: "请输入商品售价", trigger: 'blur'}
+                    ], storageNum: [
+                        {required: true, message: "请输入商品数量", trigger: 'blur'}
+                    ], productUnit: [
+                        {required: true, message: "请输入商品品牌", trigger: 'blur'}
+                    ],
+                },
+                options: [],
+                unitTip: '',
+            };
+        },
+        methods: {
+            submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        $.post('/product/add', this.ruleForm2, (data) => {
+                            if (data.code === 0) {
+                                location.href = 'product_list.html';
+                            } else {
+                                alert(data.msg);
+                            }
+                        })
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+            },
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
+            },
+            //生成条形码
+            buildCode() {
+                this.ruleForm2.code = new Date().getTime()
+            },
+            //根据进价自动计算售价和市场价
+            getPrice() {
+                if (this.ruleForm2.productPrice !== '') {
+                    this.ruleForm2.productPrice = parseFloat(this.ruleForm2.productPrice).toFixed(2) ;
+                }
+                if (this.ruleForm2.purchasePrice !== '') {
+                    this.ruleForm2.purchasePrice = parseFloat(this.ruleForm2.purchasePrice).toFixed(2) ;
+                }
+            },
+            getUnit() {
+                if (this.ruleForm2.productUnit !== '') {
+                    this.unitTip = '计量商品单位为' + this.ruleForm2.productUnit;
+                } else {
+                    this.unitTip = ''
+                }
+
+            },
+
+            getsort() {
+                $.get('/category/list', (data) => {
+                    //处理后端发送过来的数据，如果父类ID为0，则修改为顶级分类
+                    //遍历数组
+                    if (data.code === 0) {
+                        this.options.splice(0, this.options.length);
+                        data.data.forEach(value => {
+                            if (value.parentName === null) {
+                                value.parentName = '顶级分类';
+                            }
+                            if (value.material === null) {
+                                value.material = '无';
+                            }
+                            if (value.status === 1) {
+                                value.status = '启用';
+                                this.options.push(value)
+                            } else {
+                                value.status = '禁用';
+                            }
+                        });
+
+                    } else {
+                        alert(data.msg)
+                    }
+
+                })
+            }
+        },
+        mounted() {
+            //获取商品分类
+            this.getsort()
+        }
+    })
+</script>
+
+</html>

@@ -20,6 +20,7 @@ import java.util.List;
 /**
  * @author lpy
  * @date 2019/2/19 15:19
+ * @description 商品管理
  */
 @Service
 public class ProductServiceImpl extends BaseServiceImpl<ProductDO> implements ProductService {
