@@ -29,10 +29,10 @@
             <div class="text item">
                 <el-form label-position="top" :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2"
                          label-width="100px" class="demo-ruleForm">
-                    <el-form-item label="所属分类：" prop="productPart">
-                        <el-select v-model="ruleForm2.productPart" filterable placeholder="---请选择分类---">
+                    <el-form-item label="所属分类：" prop="sortPart">
+                        <el-select v-model="sortPart" filterable placeholder="---请选择分类---" :rules="rules1">
                             <el-option v-for="(item,index) in options" :key="index" :label="item.categoryName"
-                                       :value="item.id">
+                                       v-bind:value="index">
                             </el-option>
                         </el-select>
                     </el-form-item>
@@ -91,7 +91,6 @@
             return {
                 ruleForm2: {
                     id: '',
-                    productPart: '', //所属分类
                     code: '',  //条形码
                     productName: '', //商品名称
                     productPrice: '', //商品售价
@@ -99,12 +98,18 @@
                     storageNum: '', //入库数量
                     brand: '', //商品品牌
                     productUnit: '', //商品单位
-                    productIntro: '' //商品简介
+                    productIntro: '', //商品简介
+                    productPartName: "",
+                    productPartId: "",
+                },
+                sortPart: 0,
+                rules1: {
+                    sortPart: [
+                        {required: true, message: "请选择父品类", trigger: 'change'}
+                    ]
                 },
                 rules2: {
-                    productPart: [
-                        {required: true, message: "请选择分类名称", trigger: 'blur'}
-                    ],
+
                     code: [
                         {required: true, message: "请输入商品条形码", trigger: 'change'}
                     ],
@@ -127,6 +132,10 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
+                        var jsonData = JSON.stringify(this.options[this.sortPart]);// 转成JSON格式
+                        var result = $.parseJSON(jsonData)
+                        this.ruleForm2.parentName = result.categoryName;
+                        this.ruleForm2.parentId = result.id;
                         $.post('/product/edit', this.ruleForm2, (data) => {
                             if (data.code === 0) {
                                 location.href = 'product_list.html';
@@ -147,7 +156,6 @@
                 let id = location.href.substr(index);
                 $.get('/product/' + id, (data) => {
                     if (data.code === 0) {
-                        this.ruleForm2.productPart = data.data.productPart;
                         this.ruleForm2.code = data.data.code;
                         this.ruleForm2.productName = data.data.productName + '';
                         this.ruleForm2.productPrice = data.data.productPrice;
@@ -211,6 +219,12 @@
                             }
                         });
 
+
+                        this.options.forEach((value, index) => {
+                            if (value.parentId === this.ruleForm2.productPartId) {
+                                this.sortPart = index;
+                            }
+                        });
                     } else {
                         alert(data.msg)
                     }
@@ -220,7 +234,6 @@
         },
         mounted() {
             //获取商品分类
-            this.getsort()
             this.queryProductById()
         }
     })
