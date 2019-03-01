@@ -6,11 +6,13 @@ import com.lpy.scm.base.service.impl.BaseServiceImpl;
 import com.lpy.scm.dao.ProductMapper;
 import com.lpy.scm.dataobject.CategoryDO;
 import com.lpy.scm.dataobject.ProductDO;
+import com.lpy.scm.dto.ProductDTO;
 import com.lpy.scm.exception.ParamException;
 import com.lpy.scm.param.AddProductParam;
 import com.lpy.scm.param.ProductQueryParam;
 import com.lpy.scm.service.ProductService;
 import com.lpy.scm.utils.AssertUtil;
+import com.lpy.scm.utils.BeanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
@@ -64,6 +66,7 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductDO> implements Pr
         long purchasePrice = new BigDecimal(addProductParam.getPurchasePrice()).multiply(new BigDecimal(100)).longValue();
         long productPrice = new BigDecimal(addProductParam.getProductPrice()).multiply(new BigDecimal(100)).longValue();
         ProductDO productDO = new ProductDO();
+        productDO.setId(addProductParam.getId());
         productDO.setBrand(addProductParam.getBrand());
         productDO.setCategoryId(addProductParam.getProductPartId());
         productDO.setCategoryName(addProductParam.getProductPartName());
@@ -84,5 +87,11 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductDO> implements Pr
     @Override
     public void deleteProduct(Long id) {
         productMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public ProductDTO queryProductById(Long id) {
+        ProductDO productDO = productMapper.selectByPrimaryKey(id);
+        return BeanUtil.convertObject(productDO, ProductDTO.class);
     }
 }

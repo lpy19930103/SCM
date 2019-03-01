@@ -35,7 +35,7 @@ public class ProductController {
     @RequestMapping("{id}")
     @ResponseBody
     public ApiResponse<ProductDTO> queryProductById(@PathVariable(value = "id") Long id) {
-        return ApiResponse.<ProductDTO>success().setMsg("查询商品成功");
+        return ApiResponse.<ProductDTO>success().setMsg("查询商品成功").setData(productService.queryProductById(id));
     }
 
     @RequestMapping(value = "list", method = RequestMethod.POST)

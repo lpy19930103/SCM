@@ -15,6 +15,7 @@ public class ProductDTO {
     public String code;
 
     public String categoryName;
+
     public String categoryId;
 
     public String image;
@@ -29,8 +30,18 @@ public class ProductDTO {
 
     public String unit;
 
+    public String des;
+
     public Integer status;
 
+
+    public String getDes() {
+        return des;
+    }
+
+    public void setDes(String des) {
+        this.des = des;
+    }
 
     public Long getId() {
         return id;

@@ -68,8 +68,7 @@
                         <p>不超过200个汉字</p>
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="primary" @click="submitForm('ruleForm2')">添加</el-button>
-                        <el-button @click="resetForm('ruleForm2')">重置</el-button>
+                        <el-button type="primary" @click="submitForm('ruleForm2')">修改</el-button>
                     </el-form-item>
                 </el-form>
             </div>
@@ -157,13 +156,13 @@
                 $.get('/product/' + id, (data) => {
                     if (data.code === 0) {
                         this.ruleForm2.code = data.data.code;
-                        this.ruleForm2.productName = data.data.productName + '';
-                        this.ruleForm2.productPrice = data.data.productPrice;
+                        this.ruleForm2.productName = data.data.name ;
+                        this.ruleForm2.productPrice = data.data.salePrice;
                         this.ruleForm2.purchasePrice = data.data.purchasePrice;
-                        this.ruleForm2.storageNum = data.data.storageNum;
+                        this.ruleForm2.storageNum = data.data.num;
                         this.ruleForm2.brand = data.data.brand;
-                        this.ruleForm2.productUnit = data.data.productUnit;
-                        this.ruleForm2.productIntro = data.data.productIntro;
+                        this.ruleForm2.productUnit = data.data.unit;
+                        this.ruleForm2.productIntro = data.data.des;
                         this.ruleForm2.productPartName = data.data.categoryName;
                         this.ruleForm2.productPartId = data.data.categoryId;
                         this.ruleForm2.id = id;
@@ -175,9 +174,7 @@
                 })
             },
 
-            resetForm(formName) {
-                this.$refs[formName].resetFields();
-            },
+
             //生成条形码
             buildCode() {
                 this.ruleForm2.code = new Date().getTime()
@@ -207,23 +204,15 @@
                     if (data.code === 0) {
                         this.options.splice(0, this.options.length);
                         data.data.forEach(value => {
-                            if (value.parentName === null) {
-                                value.parentName = '顶级分类';
-                            }
-                            if (value.material === null) {
-                                value.material = '无';
-                            }
                             if (value.status === 1) {
-                                value.status = '启用';
                                 this.options.push(value)
-                            } else {
-                                value.status = '禁用';
                             }
                         });
 
+                        console.log(value.id  +" ---- "  +this.ruleForm2.productPartId)
 
                         this.options.forEach((value, index) => {
-                            if (value.parentId === this.ruleForm2.productPartId) {
+                            if (value.id === this.ruleForm2.productPartId) {
                                 this.sortPart = index;
                             }
                         });

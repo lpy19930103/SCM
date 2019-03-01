@@ -3,6 +3,7 @@ package com.lpy.scm.service;
 import com.github.pagehelper.PageInfo;
 import com.lpy.scm.base.service.BaseService;
 import com.lpy.scm.dataobject.ProductDO;
+import com.lpy.scm.dto.ProductDTO;
 import com.lpy.scm.exception.ParamException;
 import com.lpy.scm.param.AddProductParam;
 import com.lpy.scm.param.ProductQueryParam;
@@ -21,4 +22,6 @@ public interface ProductService extends BaseService<ProductDO> {
     void editProduct(AddProductParam addProductParam);
 
     void deleteProduct(Long id);
+
+    ProductDTO queryProductById(Long id);
 }
