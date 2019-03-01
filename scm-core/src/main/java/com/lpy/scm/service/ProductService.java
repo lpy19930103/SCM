@@ -17,4 +17,6 @@ public interface ProductService extends BaseService<ProductDO> {
     PageInfo<ProductDO> list(ProductQueryParam productQuertParam) throws ParamException;
 
     void addProduct(AddProductParam addProductParam);
+
+    void editProduct(AddProductParam addProductParam);
 }

@@ -67,6 +67,7 @@ public class ProductController {
     @RequestMapping(value = "edit", method = RequestMethod.POST)
     @ResponseBody
     public ApiResponse editProduct(AddProductParam productParam) {
+        productService.editProduct(productParam);
         return ApiResponse.success().setMsg("添加成功");
     }
 }
