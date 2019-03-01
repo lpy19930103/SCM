@@ -19,4 +19,6 @@ public interface ProductService extends BaseService<ProductDO> {
     void addProduct(AddProductParam addProductParam);
 
     void editProduct(AddProductParam addProductParam);
+
+    void deleteProduct(Long id);
 }

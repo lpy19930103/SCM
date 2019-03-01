@@ -70,4 +70,11 @@ public class ProductController {
         productService.editProduct(productParam);
         return ApiResponse.success().setMsg("添加成功");
     }
+
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.GET)
+    @ResponseBody
+    public ApiResponse deleteProduct(@PathVariable(value = "id") Long id) {
+        productService.deleteProduct(id);
+        return ApiResponse.success().setMsg("删除成功");
+    }
 }

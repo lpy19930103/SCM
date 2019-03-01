@@ -80,4 +80,9 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductDO> implements Pr
         example.createCriteria().andEqualTo("id", productDO.getId());
         productMapper.updateByExampleSelective(productDO, example);
     }
+
+    @Override
+    public void deleteProduct(Long id) {
+        productMapper.deleteByPrimaryKey(id);
+    }
 }

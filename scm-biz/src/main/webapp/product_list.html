@@ -147,10 +147,9 @@
             handleDelete(id) {
                 var result = confirm('确认删除？');
                 if (result) {
-                    $.get('/category/delete/' + id, (data) => {
+                    $.get('/product/delete/' + id, (data) => {
                         if (data.code === 0) {
-                            alert(data.msg);
-                            this.getsort();
+                            this.getProduct()
                         } else {
                             alert(data.msg);
                         }
