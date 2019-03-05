@@ -1,5 +1,9 @@
 package com.lpy.scm.api.controller;
 
+import com.lpy.scm.bean.ApiResponse;
+import com.lpy.scm.dto.ProductDTO;
+import com.lpy.scm.service.StockService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,9 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("stock")
 public class StockController {
+    @Autowired
+    private StockService stockService;
 
     @RequestMapping("{code}")
     @ResponseBody
-    public void queryProductByCode(@PathVariable(value = "code") String productCode, Integer num, Long price) {
+    public ApiResponse<ProductDTO> queryProductByCode(@PathVariable(value = "code") String productCode) {
+        return ApiResponse.success().setData(stockService.queryProductByCode(productCode));
     }
 }
