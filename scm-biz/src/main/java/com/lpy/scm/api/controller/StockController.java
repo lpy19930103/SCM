@@ -24,4 +24,10 @@ public class StockController {
     public ApiResponse<ProductDTO> queryProductByCode(@PathVariable(value = "code") String productCode) {
         return ApiResponse.success().setData(stockService.queryProductByCode(productCode));
     }
+
+    @RequestMapping("edit/{code}")
+    @ResponseBody
+    public ApiResponse<ProductDTO> editProductByCode(@PathVariable(value = "code") String productCode) {
+        return ApiResponse.success().setData(null));
+    }
 }
