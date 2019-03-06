@@ -28,6 +28,6 @@ public class StockController {
     @RequestMapping("edit/{code}")
     @ResponseBody
     public ApiResponse<ProductDTO> editProductByCode(@PathVariable(value = "code") String productCode) {
-        return ApiResponse.success().setData(null));
+        return ApiResponse.success().setData(null);
     }
 }
