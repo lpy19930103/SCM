@@ -2,6 +2,7 @@ package com.lpy.scm.api.controller;
 
 import com.lpy.scm.bean.ApiResponse;
 import com.lpy.scm.dto.ProductDTO;
+import com.lpy.scm.exception.ParamException;
 import com.lpy.scm.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +28,8 @@ public class StockController {
 
     @RequestMapping("edit/{code}")
     @ResponseBody
-    public ApiResponse<ProductDTO> editProductByCode(@PathVariable(value = "code") String productCode) {
+    public ApiResponse<ProductDTO> editProductByCode(@PathVariable(value = "code") String productCode, Integer num, Long price) throws ParamException {
+        stockService.editProductByCode(productCode, num, price);
         return ApiResponse.success().setData(null);
     }
 }
