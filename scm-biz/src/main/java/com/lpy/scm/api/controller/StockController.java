@@ -26,10 +26,10 @@ public class StockController {
         return ApiResponse.success().setData(stockService.queryProductByCode(productCode));
     }
 
-    @RequestMapping("edit/{code}")
+    @RequestMapping("edit")
     @ResponseBody
-    public ApiResponse<ProductDTO> editProductByCode(@PathVariable(value = "code") String productCode, Integer num, Long price) throws ParamException {
-        stockService.editProductByCode(productCode, num, price);
+    public ApiResponse<ProductDTO> editProductByCode(String barCode, Integer productNum, Long purchasePrice) throws ParamException {
+        stockService.editProductByCode(barCode, productNum, purchasePrice);
         return ApiResponse.success().setData(null);
     }
 }

@@ -82,7 +82,15 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        alert('submit!');
+                        $.post('/stock/edit', this.ruleForm2, (data) => {
+                            //处理数据
+                            if (data.code === 0) {
+                                alert(data.msg);
+                                location.href = 'sort_list.html';
+                            } else {
+                                alert(data.msg);
+                            }
+                        })
                     } else {
                         console.log('error submit!!');
                         return false;
