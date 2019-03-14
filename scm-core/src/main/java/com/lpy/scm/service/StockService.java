@@ -1,8 +1,10 @@
 package com.lpy.scm.service;
 
+import com.github.pagehelper.PageInfo;
+import com.lpy.scm.dataobject.ProductDO;
 import com.lpy.scm.dto.ProductDTO;
 import com.lpy.scm.exception.ParamException;
-import org.springframework.web.bind.annotation.PathVariable;
+import com.lpy.scm.param.ProductQueryParam;
 
 /**
  * @author lpy
@@ -13,4 +15,6 @@ public interface StockService {
 
     ProductDTO queryProductByCode( String productCode);
     void editProductByCode( String productCode,int num,long price) throws ParamException;
+
+    PageInfo<ProductDO> list(ProductQueryParam productQuertParam) throws ParamException;
 }

@@ -15,81 +15,85 @@
 </head>
 
 <body>
-    <div id="app">
-        <!-- 详细内容 -->
-        <el-main>
-            <!-- 大卡片 -->
-            <el-card class="box-card">
-                <!-- 大卡片标题 -->
-                <div slot="header" class="clearfix">
-                    <span>库存管理</span>
-                </div>
-                <!-- 大卡片内容 -->
-                <div class="text item">
-                    <!-- 搜索 -->
-                    <el-form :inline="true" :model="formInline" class="demo-form-inline">
-                        <el-form-item label="分类：">
-                            <el-select v-model="formInline.region" placeholder="---选择分类---">
-                                <el-option label="分类一" value="shanghai"></el-option>
-                                <el-option label="分类二" value="beijing"></el-option>
-                            </el-select>
-                        </el-form-item>
-                        <el-form-item label="关键字：">
-                            <el-input v-model="formInline.user" placeholder=""></el-input> （商品名称，条形码）
-                        </el-form-item>
-                        <el-form-item>
-                            <el-button type="primary" @click="onSubmit">查询</el-button>
-                        </el-form-item>
-                    </el-form>
-                    <!-- 数据中心 -->
-                    <el-table :data="tableData" style="width: 100%" stripe="true">
-                        <el-table-column label="商品条形码" width="180">
-                            <template slot-scope="scope">
-                                <span style="margin-left: 10px">{{ scope.row.date }}</span>
-                            </template>
-                        </el-table-column>
-                        <el-table-column label="商品名称" width="180">
-                            <template slot-scope="scope">
-                                <span style="margin-left: 10px">{{ scope.row.name }}</span>
-                            </template>
-                        </el-table-column>
-                        <el-table-column label="进价（元）" width="180">
-                            <template slot-scope="scope">
-                                <span style="margin-left: 10px">{{ scope.row.name }}</span>
-                            </template>
-                        </el-table-column>
-                        <el-table-column label="入库" width="180">
-                            <template slot-scope="scope">
-                                <span style="margin-left: 10px">{{ scope.row.name }}</span>
-                            </template>
-                        </el-table-column>
-                        <el-table-column label="库存" width="180">
-                            <template slot-scope="scope">
-                                <span style="margin-left: 10px">{{ scope.row.name }}</span>
-                            </template>
-                        </el-table-column>
-                        <el-table-column label="已售" width="180">
-                            <template slot-scope="scope">
-                                <span style="margin-left: 10px">{{ scope.row.name }}</span>
-                            </template>
-                        </el-table-column>
-                        <el-table-column label="管理" fixed="right" width="180px">
-                            <template slot-scope="scope">
-                                <el-button size="mini" @click="handleEdit(scope.$index, scope.row)" type="primary"
-                                    plain><i class="el-icon-edit"></i>编辑</el-button>
-                                <el-button size="mini" @click="handleDelete(scope.$index, scope.row)" type="danger"
-                                    plain><i class="el-icon-delete"></i>删除</el-button>
-                            </template>
-                        </el-table-column>
-                    </el-table>
-                    <br>
-                    <!-- 页码 -->
-                    <el-pagination background layout="prev, pager, next" :total="40" prev-text='上一页' next-text='下一页'>
-                    </el-pagination>
-                </div>
-            </el-card>
-        </el-main>
-    </div>
+<div id="app">
+    <!-- 详细内容 -->
+    <el-main>
+        <!-- 大卡片 -->
+        <el-card class="box-card">
+            <!-- 大卡片标题 -->
+            <div slot="header" class="clearfix">
+                <span>库存管理</span>
+            </div>
+            <!-- 大卡片内容 -->
+            <div class="text item">
+                <!-- 搜索 -->
+                <el-form :inline="true" :model="formInline" class="demo-form-inline">
+                    <el-form-item>
+                        <el-select v-model="pageSearchData.category" placeholder="---选择分类---" label="顶级分类">
+                            <el-option v-for="(item,index) in options" :key="index" :label="item.categoryName"
+                                       :value="item.id">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="关键字：">
+                        <el-input v-model="formInline.user" placeholder=""></el-input>
+                        （商品名称，条形码）
+                    </el-form-item>
+                    <el-form-item>
+                        <el-button type="primary" @click="onSubmit">查询</el-button>
+                    </el-form-item>
+                </el-form>
+                <!-- 数据中心 -->
+                <el-table :data="tableData" style="width: 100%" stripe="true">
+                    <el-table-column label="商品条形码" width="180">
+                        <template slot-scope="scope">
+                            <span style="margin-left: 10px">{{ scope.row.date }}</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="商品名称" width="180">
+                        <template slot-scope="scope">
+                            <span style="margin-left: 10px">{{ scope.row.name }}</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="进价（元）" width="180">
+                        <template slot-scope="scope">
+                            <span style="margin-left: 10px">{{ scope.row.name }}</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="入库" width="180">
+                        <template slot-scope="scope">
+                            <span style="margin-left: 10px">{{ scope.row.name }}</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="库存" width="180">
+                        <template slot-scope="scope">
+                            <span style="margin-left: 10px">{{ scope.row.name }}</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="已售" width="180">
+                        <template slot-scope="scope">
+                            <span style="margin-left: 10px">{{ scope.row.name }}</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="管理" fixed="right" width="180px">
+                        <template slot-scope="scope">
+                            <el-button size="mini" @click="handleEdit(scope.$index, scope.row)" type="primary"
+                                       plain><i class="el-icon-edit"></i>编辑
+                            </el-button>
+                            <el-button size="mini" @click="handleDelete(scope.$index, scope.row)" type="danger"
+                                       plain><i class="el-icon-delete"></i>删除
+                            </el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+                <br>
+                <!-- 页码 -->
+                <el-pagination background layout="prev, pager, next" :total="40" prev-text='上一页' next-text='下一页'>
+                </el-pagination>
+            </div>
+        </el-card>
+    </el-main>
+</div>
 </body>
 <!-- 引入jQuery.js -->
 <script src="./javascripts/jquery.min.js"></script>
@@ -129,10 +133,47 @@
                 formInline: {
                     user: '',
                     region: ''
-                }
+                }, options: [],
             }
         },
         methods: {
+            getProduct() {
+                $.post('/stock/list', this.pageSearchData, (data) => {
+                    if (data.code === 0) {
+                        this.pageSearchData.total = data.total;
+                        this.tableData = data.data;
+                    } else {
+                        alert(data.msg)
+                    }
+
+                })
+            }, getsort() {
+                $.get('/category/list', (data) => {
+                    //处理后端发送过来的数据，如果父类ID为0，则修改为顶级分类
+                    //遍历数组
+                    if (data.code === 0) {
+                        this.options.splice(0, this.options.length);
+                        data.data.forEach(value => {
+                            if (value.parentName === null) {
+                                value.parentName = '顶级分类';
+                            }
+                            if (value.material === null) {
+                                value.material = '无';
+                            }
+                            if (value.status === 1) {
+                                value.status = '启用';
+                                this.options.push(value)
+                            } else {
+                                value.status = '禁用';
+                            }
+                        });
+
+                    } else {
+                        alert(data.msg)
+                    }
+
+                })
+            }
             handleEdit(index, row) {
                 console.log(index, row);
             },
@@ -143,6 +184,11 @@
                 console.log('submit!');
             }
         }
+        , mounted() {
+            this.getsort();
+            this.getProduct();
+            //获取商品分类
+        },
 
     })
 </script>
