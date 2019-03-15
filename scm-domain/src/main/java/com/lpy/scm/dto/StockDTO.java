@@ -8,7 +8,6 @@ import java.util.Date;
  * @date 2019/3/15 17:46
  */
 
-@Table(name = "stock")
 public class StockDTO {
     public Long id;
     public String name;
