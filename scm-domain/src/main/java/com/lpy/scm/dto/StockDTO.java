@@ -1,4 +1,4 @@
-package com.lpy.scm.dataobject;
+package com.lpy.scm.dto;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -9,45 +9,18 @@ import java.util.Date;
  */
 
 @Table(name = "stock")
-public class StockDO {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class StockDTO {
     public Long id;
-
-    @Column(name = "goods_name")
     public String name;
-
-    @Column(name = "goods_code")
     public String code;
-
-    @Column(name = "category_name")
     public String categoryName;
-    @Column(name = "category_id")
     public String categoryId;
-
-    @Column(name = "goods_image")
     public String image;
-
-    @Column(name = "storage_num")
     public Integer num;
-
-    @Column(name = "purchase_price")
     public Long purchasePrice;
-
-    @Column(name = "sale_price")
     public Long salePrice;
-
-    @Column
     public String unit;
 
-    @Column
-    private String creater;
-
-    @Column(name = "create_at")
-    private Date createAt;
-
-    @Column(name = "update_at")
-    private Date updateAt;
 
     public Long getId() {
         return id;
@@ -131,27 +104,4 @@ public class StockDO {
         this.unit = unit;
     }
 
-    public String getCreater() {
-        return creater;
-    }
-
-    public void setCreater(String creater) {
-        this.creater = creater;
-    }
-
-    public Date getCreateAt() {
-        return createAt;
-    }
-
-    public void setCreateAt(Date createAt) {
-        this.createAt = createAt;
-    }
-
-    public Date getUpdateAt() {
-        return updateAt;
-    }
-
-    public void setUpdateAt(Date updateAt) {
-        this.updateAt = updateAt;
-    }
 }
