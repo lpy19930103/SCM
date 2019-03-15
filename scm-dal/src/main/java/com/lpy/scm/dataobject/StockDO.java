@@ -43,11 +43,33 @@ public class StockDO {
     @Column
     private String creater;
 
+    @Column(name = "storage_at")
+    private Date storageAt;
+
+    @Column
+    private String storager;
+
     @Column(name = "create_at")
     private Date createAt;
 
     @Column(name = "update_at")
     private Date updateAt;
+
+    public Date getStorageAt() {
+        return storageAt;
+    }
+
+    public void setStorageAt(Date storageAt) {
+        this.storageAt = storageAt;
+    }
+
+    public String getStorager() {
+        return storager;
+    }
+
+    public void setStorager(String storager) {
+        this.storager = storager;
+    }
 
     public Long getId() {
         return id;

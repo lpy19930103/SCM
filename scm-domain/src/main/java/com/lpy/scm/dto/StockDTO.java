@@ -20,7 +20,24 @@ public class StockDTO {
     public Long purchasePrice;
     public Long salePrice;
     public String unit;
+    private Date storageAt;
+    private String storager;
 
+    public Date getStorageAt() {
+        return storageAt;
+    }
+
+    public void setStorageAt(Date storageAt) {
+        this.storageAt = storageAt;
+    }
+
+    public String getStorager() {
+        return storager;
+    }
+
+    public void setStorager(String storager) {
+        this.storager = storager;
+    }
 
     public Long getId() {
         return id;
