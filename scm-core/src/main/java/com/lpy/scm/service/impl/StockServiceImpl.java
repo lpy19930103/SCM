@@ -54,7 +54,7 @@ public class StockServiceImpl implements StockService {
     @Override
     public PageInfo<StockDO> list(ProductQueryParam productQuertParam) throws ParamException {
         PageHelper.startPage(productQuertParam.getPageNo(), productQuertParam.getPageSize());
-        List<StockDO> select = mStockMapper.select(null);
+        List<StockDO> select = mStockMapper.queryStock(productQuertParam);
         AssertUtil.isNullList(select, "10001", "未查询到数据");
         return new PageInfo<>(select);
     }
