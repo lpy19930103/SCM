@@ -14,6 +14,7 @@ import com.lpy.scm.param.ProductQueryParam;
 public interface StockService {
 
     ProductDTO queryProductByCode( String productCode);
+
     void editProductByCode( String productCode,int num,long price) throws ParamException;
 
     PageInfo<StockDO> list(ProductQueryParam productQuertParam) throws ParamException;

@@ -13,8 +13,8 @@ public class StockDO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
-    @Column(name = "goods_id")
-    private Long goodsId;
+    @Column(name = "goods_code")
+    private Long goodsCode;
     @Column(name = "goods_name")
     private String goodsName;
     @Column(name = "goods_image")
@@ -53,12 +53,12 @@ public class StockDO {
         this.id = id;
     }
 
-    public Long getGoodsId() {
-        return goodsId;
+    public Long getGoodsCode() {
+        return goodsCode;
     }
 
-    public void setGoodsId(Long goodsId) {
-        this.goodsId = goodsId;
+    public void setGoodsCode(Long goodsCode) {
+        this.goodsCode = goodsCode;
     }
 
     public String getGoodsName() {

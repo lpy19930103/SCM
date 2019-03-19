@@ -1,7 +1,5 @@
 package com.lpy.scm.dto;
 
-import javax.persistence.*;
-import java.util.Date;
 
 /**
  * @author lpy
@@ -11,7 +9,7 @@ import java.util.Date;
 public class StockDTO {
 
     public Long id;
-    private Long goodsId;
+    private String goodsCode;
     private String goodsName;
     private String goodsImage;
 
@@ -38,12 +36,12 @@ public class StockDTO {
         this.id = id;
     }
 
-    public Long getGoodsId() {
-        return goodsId;
+    public String getGoodsCode() {
+        return goodsCode;
     }
 
-    public void setGoodsId(Long goodsId) {
-        this.goodsId = goodsId;
+    public void setGoodsCode(String goodsCode) {
+        this.goodsCode = goodsCode;
     }
 
     public String getGoodsName() {
