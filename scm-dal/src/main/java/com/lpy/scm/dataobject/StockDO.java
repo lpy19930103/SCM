@@ -1,7 +1,6 @@
 package com.lpy.scm.dataobject;
 
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * @author lpy
@@ -14,62 +13,37 @@ public class StockDO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
 
+    @Column(name = "goods_id")
+    private Long goodsId;
     @Column(name = "goods_name")
-    public String name;
-
-    @Column(name = "goods_code")
-    public String code;
-
-    @Column(name = "category_name")
-    public String categoryName;
-    @Column(name = "category_id")
-    public String categoryId;
-
+    private String goodsName;
     @Column(name = "goods_image")
-    public String image;
+    private String goodsImage;
 
-    @Column(name = "storage_num")
-    public Integer num;
+    @Column(name = "sale_num")
+    private int saleNum;
+    @Column(name = "stock_num")
+    private int stockNum;
+    @Column(name = "stock_total")
+    private int stockTotal;
 
-    @Column(name = "purchase_price")
-    public Long purchasePrice;
+
+    @Column(name = "depot_id")
+    private Long depotId;
+    @Column(name = "depot_name")
+    private String depotName;
 
     @Column(name = "sale_price")
-    public Long salePrice;
-
-    @Column
-    public String unit;
+    private Long salePrice;
+    @Column(name = "purchase_price")
+    private Long purchasePrice;
 
     @Column
     private String creater;
-
-    @Column(name = "storage_at")
-    private Date storageAt;
-
-    @Column
-    private String storager;
-
-    @Column(name = "create_at")
-    private Date createAt;
-
     @Column(name = "update_at")
-    private Date updateAt;
-
-    public Date getStorageAt() {
-        return storageAt;
-    }
-
-    public void setStorageAt(Date storageAt) {
-        this.storageAt = storageAt;
-    }
-
-    public String getStorager() {
-        return storager;
-    }
-
-    public void setStorager(String storager) {
-        this.storager = storager;
-    }
+    private String updateAt;
+    @Column(name = "create_at")
+    private String createAt;
 
     public Long getId() {
         return id;
@@ -79,61 +53,68 @@ public class StockDO {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Long getGoodsId() {
+        return goodsId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setGoodsId(Long goodsId) {
+        this.goodsId = goodsId;
     }
 
-    public String getCode() {
-        return code;
+    public String getGoodsName() {
+        return goodsName;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public String getGoodsImage() {
+        return goodsImage;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public void setGoodsImage(String goodsImage) {
+        this.goodsImage = goodsImage;
     }
 
-    public String getCategoryId() {
-        return categoryId;
+    public int getSaleNum() {
+        return saleNum;
     }
 
-    public void setCategoryId(String categoryId) {
-        this.categoryId = categoryId;
+    public void setSaleNum(int saleNum) {
+        this.saleNum = saleNum;
     }
 
-
-    public String getImage() {
-        return image;
+    public int getStockNum() {
+        return stockNum;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setStockNum(int stockNum) {
+        this.stockNum = stockNum;
     }
 
-    public Integer getNum() {
-        return num;
+    public int getStockTotal() {
+        return stockTotal;
     }
 
-    public void setNum(Integer num) {
-        this.num = num;
+    public void setStockTotal(int stockTotal) {
+        this.stockTotal = stockTotal;
     }
 
-    public Long getPurchasePrice() {
-        return purchasePrice;
+    public Long getDepotId() {
+        return depotId;
     }
 
-    public void setPurchasePrice(Long purchasePrice) {
-        this.purchasePrice = purchasePrice;
+    public void setDepotId(Long depotId) {
+        this.depotId = depotId;
+    }
+
+    public String getDepotName() {
+        return depotName;
+    }
+
+    public void setDepotName(String depotName) {
+        this.depotName = depotName;
     }
 
     public Long getSalePrice() {
@@ -144,13 +125,12 @@ public class StockDO {
         this.salePrice = salePrice;
     }
 
-
-    public String getUnit() {
-        return unit;
+    public Long getPurchasePrice() {
+        return purchasePrice;
     }
 
-    public void setUnit(String unit) {
-        this.unit = unit;
+    public void setPurchasePrice(Long purchasePrice) {
+        this.purchasePrice = purchasePrice;
     }
 
     public String getCreater() {
@@ -161,19 +141,19 @@ public class StockDO {
         this.creater = creater;
     }
 
-    public Date getCreateAt() {
-        return createAt;
-    }
-
-    public void setCreateAt(Date createAt) {
-        this.createAt = createAt;
-    }
-
-    public Date getUpdateAt() {
+    public String getUpdateAt() {
         return updateAt;
     }
 
-    public void setUpdateAt(Date updateAt) {
+    public void setUpdateAt(String updateAt) {
         this.updateAt = updateAt;
+    }
+
+    public String getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(String createAt) {
+        this.createAt = createAt;
     }
 }

@@ -4,7 +4,9 @@ import com.github.pagehelper.PageInfo;
 import com.lpy.scm.bean.ApiResponse;
 import com.lpy.scm.bean.PageResponse;
 import com.lpy.scm.dataobject.ProductDO;
+import com.lpy.scm.dataobject.StockDO;
 import com.lpy.scm.dto.ProductDTO;
+import com.lpy.scm.dto.StockDTO;
 import com.lpy.scm.exception.ParamException;
 import com.lpy.scm.param.ProductQueryParam;
 import com.lpy.scm.service.StockService;
@@ -44,16 +46,14 @@ public class StockController {
 
     @RequestMapping(value = "list", method = RequestMethod.POST)
     @ResponseBody
-    public ApiResponse<List<ProductDTO>> list(ProductQueryParam queryParam) throws ParamException {
-        PageInfo<ProductDO> list = stockService.list(queryParam);
-        ArrayList<ProductDTO> productDTOS = new ArrayList<>();
+    public ApiResponse<List<StockDTO>> list(ProductQueryParam queryParam) throws ParamException {
+        PageInfo<StockDO> list = stockService.list(queryParam);
+        ArrayList<StockDTO> productDTOS = new ArrayList<>();
 
-        for (ProductDO p : list.getList()) {
-            if (p.getNum() > 0) {
-                productDTOS.add(BeanUtil.convertObject(p, ProductDTO.class));
-            }
+        for (StockDO p : list.getList()) {
+            productDTOS.add(BeanUtil.convertObject(p, StockDTO.class));
         }
-        PageResponse<ProductDTO> productDTOPageResponse = new PageResponse<>();
+        PageResponse<StockDTO> productDTOPageResponse = new PageResponse<>();
         productDTOPageResponse.setPage(list.getPageNum());
         productDTOPageResponse.setRows(list.getPageSize());
         productDTOPageResponse.setData(productDTOS);

@@ -3,7 +3,9 @@ package com.lpy.scm.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lpy.scm.dao.ProductMapper;
+import com.lpy.scm.dao.StockMapper;
 import com.lpy.scm.dataobject.ProductDO;
+import com.lpy.scm.dataobject.StockDO;
 import com.lpy.scm.dto.ProductDTO;
 import com.lpy.scm.exception.ErrorEnum;
 import com.lpy.scm.exception.ParamException;
@@ -26,6 +28,9 @@ public class StockServiceImpl implements StockService {
     @Autowired
     private ProductMapper productMapper;
 
+    @Autowired
+    private StockMapper mStockMapper;
+
     @Override
     public ProductDTO queryProductByCode(String productCode) {
         ProductDO productDO = new ProductDO();
@@ -47,11 +52,11 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
-    public PageInfo<ProductDO> list(ProductQueryParam productQuertParam) throws ParamException {
+    public PageInfo<StockDO> list(ProductQueryParam productQuertParam) throws ParamException {
         PageHelper.startPage(productQuertParam.getPageNo(), productQuertParam.getPageSize());
-        List<ProductDO> select = productMapper.queryProduct(productQuertParam);
+        List<StockDO> select = mStockMapper.select(null);
         AssertUtil.isNullList(select, "10001", "未查询到数据");
-        PageInfo<ProductDO> productDOPageInfo = new PageInfo<>(select);
-        return productDOPageInfo;
+        PageInfo<StockDO> stockDOPageInfo = new PageInfo<>(select);
+        return stockDOPageInfo;
     }
 }
