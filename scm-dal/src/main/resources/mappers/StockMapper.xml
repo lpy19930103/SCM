@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.lpy.scm.dao.ProductMapper">
+<mapper namespace="com.lpy.scm.dao.StockMapper">
 
     <sql id="Base_Column_List">
         id,
@@ -35,7 +35,7 @@
         <result column="stock_num" property="stockNum" jdbcType="INTEGER"/>
         <result column="stock_total" property="stockTotal" jdbcType="INTEGER"/>
         <result column="creater" property="creater" jdbcType="VARCHAR"/>
-        <result column="update_at" property="updateAt" jdbcType="DATETIME"/>
+        <result column="update_at" property="updateAt" jdbcType="DATE"/>
     </resultMap>
 
     <select id="queryStock" parameterType="com.lpy.scm.param.ProductQueryParam"
