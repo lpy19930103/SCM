@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lpy.scm.dao.ProductMapper">
+
+    <sql id="Base_Column_List">
+        id,
+        goods_name,
+        goods_code,
+        category_id,
+        category_name,
+        purchase_price,
+        sale_price,
+        goods_image,
+        sale_num,
+        stock_num,
+        stock_total,
+        depot_id,
+        depot_name,
+        creater,
+        update_at,
+    </sql>
+
+    <resultMap id="BaseResultMap" type="com.lpy.scm.dataobject.StockDO">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="goods_name" property="goodsName" jdbcType="VARCHAR"/>
+        <result column="goods_code" property="goodsCode" jdbcType="VARCHAR"/>
+        <result column="category_id" property="categoryId" jdbcType="VARCHAR"/>
+        <result column="category_name" property="categoryName" jdbcType="VARCHAR"/>
+        <result column="goods_image" property="goodsImage" jdbcType="VARCHAR"/>
+        <result column="depot_name" property="depotName" jdbcType="VARCHAR"/>
+        <result column="depot_id" property="depotId" jdbcType="BIGINT"/>
+        <result column="purchase_price" property="purchasePrice" jdbcType="BIGINT"/>
+        <result column="sale_price" property="salePrice" jdbcType="BIGINT"/>
+        <result column="sale_num" property="saleNum" jdbcType="INTEGER"/>
+        <result column="stock_num" property="stockNum" jdbcType="INTEGER"/>
+        <result column="stock_total" property="stockTotal" jdbcType="INTEGER"/>
+        <result column="creater" property="creater" jdbcType="VARCHAR"/>
+        <result column="update_at" property="updateAt" jdbcType="DATETIME"/>
+    </resultMap>
+
+    <select id="queryStock" parameterType="com.lpy.scm.param.ProductQueryParam"
+            resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM base_goods
+        <choose>
+            <when test="category!=null and category!=''">
+                WHERE
+                category_id=#{category}
+                <if test="keyWords!=null and keyWords!=''">
+                    AND goods_name LIKE '%${keyWords}%'
+                </if>
+            </when>
+            <otherwise>
+                <if test="keyWords!=null and keyWords!=''">
+                    WHERE goods_name LIKE '%${keyWords}%'
+                </if>
+            </otherwise>
+        </choose>
+    </select>
+</mapper>

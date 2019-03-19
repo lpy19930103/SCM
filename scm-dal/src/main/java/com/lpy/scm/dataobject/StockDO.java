@@ -26,7 +26,10 @@ public class StockDO {
     private int stockNum;
     @Column(name = "stock_total")
     private int stockTotal;
-
+    @Column(name = "category_id")
+    private String categoryId;
+    @Column(name = "category_name")
+    private String categoryName;
 
     @Column(name = "depot_id")
     private Long depotId;
@@ -44,6 +47,22 @@ public class StockDO {
     private String updateAt;
     @Column(name = "create_at")
     private String createAt;
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+    }
 
     public Long getId() {
         return id;

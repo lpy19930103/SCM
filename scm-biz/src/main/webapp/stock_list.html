@@ -88,7 +88,10 @@
                 </el-table>
                 <br>
                 <!-- 页码 -->
-                <el-pagination background layout="prev, pager, next" :total="40" prev-text='上一页' next-text='下一页'>
+                <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" background
+                               :current-page="pageSearchData.pageNo" :page-sizes="[5, 10, 15, 20]"
+                               :page-size="pageSearchData.pageSize"
+                               layout="total, sizes, prev, pager, next, jumper" :total="pageSearchData.total">
                 </el-pagination>
             </div>
         </el-card>
@@ -110,6 +113,13 @@
                 formInline: {
                     user: '',
                     region: ''
+                },
+                pageSearchData: {
+                    category: '',
+                    pageSize: 5,
+                    total: 20,
+                    pageNo: 1,
+                    keyWords: '',
                 },
                 options: [],
             }
@@ -151,7 +161,7 @@
                     }
 
                 })
-            }
+            },
             handleEdit(index, row) {
                 console.log(index, row);
             },
@@ -160,7 +170,15 @@
             },
             onSubmit() {
                 console.log('submit!');
-            }
+            },
+            handleSizeChange(val) {
+                this.pageSearchData.pageSize = val;
+                this.getProduct();
+            },
+            handleCurrentChange(val) {
+                this.pageSearchData.pageNo = val;
+                this.getProduct();
+            },
         }
         , mounted() {
             this.getsort();

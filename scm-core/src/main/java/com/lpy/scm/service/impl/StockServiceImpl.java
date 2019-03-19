@@ -56,7 +56,6 @@ public class StockServiceImpl implements StockService {
         PageHelper.startPage(productQuertParam.getPageNo(), productQuertParam.getPageSize());
         List<StockDO> select = mStockMapper.select(null);
         AssertUtil.isNullList(select, "10001", "未查询到数据");
-        PageInfo<StockDO> stockDOPageInfo = new PageInfo<>(select);
-        return stockDOPageInfo;
+        return new PageInfo<>(select);
     }
 }
