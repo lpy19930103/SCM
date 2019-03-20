@@ -7,7 +7,7 @@ import javax.persistence.*;
  * @date 2019/3/15 17:46
  */
 
-@Table(name = "stock")
+@Table(name = "stock_manager")
 public class StockDO {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

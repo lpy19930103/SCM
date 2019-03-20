@@ -17,7 +17,7 @@
         depot_id,
         depot_name,
         creater,
-        update_at,
+        update_at
     </sql>
 
     <resultMap id="BaseResultMap" type="com.lpy.scm.dataobject.StockDO">
@@ -35,14 +35,14 @@
         <result column="stock_num" property="stockNum" jdbcType="INTEGER"/>
         <result column="stock_total" property="stockTotal" jdbcType="INTEGER"/>
         <result column="creater" property="creater" jdbcType="VARCHAR"/>
-        <result column="update_at" property="updateAt" jdbcType="DATE"/>
+        <result column="update_at" property="updateAt" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <select id="queryStock" parameterType="com.lpy.scm.param.ProductQueryParam"
             resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM base_goods
+        FROM stock_manager
         <choose>
             <when test="category!=null and category!=''">
                 WHERE
