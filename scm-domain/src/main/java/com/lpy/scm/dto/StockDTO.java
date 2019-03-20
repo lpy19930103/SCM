@@ -1,6 +1,8 @@
 package com.lpy.scm.dto;
 
 
+import javax.persistence.Column;
+
 /**
  * @author lpy
  * @date 2019/3/15 17:46
@@ -16,7 +18,8 @@ public class StockDTO {
     private int saleNum;
     private int stockNum;
     private int stockTotal;
-
+    private String categoryId;
+    private String categoryName;
 
     private Long depotId;
     private String depotName;
@@ -26,7 +29,22 @@ public class StockDTO {
 
     private String creater;
     private String updateAt;
-    private String createAt;
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+    }
 
     public Long getId() {
         return id;
@@ -130,13 +148,5 @@ public class StockDTO {
 
     public void setUpdateAt(String updateAt) {
         this.updateAt = updateAt;
-    }
-
-    public String getCreateAt() {
-        return createAt;
-    }
-
-    public void setCreateAt(String createAt) {
-        this.createAt = createAt;
     }
 }

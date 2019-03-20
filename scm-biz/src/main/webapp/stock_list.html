@@ -36,7 +36,7 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item label="关键字：">
-                        <el-input v-model="formInline.user" placeholder=""></el-input>
+                        <el-input v-model="pageSearchData.keyWords" placeholder=""></el-input>
                         （商品名称，条形码）
                     </el-form-item>
                     <el-form-item>
@@ -62,17 +62,32 @@
                     </el-table-column>
                     <el-table-column label="库存" width="180">
                         <template slot-scope="scope">
-                            <span style="margin-left: 10px">{{ scope.row.stockTotal }}</span>
+                            <span>{{ scope.row.stockTotal }}</span>
                         </template>
                     </el-table-column>
                     <el-table-column label="已售" width="180">
                         <template slot-scope="scope">
-                            <span style="margin-left: 10px">{{ scope.row.saleNum }}</span>
+                            <span>{{ scope.row.saleNum }}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column label="仓库" width="180">
+                    <el-table-column label="  仓库" width="180">
                         <template slot-scope="scope">
-                            <span style="margin-left: 10px">{{ scope.row.depotName }}</span>
+                            <span>{{ scope.row.depotName }}</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="  品类" width="180">
+                        <template slot-scope="scope">
+                            <span>{{ scope.row.categoryName }}</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="  入库员" width="180">
+                        <template slot-scope="scope">
+                            <span>{{ scope.row.creater }}</span>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="  入库时间" width="180">
+                        <template slot-scope="scope">
+                            <span>{{ scope.row.updateAt }}</span>
                         </template>
                     </el-table-column>
                     <el-table-column label="管理" fixed="right" width="180px">

@@ -14,7 +14,7 @@ public class StockDO {
     public Long id;
 
     @Column(name = "goods_code")
-    private Long goodsCode;
+    private String goodsCode;
     @Column(name = "goods_name")
     private String goodsName;
     @Column(name = "goods_image")
@@ -72,11 +72,11 @@ public class StockDO {
         this.id = id;
     }
 
-    public Long getGoodsCode() {
+    public String getGoodsCode() {
         return goodsCode;
     }
 
-    public void setGoodsCode(Long goodsCode) {
+    public void setGoodsCode(String goodsCode) {
         this.goodsCode = goodsCode;
     }
 
