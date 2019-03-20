@@ -33,7 +33,7 @@ public class StockController {
 
     @RequestMapping("edit")
     @ResponseBody
-    public ApiResponse<ProductDTO> editProductByCode(String barCode, Integer productNum, Long purchasePrice) throws ParamException {
+    public ApiResponse editProductByCode(String barCode, Integer productNum, Long purchasePrice) throws ParamException {
         stockService.editStockByCode(barCode, productNum, purchasePrice);
         return ApiResponse.success().setData(null);
     }

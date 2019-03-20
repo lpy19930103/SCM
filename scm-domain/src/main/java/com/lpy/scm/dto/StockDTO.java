@@ -2,6 +2,7 @@ package com.lpy.scm.dto;
 
 
 import javax.persistence.Column;
+import java.util.Date;
 
 /**
  * @author lpy
@@ -28,7 +29,7 @@ public class StockDTO {
     private Long purchasePrice;
 
     private String creater;
-    private String updateAt;
+    private Date updateAt;
 
     public String getCategoryName() {
         return categoryName;
@@ -142,11 +143,11 @@ public class StockDTO {
         this.creater = creater;
     }
 
-    public String getUpdateAt() {
+    public Date getUpdateAt() {
         return updateAt;
     }
 
-    public void setUpdateAt(String updateAt) {
+    public void setUpdateAt(Date updateAt) {
         this.updateAt = updateAt;
     }
 }

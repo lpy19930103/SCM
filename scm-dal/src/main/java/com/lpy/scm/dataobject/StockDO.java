@@ -1,6 +1,7 @@
 package com.lpy.scm.dataobject;
 
 import javax.persistence.*;
+import java.util.Date;
 
 /**
  * @author lpy
@@ -44,9 +45,9 @@ public class StockDO {
     @Column
     private String creater;
     @Column(name = "update_at")
-    private String updateAt;
+    private Date updateAt;
     @Column(name = "create_at")
-    private String createAt;
+    private Date createAt;
 
     public String getCategoryName() {
         return categoryName;
@@ -160,19 +161,19 @@ public class StockDO {
         this.creater = creater;
     }
 
-    public String getUpdateAt() {
+    public Date getUpdateAt() {
         return updateAt;
     }
 
-    public void setUpdateAt(String updateAt) {
+    public void setUpdateAt(Date updateAt) {
         this.updateAt = updateAt;
     }
 
-    public String getCreateAt() {
+    public Date getCreateAt() {
         return createAt;
     }
 
-    public void setCreateAt(String createAt) {
+    public void setCreateAt(Date createAt) {
         this.createAt = createAt;
     }
 }

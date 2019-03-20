@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -35,12 +36,28 @@ public class StockServiceImpl implements StockService {
 
     @Override
     public void editStockByCode(String productCode, int num, long price) throws ParamException {
+        StockDO stockDO = new StockDO();
+        stockDO.setGoodsCode(productCode);
+        StockDO stockDO1 = mStockMapper.selectOne(stockDO);
+        List<StockDO> select = mStockMapper.select(stockDO);
+        AssertUtil.isNullObj(stockDO1, "未查询到该库存信息");
+
         ProductDO productDO = new ProductDO();
         productDO.setCode(productCode);
         ProductDO productDO1 = productMapper.selectOne(productDO);
         AssertUtil.isNullObj(productDO1, "未查询到该商品");
-        productDO1.setNum(num);
+
+        stockDO1.setStockNum(stockDO1.getStockTotal() + num);
+        stockDO1.setStockNum(stockDO1.getStockNum() + num);
+        stockDO1.setUpdateAt(new Date());
+        stockDO1.setSalePrice(price);
+        Example example1 = new Example(StockDO.class);
+        example1.createCriteria().andEqualTo("id", stockDO1.getId());
+        mStockMapper.updateByExampleSelective(stockDO1, example1);
+
+        productDO1.setNum(productDO1.getNum() + num);
         productDO1.setSalePrice(price);
+        productDO1.setUpdateAt(new Date());
         Example example = new Example(ProductDO.class);
         example.createCriteria().andEqualTo("id", productDO1.getId());
         productMapper.updateByExampleSelective(productDO1, example);
