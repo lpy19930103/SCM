@@ -31,16 +31,18 @@ public class StockController {
     @Autowired
     private StockService stockService;
 
-    @RequestMapping("{code}")
-    @ResponseBody
-    public ApiResponse<ProductDTO> queryProductByCode(@PathVariable(value = "code") String productCode) {
-        return ApiResponse.success().setData(stockService.queryProductByCode(productCode));
-    }
-
     @RequestMapping("edit")
     @ResponseBody
     public ApiResponse<ProductDTO> editProductByCode(String barCode, Integer productNum, Long purchasePrice) throws ParamException {
-        stockService.editProductByCode(barCode, productNum, purchasePrice);
+        stockService.editStockByCode(barCode, productNum, purchasePrice);
+        return ApiResponse.success().setData(null);
+    }
+
+
+    @RequestMapping("delete/{id}")
+    @ResponseBody
+    public ApiResponse<ProductDTO> editProductByCode(@PathVariable(value = "id")Long id) throws ParamException {
+        stockService.deleteStockById(id);
         return ApiResponse.success().setData(null);
     }
 

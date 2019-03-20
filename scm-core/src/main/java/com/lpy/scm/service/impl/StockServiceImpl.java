@@ -7,6 +7,7 @@ import com.lpy.scm.dao.StockMapper;
 import com.lpy.scm.dataobject.ProductDO;
 import com.lpy.scm.dataobject.StockDO;
 import com.lpy.scm.dto.ProductDTO;
+import com.lpy.scm.dto.StockDTO;
 import com.lpy.scm.exception.ErrorEnum;
 import com.lpy.scm.exception.ParamException;
 import com.lpy.scm.param.ProductQueryParam;
@@ -31,15 +32,9 @@ public class StockServiceImpl implements StockService {
     @Autowired
     private StockMapper mStockMapper;
 
-    @Override
-    public ProductDTO queryProductByCode(String productCode) {
-        ProductDO productDO = new ProductDO();
-        productDO.setCode(productCode);
-        return BeanUtil.convertObject(productMapper.selectOne(productDO), ProductDTO.class);
-    }
 
     @Override
-    public void editProductByCode(String productCode, int num, long price) throws ParamException {
+    public void editStockByCode(String productCode, int num, long price) throws ParamException {
         ProductDO productDO = new ProductDO();
         productDO.setCode(productCode);
         ProductDO productDO1 = productMapper.selectOne(productDO);
@@ -50,6 +45,14 @@ public class StockServiceImpl implements StockService {
         example.createCriteria().andEqualTo("id", productDO1.getId());
         productMapper.updateByExampleSelective(productDO1, example);
     }
+
+
+    @Override
+    public void deleteStockById(Long id) throws ParamException {
+        AssertUtil.isNullObj(mStockMapper.selectByPrimaryKey(id), "未查询到该id对应的库存信息");
+        mStockMapper.deleteByPrimaryKey(id);
+    }
+
 
     @Override
     public PageInfo<StockDO> list(ProductQueryParam productQuertParam) throws ParamException {
