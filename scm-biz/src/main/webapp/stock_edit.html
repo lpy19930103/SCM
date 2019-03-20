@@ -33,13 +33,12 @@
                     </el-form-item>
                     <el-form-item label="数量：" prop="productNum">
                         <el-input v-model.number="ruleForm2.productNum"></el-input>
-                        <p>计重商品单位为</p>
                     </el-form-item>
                     <el-form-item label="进价：" prop="purchasePrice">
                         <el-input v-model="ruleForm2.purchasePrice"></el-input>
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="primary" @click="submitForm('ruleForm2')">入库</el-button>
+                        <el-button type="primary" @click="submitForm('ruleForm2')">修改</el-button>
                         <el-button @click="resetForm('ruleForm2')">重置</el-button>
                     </el-form-item>
                 </el-form>
