@@ -49,7 +49,16 @@ public class StockServiceImpl implements StockService {
 
     @Override
     public void deleteStockById(Long id) throws ParamException {
-        AssertUtil.isNullObj(mStockMapper.selectByPrimaryKey(id), "未查询到该id对应的库存信息");
+        StockDO stockDO = mStockMapper.selectByPrimaryKey(id);
+        AssertUtil.isNullObj(stockDO, "未查询到该id对应的库存信息");
+        ProductDO productDO = new ProductDO();
+        productDO.setCode(stockDO.getGoodsCode());
+        ProductDO productDO1 = productMapper.selectOne(productDO);
+        AssertUtil.isNullObj(productDO1, "未查询到该id对应的商品信息");
+        productDO1.setNum(0);
+        Example example = new Example(ProductDO.class);
+        example.createCriteria().andEqualTo("id", productDO.getId());
+        productMapper.updateByExampleSelective(productDO1, example);
         mStockMapper.deleteByPrimaryKey(id);
     }
 
