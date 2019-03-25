@@ -6,9 +6,10 @@ import com.lpy.scm.dao.ProductMapper;
 import com.lpy.scm.dao.StockMapper;
 import com.lpy.scm.dataobject.ProductDO;
 import com.lpy.scm.dataobject.StockDO;
-import com.lpy.scm.dto.ProductDTO;
 import com.lpy.scm.dto.StockDTO;
+import com.lpy.scm.exception.BizException;
 import com.lpy.scm.exception.ErrorEnum;
+import com.lpy.scm.exception.ExceptionCode;
 import com.lpy.scm.exception.ParamException;
 import com.lpy.scm.param.ProductQueryParam;
 import com.lpy.scm.service.StockService;
@@ -76,24 +77,39 @@ public class StockServiceImpl implements StockService {
     }
 
     private void addStock(String productCode, int num, long price) throws ParamException {
-        StockDO stockDO = mStockMapper.queryStockByCode(productCode);
-        AssertUtil.isNullObj(stockDO, "未查询到该库存信息");
+        if (mStockMapper.queryStockByCode(productCode) != null) {
+            throw new ParamException(ExceptionCode.PARAM_ERROR, "已存在当前商品库存信息");
+        }
 
         ProductDO productDO = new ProductDO();
         productDO.setCode(productCode);
         ProductDO productDO1 = productMapper.selectOne(productDO);
         AssertUtil.isNullObj(productDO1, "未查询到该商品");
+        Date date = new Date();
 
-        stockDO.setStockNum(stockDO.getStockTotal() + num);
-        stockDO.setUpdateAt(new Date());
+        StockDO stockDO = new StockDO();
         stockDO.setPurchasePrice(price);
+        stockDO.setSalePrice(productDO1.getSalePrice());
+
+        stockDO.setGoodsCode(productCode);
+        stockDO.setGoodsImage(productDO1.getImage());
+        stockDO.setGoodsName(productDO1.getName());
+        stockDO.setStockTotal(num);
+        stockDO.setStockNum(num);
+        stockDO.setSaleNum(0);
+
+        stockDO.setCreateAt(date);
+        stockDO.setUpdateAt(date);
+        stockDO.setCategoryId(productDO1.getCategoryId());
+        stockDO.setCategoryName(productDO1.getCategoryName());
+
         Example example1 = new Example(StockDO.class);
         example1.createCriteria().andEqualTo("id", stockDO.getId());
         mStockMapper.updateByExampleSelective(stockDO, example1);
 
         productDO1.setNum(productDO1.getNum() + num);
         productDO1.setPurchasePrice(price);
-        productDO1.setUpdateAt(new Date());
+        productDO1.setUpdateAt(date);
         Example example = new Example(ProductDO.class);
         example.createCriteria().andEqualTo("id", productDO1.getId());
         productMapper.updateByExampleSelective(productDO1, example);
