@@ -17,5 +17,7 @@ public interface StockService {
 
     void editStockByCode(String StockCode, int num, long price) throws ParamException;
 
+    void addStockByCode(String StockCode, int num, long price) throws ParamException;
+
     PageInfo<StockDO> list(ProductQueryParam StockQuertParam) throws ParamException;
 }

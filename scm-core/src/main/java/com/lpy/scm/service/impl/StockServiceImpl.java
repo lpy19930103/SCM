@@ -36,10 +36,18 @@ public class StockServiceImpl implements StockService {
 
     @Override
     public void editStockByCode(String productCode, int num, long price) throws ParamException {
+        addStock(productCode, num, price);
+    }
+
+    @Override
+    public void addStockByCode(String productCode, int num, long price) throws ParamException {
+        addStock(productCode, num, price);
+    }
+
+    private void addStock(String productCode, int num, long price) throws ParamException {
         StockDO stockDO = new StockDO();
         stockDO.setGoodsCode(productCode);
         StockDO stockDO1 = mStockMapper.selectOne(stockDO);
-        List<StockDO> select = mStockMapper.select(stockDO);
         AssertUtil.isNullObj(stockDO1, "未查询到该库存信息");
 
         ProductDO productDO = new ProductDO();

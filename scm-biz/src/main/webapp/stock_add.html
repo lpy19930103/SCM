@@ -82,7 +82,7 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        $.post('/stock/edit', this.ruleForm2, (data) => {
+                        $.post('/stock/add', this.ruleForm2, (data) => {
                             //处理数据
                             if (data.code === 0) {
                                 alert(data.msg);
