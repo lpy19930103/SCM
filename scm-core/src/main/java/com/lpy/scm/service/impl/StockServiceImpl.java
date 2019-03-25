@@ -40,8 +40,8 @@ public class StockServiceImpl implements StockService {
     }
 
     @Override
-    public void addStockByCode(String productCode, int num, long price, Long salePrice) throws ParamException {
-        addStock(productCode, num, price, salePrice);
+    public void addStockByCode(String productCode, int num, long price) throws ParamException {
+        addStock(productCode, num, price);
     }
 
     @Override
@@ -75,7 +75,7 @@ public class StockServiceImpl implements StockService {
         productMapper.updateByExampleSelective(productDO1, example);
     }
 
-    private void addStock(String productCode, int num, long price, Long salePrice) throws ParamException {
+    private void addStock(String productCode, int num, long price) throws ParamException {
         StockDO stockDO = mStockMapper.queryStockByCode(productCode);
         AssertUtil.isNullObj(stockDO, "未查询到该库存信息");
 
@@ -86,14 +86,12 @@ public class StockServiceImpl implements StockService {
 
         stockDO.setStockNum(stockDO.getStockTotal() + num);
         stockDO.setUpdateAt(new Date());
-        stockDO.setSalePrice(salePrice);
         stockDO.setPurchasePrice(price);
         Example example1 = new Example(StockDO.class);
         example1.createCriteria().andEqualTo("id", stockDO.getId());
         mStockMapper.updateByExampleSelective(stockDO, example1);
 
         productDO1.setNum(productDO1.getNum() + num);
-        productDO1.setSalePrice(salePrice);
         productDO1.setPurchasePrice(price);
         productDO1.setUpdateAt(new Date());
         Example example = new Example(ProductDO.class);
