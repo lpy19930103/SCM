@@ -3,6 +3,7 @@ package com.lpy.scm.service;
 import com.github.pagehelper.PageInfo;
 
 import com.lpy.scm.dataobject.StockDO;
+import com.lpy.scm.dto.StockDTO;
 import com.lpy.scm.exception.ParamException;
 import com.lpy.scm.param.ProductQueryParam;
 
@@ -18,6 +19,8 @@ public interface StockService {
     void editStockByCode(String StockCode, int num, long price) throws ParamException;
 
     void addStockByCode(String StockCode, int num, long price) throws ParamException;
+
+    StockDTO queryStockById(Long id);
 
     PageInfo<StockDO> list(ProductQueryParam StockQuertParam) throws ParamException;
 }

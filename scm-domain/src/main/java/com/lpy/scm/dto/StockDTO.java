@@ -1,7 +1,6 @@
 package com.lpy.scm.dto;
 
 
-import javax.persistence.Column;
 import java.util.Date;
 
 /**

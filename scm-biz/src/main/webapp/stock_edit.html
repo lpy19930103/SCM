@@ -28,19 +28,24 @@
             <div class="text item">
                 <el-form label-position="top" :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2"
                          label-width="100px" class="demo-ruleForm">
+                    商品：{{this.goodsName}}
                     <el-form-item label="商品条形码：" prop="barCode">
                         <el-input v-model="ruleForm2.barCode"></el-input>
                     </el-form-item>
                     <el-form-item label="数量：" prop="productNum">
                         <el-input v-model.number="ruleForm2.productNum"></el-input>
                     </el-form-item>
-                    <el-form-item label="进价：" prop="purchasePrice">
-                        <el-input v-model="ruleForm2.purchasePrice"></el-input>
+                    <el-form-item label="售价：" prop="purchasePrice">
+                        <el-input v-model="ruleForm2.salePrice"></el-input>
                     </el-form-item>
                     <el-form-item>
-                        <el-button type="primary" @click="submitForm('ruleForm2')">修改</el-button>
-                        <el-button @click="resetForm('ruleForm2')">重置</el-button>
-                    </el-form-item>
+                        <el-form-item label="进价：" prop="purchasePrice">
+                            <el-input v-model="ruleForm2.purchasePrice"></el-input>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button type="primary" @click="submitForm('ruleForm2')">修改</el-button>
+                            <el-button @click="resetForm('ruleForm2')">重置</el-button>
+                        </el-form-item>
                 </el-form>
             </div>
         </el-card>
@@ -59,9 +64,11 @@
         el: '#app',
         data() {
             return {
+                goodsName: "",
                 ruleForm2: {
                     barCode: '',
                     productNum: '',
+                    salePrice: '',
                     purchasePrice: ''
                 },
                 rules2: {
@@ -73,6 +80,8 @@
                     ],
                     purchasePrice: [
                         {required: true, message: "请输入商品进价", trigger: 'blur'}
+                    ], salePrice: [
+                        {required: true, message: "请输入商品售价", trigger: 'blur'}
                     ]
                 },
             };
@@ -98,7 +107,25 @@
             },
             resetForm(formName) {
                 this.$refs[formName].resetFields();
+            },
+            initCode() {
+                let index = (location.href.indexOf('=') + 1);
+                let id = location.href.substr(index);
+                $.get('/stock/' + id, (data) => {
+                    if (data.code === 0) {
+                        this.ruleForm2.barCode = data.data.goodsCode;
+                        this.ruleForm2.productNum = data.data.stockNum;
+                        this.ruleForm2.purchasePrice = data.data.purchasePrice;
+                        this.ruleForm2.salePrice = data.data.salePrice;
+                        this.goodsName = data.data.goodsName;
+                    } else {
+                        alert(data.msg)
+                    }
+
+                })
             }
+        }, mounted() {
+            this.initCode()
         }
     })
 </script>

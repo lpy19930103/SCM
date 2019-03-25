@@ -16,8 +16,10 @@ public class StockDO {
 
     @Column(name = "goods_code")
     private String goodsCode;
+
     @Column(name = "goods_name")
     private String goodsName;
+
     @Column(name = "goods_image")
     private String goodsImage;
 

@@ -31,26 +31,32 @@ public class StockController {
     @Autowired
     private StockService stockService;
 
+    @RequestMapping("{id}")
+    @ResponseBody
+    public ApiResponse<StockDTO> queryStockById(@PathVariable(value = "id") Long id) {
+        return ApiResponse.success().setData(stockService.queryStockById(id));
+    }
+
     @RequestMapping("add")
     @ResponseBody
-    public ApiResponse editProductByCode(String barCode, Integer productNum, Long purchasePrice) throws ParamException {
+    public ApiResponse addStockByCode(String barCode, Integer productNum, Long purchasePrice) throws ParamException {
         stockService.addStockByCode(barCode, productNum, purchasePrice);
-        return ApiResponse.success().setData(null);
+        return ApiResponse.success();
     }
 
     @RequestMapping("edit")
     @ResponseBody
-    public ApiResponse addProductByCode(String barCode, Integer productNum, Long purchasePrice) throws ParamException {
+    public ApiResponse editStockByCode(String barCode, Integer productNum, Long purchasePrice) throws ParamException {
         stockService.editStockByCode(barCode, productNum, purchasePrice);
-        return ApiResponse.success().setData(null);
+        return ApiResponse.success();
     }
 
 
     @RequestMapping("delete/{id}")
     @ResponseBody
-    public ApiResponse<ProductDTO> editProductByCode(@PathVariable(value = "id") Long id) throws ParamException {
+    public ApiResponse deleteStockByCode(@PathVariable(value = "id") Long id) throws ParamException {
         stockService.deleteStockById(id);
-        return ApiResponse.success().setData(null);
+        return ApiResponse.success();
     }
 
     @RequestMapping(value = "list", method = RequestMethod.POST)
