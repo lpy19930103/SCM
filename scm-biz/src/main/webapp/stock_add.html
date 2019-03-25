@@ -85,7 +85,7 @@
                         $.post('/stock/add', this.ruleForm2, (data) => {
                             //处理数据
                             if (data.code === 0) {
-                                location.href = 'sort_list.html';
+                                location.href = 'stock_list.html';
                             } else {
                                 alert(data.msg);
                             }

@@ -102,10 +102,7 @@ public class StockServiceImpl implements StockService {
         stockDO.setUpdateAt(date);
         stockDO.setCategoryId(productDO1.getCategoryId());
         stockDO.setCategoryName(productDO1.getCategoryName());
-
-        Example example1 = new Example(StockDO.class);
-        example1.createCriteria().andEqualTo("id", stockDO.getId());
-        mStockMapper.updateByExampleSelective(stockDO, example1);
+        mStockMapper.insertSelective(stockDO);
 
         productDO1.setNum(productDO1.getNum() + num);
         productDO1.setPurchasePrice(price);

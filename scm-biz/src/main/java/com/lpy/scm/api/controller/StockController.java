@@ -61,7 +61,7 @@ public class StockController {
 
     @RequestMapping(value = "list", method = RequestMethod.POST)
     @ResponseBody
-    public ApiResponse<List<StockDTO>> list(ProductQueryParam queryParam) throws ParamException {
+    public PageResponse<StockDTO> list(ProductQueryParam queryParam) throws ParamException {
         PageInfo<StockDO> list = stockService.list(queryParam);
         ArrayList<StockDTO> productDTOS = new ArrayList<>();
 
