@@ -16,4 +16,6 @@ import java.util.List;
 
 public interface StockMapper extends Mapper<StockDO> {
     List<StockDO> queryStock(ProductQueryParam productQuertParam);
+
+    StockDO queryStockByCode(String code);
 }

@@ -35,13 +35,13 @@ public class StockServiceImpl implements StockService {
 
 
     @Override
-    public void editStockByCode(String productCode, int num, long price) throws ParamException {
-        editStock(productCode, num, price);
+    public void editStockByCode(String productCode, int num, long price, Long salePrice) throws ParamException {
+        editStock(productCode, num, price, salePrice);
     }
 
     @Override
-    public void addStockByCode(String productCode, int num, long price) throws ParamException {
-        addStock(productCode, num, price);
+    public void addStockByCode(String productCode, int num, long price, Long salePrice) throws ParamException {
+        addStock(productCode, num, price, salePrice);
     }
 
     @Override
@@ -49,52 +49,52 @@ public class StockServiceImpl implements StockService {
         return BeanUtil.convertObject(mStockMapper.selectByPrimaryKey(id), StockDTO.class);
     }
 
-    private void editStock(String productCode, int num, long price) throws ParamException {
-        StockDO stockDO = new StockDO();
-        stockDO.setGoodsCode(productCode);
-        StockDO stockDO1 = mStockMapper.selectOne(stockDO);
-        AssertUtil.isNullObj(stockDO1, "未查询到该库存信息");
+    private void editStock(String productCode, int num, long price, Long salePrice) throws ParamException {
+        StockDO stockDO = mStockMapper.queryStockByCode(productCode);
+        AssertUtil.isNullObj(stockDO, "未查询到该库存信息");
 
         ProductDO productDO = new ProductDO();
         productDO.setCode(productCode);
         ProductDO productDO1 = productMapper.selectOne(productDO);
         AssertUtil.isNullObj(productDO1, "未查询到该商品");
 
-        stockDO1.setStockNum(num);
-        stockDO1.setUpdateAt(new Date());
-        stockDO1.setSalePrice(price);
+        stockDO.setStockNum(num);
+        stockDO.setSalePrice(salePrice);
+        stockDO.setUpdateAt(new Date());
+        stockDO.setPurchasePrice(price);
         Example example1 = new Example(StockDO.class);
-        example1.createCriteria().andEqualTo("id", stockDO1.getId());
-        mStockMapper.updateByExampleSelective(stockDO1, example1);
+        example1.createCriteria().andEqualTo("id", stockDO.getId());
+        mStockMapper.updateByExampleSelective(stockDO, example1);
 
         productDO1.setNum(num);
-        productDO1.setSalePrice(price);
+        productDO1.setSalePrice(salePrice);
+        productDO1.setPurchasePrice(price);
         productDO1.setUpdateAt(new Date());
         Example example = new Example(ProductDO.class);
         example.createCriteria().andEqualTo("id", productDO1.getId());
         productMapper.updateByExampleSelective(productDO1, example);
     }
 
-    private void addStock(String productCode, int num, long price) throws ParamException {
-        StockDO stockDO = new StockDO();
-        stockDO.setGoodsCode(productCode);
-        StockDO stockDO1 = mStockMapper.selectOne(stockDO);
-        AssertUtil.isNullObj(stockDO1, "未查询到该库存信息");
+    private void addStock(String productCode, int num, long price, Long salePrice) throws ParamException {
+        StockDO stockDO = mStockMapper.queryStockByCode(productCode);
+        AssertUtil.isNullObj(stockDO, "未查询到该库存信息");
 
         ProductDO productDO = new ProductDO();
         productDO.setCode(productCode);
         ProductDO productDO1 = productMapper.selectOne(productDO);
         AssertUtil.isNullObj(productDO1, "未查询到该商品");
 
-        stockDO1.setStockNum(stockDO1.getStockTotal() + num);
-        stockDO1.setUpdateAt(new Date());
-        stockDO1.setSalePrice(price);
+        stockDO.setStockNum(stockDO.getStockTotal() + num);
+        stockDO.setUpdateAt(new Date());
+        stockDO.setSalePrice(salePrice);
+        stockDO.setPurchasePrice(price);
         Example example1 = new Example(StockDO.class);
-        example1.createCriteria().andEqualTo("id", stockDO1.getId());
-        mStockMapper.updateByExampleSelective(stockDO1, example1);
+        example1.createCriteria().andEqualTo("id", stockDO.getId());
+        mStockMapper.updateByExampleSelective(stockDO, example1);
 
         productDO1.setNum(productDO1.getNum() + num);
-        productDO1.setSalePrice(price);
+        productDO1.setSalePrice(salePrice);
+        productDO1.setPurchasePrice(price);
         productDO1.setUpdateAt(new Date());
         Example example = new Example(ProductDO.class);
         example.createCriteria().andEqualTo("id", productDO1.getId());

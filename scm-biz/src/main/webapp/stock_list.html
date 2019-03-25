@@ -60,9 +60,9 @@
                             <span style="margin-left: 10px">{{ scope.row.purchasePrice }}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column label="库存" width="180">
+                    <el-table-column label="库存余量" width="180">
                         <template slot-scope="scope">
-                            <span>{{ scope.row.stockTotal }}</span>
+                            <span>{{ scope.row.stockNum }}</span>
                         </template>
                     </el-table-column>
                     <el-table-column label="已售" width="180">

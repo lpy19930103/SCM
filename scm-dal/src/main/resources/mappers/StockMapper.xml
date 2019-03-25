@@ -58,4 +58,11 @@
             </otherwise>
         </choose>
     </select>
+
+    <select id="queryStockByCode" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM `stock_manager`
+        WHERE goods_code=#{code}
+    </select>
 </mapper>
