@@ -76,36 +76,39 @@
                         </el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
+
                 <el-submenu v-if="menu5" index="5">
+                    <template slot="title">
+                        <span>仓库管理</span>
+                    </template>
+                    <el-menu-item-group>
+                        <el-menu-item index="5-1"><a href="depot_list.html" target="iframeContent">仓库管理</a>
+                        </el-menu-item>
+                        <el-menu-item index="5-2"><a href="depot_add.html" target="iframeContent">添加仓库</a>
+                        </el-menu-item>
+                    </el-menu-item-group>
+                </el-submenu>
+
+
+                <el-submenu v-if="menu6" index="6">
                     <template slot="title">
                         <span>统计管理</span>
                     </template>
                     <el-menu-item-group>
-                        <el-menu-item index="5-1">销售统计</el-menu-item>
-                        <el-menu-item index="5-2">进货统计</el-menu-item>
-                    </el-menu-item-group>
-                </el-submenu>
-                <el-submenu v-if="menu6" index="6">
-                    <template slot="title">
-                        <span>账号管理</span>
-                    </template>
-                    <el-menu-item-group>
-                        <el-menu-item index="6-1"><a href="member_list.html" target="iframeContent">账号管理</a>
-                        </el-menu-item>
-                        <el-menu-item index="6-2"><a href="member_add.html" target="iframeContent">添加账号</a>
-                        </el-menu-item>
-                        <el-menu-item index="6-3"><a href="member_editPwd.html" target="iframeContent">密码修改</a>
-                        </el-menu-item>
+                        <el-menu-item index="6-1">销售统计</el-menu-item>
+                        <el-menu-item index="6-2">进货统计</el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>
                 <el-submenu v-if="menu7" index="7">
                     <template slot="title">
-                        <span>会员管理</span>
+                        <span>账号管理</span>
                     </template>
                     <el-menu-item-group>
-                        <el-menu-item index="7-1"><a href="users_list.html" target="iframeContent">账号管理</a>
+                        <el-menu-item index="7-1"><a href="member_list.html" target="iframeContent">账号管理</a>
                         </el-menu-item>
-                        <el-menu-item index="7-2"><a href="users_add.html" target="iframeContent">添加账号</a>
+                        <el-menu-item index="7-2"><a href="member_add.html" target="iframeContent">添加账号</a>
+                        </el-menu-item>
+                        <el-menu-item index="7-3"><a href="member_editPwd.html" target="iframeContent">密码修改</a>
                         </el-menu-item>
                     </el-menu-item-group>
                 </el-submenu>

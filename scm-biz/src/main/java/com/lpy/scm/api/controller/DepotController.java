@@ -37,10 +37,10 @@ public class DepotController {
         return ApiResponse.success().setMsg("添加成功");
     }
 
-    @RequestMapping(value = "list", method = RequestMethod.GET)
+    @RequestMapping(value = "list", method = RequestMethod.POST)
     @ResponseBody
-    public PageResponse<DepotDTO> listDepot() throws ParamException {
-        PageInfo<DepotDo> depots = depotService.getDepots(1, 100);
+    public PageResponse<DepotDTO> listDepot(int pageNo, int pageSize) throws ParamException {
+        PageInfo<DepotDo> depots = depotService.getDepots(pageNo, pageSize);
         PageResponse<DepotDTO> depotDoPageResponse = new PageResponse<>();
         depotDoPageResponse.setTotal(depots.getTotal());
         depotDoPageResponse.setMsg("查询成功");
