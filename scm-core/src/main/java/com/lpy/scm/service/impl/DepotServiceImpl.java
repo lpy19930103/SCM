@@ -6,11 +6,13 @@ import com.github.pagehelper.PageInfo;
 import com.lpy.scm.base.service.impl.BaseServiceImpl;
 import com.lpy.scm.dao.DepotMapper;
 import com.lpy.scm.dataobject.DepotDo;
+import com.lpy.scm.dto.DepotDTO;
 import com.lpy.scm.exception.ParamException;
 import com.lpy.scm.param.AddDepotParam;
 import com.lpy.scm.param.EditDepotParam;
 import com.lpy.scm.service.DepotService;
 import com.lpy.scm.utils.AssertUtil;
+import com.lpy.scm.utils.BeanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
@@ -64,5 +66,13 @@ public class DepotServiceImpl extends BaseServiceImpl<DepotDo> implements DepotS
     @Override
     public void deleteDepot(Long id) {
         depotMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public DepotDTO queryDepotById(Long id) throws ParamException {
+        DepotDo depotDo = depotMapper.selectByPrimaryKey(id);
+        AssertUtil.isNullObj(depotDo, "未查询到仓库信息");
+        return BeanUtil.convertObject(depotDo
+                , DepotDTO.class);
     }
 }

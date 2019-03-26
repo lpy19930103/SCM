@@ -39,6 +39,12 @@ public class DepotController {
         return ApiResponse.success().setMsg("添加成功");
     }
 
+    @RequestMapping(value = "{id}")
+    @ResponseBody
+    public ApiResponse<DepotDTO> addDepot(@PathVariable(value = "id") Long id) throws ParamException {
+        return ApiResponse.success().setData(depotService.queryDepotById(id));
+    }
+
     @RequestMapping(value = "edit", method = RequestMethod.POST)
     @ResponseBody
     public ApiResponse editDepot(EditDepotParam editDepotParam) {

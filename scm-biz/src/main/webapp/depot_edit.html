@@ -91,8 +91,6 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        let index = (location.href.indexOf('=') + 1);
-                        this.ruleForm2.id = location.href.substr(index);
                         $.post('/depot/edit', this.ruleForm2, (data) => {
                             //处理数据
                             if (data.code === 0) {
@@ -106,12 +104,29 @@
                         return false;
                     }
                 });
+            }, getDepot() {
+                $.get('/depot/' + this.ruleForm2.id, (data) => {
+                    if (data.code === 0) {
+                        this.ruleForm2.depotName = data.data.depotName;
+                        this.ruleForm2.depotAddress = data.data.depotAddress;
+                        this.ruleForm2.depotDes = data.data.depotDes;
+                        this.ruleForm2.adminId = data.data.adminId;
+                        this.ruleForm2.adminName = data.data.adminName;
+                    } else {
+                        alert(data.msg)
+                    }
+
+                })
             },
             resetForm(formName) {
                 this.$refs[formName].resetFields();
             },
 
-        },
+        }, mounted() {
+            let index = (location.href.indexOf('=') + 1);
+            this.ruleForm2.id = location.href.substr(index);
+            this.getDepot();
+        }
     })
 </script>
 

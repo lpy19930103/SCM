@@ -22,5 +22,5 @@ public interface DepotService extends BaseService<DepotDo> {
 
     void deleteDepot(Long id);
 
-    DepotDTO queryDepotById();
+    DepotDTO queryDepotById(Long id) throws ParamException;
 }
