@@ -33,15 +33,16 @@ public class StockServiceImpl implements StockService {
     @Autowired
     private StockMapper mStockMapper;
 
-
     @Override
-    public void editStockByCode(String productCode, int num, long price, Long salePrice) throws ParamException {
-        editStock(productCode, num, price, salePrice);
+    public void editStockByCode(String StockCode, int num, long price, Long salePrice, Long depotId, String depotName) throws ParamException {
+        editStock(StockCode, num, price, salePrice, depotId, depotName);
+
     }
 
     @Override
-    public void addStockByCode(String productCode, int num, long price) throws ParamException {
-        addStock(productCode, num, price);
+    public void addStockByCode(String StockCode, int num, long price, Long depotId, String depotName) throws ParamException {
+        addStock(StockCode, num, price, depotId, depotName);
+
     }
 
     @Override
@@ -49,15 +50,17 @@ public class StockServiceImpl implements StockService {
         return BeanUtil.convertObject(mStockMapper.selectByPrimaryKey(id), StockDTO.class);
     }
 
-    private void editStock(String productCode, int num, long price, Long salePrice) throws ParamException {
-        StockDO stockDO = mStockMapper.queryStockByCode(productCode);
+    private void editStock(String StockCode, int num, long price, Long salePrice, Long depotId, String depotName) throws ParamException {
+        StockDO stockDO = mStockMapper.queryStockByCode(StockCode);
         AssertUtil.isNullObj(stockDO, "未查询到该库存信息");
 
         ProductDO productDO = new ProductDO();
-        productDO.setCode(productCode);
+        productDO.setCode(StockCode);
         ProductDO productDO1 = productMapper.selectOne(productDO);
         AssertUtil.isNullObj(productDO1, "未查询到该商品");
 
+        stockDO.setDepotId(depotId);
+        stockDO.setDepotName(depotName);
         stockDO.setStockNum(num);
         stockDO.setSalePrice(salePrice);
         stockDO.setUpdateAt(new Date());
@@ -75,13 +78,13 @@ public class StockServiceImpl implements StockService {
         productMapper.updateByExampleSelective(productDO1, example);
     }
 
-    private void addStock(String productCode, int num, long price) throws ParamException {
-        if (mStockMapper.queryStockByCode(productCode) != null) {
+    private void addStock(String StockCode, int num, long price, Long depotId, String depotName) throws ParamException {
+        if (mStockMapper.queryStockByCode(StockCode) != null) {
             throw new ParamException(ExceptionCode.PARAM_ERROR, "已存在当前商品库存信息");
         }
 
         ProductDO productDO = new ProductDO();
-        productDO.setCode(productCode);
+        productDO.setCode(StockCode);
         ProductDO productDO1 = productMapper.selectOne(productDO);
         AssertUtil.isNullObj(productDO1, "未查询到该商品");
         Date date = new Date();
@@ -90,13 +93,14 @@ public class StockServiceImpl implements StockService {
         stockDO.setPurchasePrice(price);
         stockDO.setSalePrice(productDO1.getSalePrice());
 
-        stockDO.setGoodsCode(productCode);
+        stockDO.setGoodsCode(StockCode);
         stockDO.setGoodsImage(productDO1.getImage());
         stockDO.setGoodsName(productDO1.getName());
         stockDO.setStockTotal(num);
         stockDO.setStockNum(num);
         stockDO.setSaleNum(0);
-
+        stockDO.setDepotId(depotId);
+        stockDO.setDepotName(depotName);
         stockDO.setCreateAt(date);
         stockDO.setUpdateAt(date);
         stockDO.setCategoryId(productDO1.getCategoryId());

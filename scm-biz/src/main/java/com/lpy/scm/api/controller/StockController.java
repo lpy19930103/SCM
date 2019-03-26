@@ -36,15 +36,15 @@ public class StockController {
 
     @RequestMapping("add")
     @ResponseBody
-    public ApiResponse addStockByCode(String barCode, Integer productNum, Long purchasePrice) throws ParamException {
-        stockService.addStockByCode(barCode, productNum, purchasePrice);
+    public ApiResponse addStockByCode(String barCode, Integer productNum, Long purchasePrice, Long depotId, String depotName) throws ParamException {
+        stockService.addStockByCode(barCode, productNum, purchasePrice, depotId, depotName);
         return ApiResponse.success();
     }
 
     @RequestMapping("edit")
     @ResponseBody
-    public ApiResponse editStockByCode(String barCode, Integer productNum, Long purchasePrice, Long salePrice) throws ParamException {
-        stockService.editStockByCode(barCode, productNum, purchasePrice, salePrice);
+    public ApiResponse editStockByCode(String barCode, Integer productNum, Long purchasePrice, Long salePrice, Long depotId, String depotName) throws ParamException {
+        stockService.editStockByCode(barCode, productNum, purchasePrice, salePrice, depotId, depotName);
         return ApiResponse.success();
     }
 

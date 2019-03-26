@@ -16,9 +16,9 @@ public interface StockService {
 
     void deleteStockById(Long id) throws ParamException;
 
-    void editStockByCode(String StockCode, int num, long price, Long salePrice) throws ParamException;
+    void editStockByCode(String StockCode, int num, long price, Long salePrice, Long depotId, String depotName) throws ParamException;
 
-    void addStockByCode(String StockCode, int num, long price) throws ParamException;
+    void addStockByCode(String StockCode, int num, long price, Long depotId, String depotName) throws ParamException;
 
     StockDTO queryStockById(Long id);
 

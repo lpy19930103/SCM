@@ -33,11 +33,19 @@
                     </el-form-item>
                     <el-form-item label="数量：" prop="productNum">
                         <el-input v-model.number="ruleForm2.productNum"></el-input>
-                        <p>计重商品单位为</p>
                     </el-form-item>
                     <el-form-item label="进价：" prop="purchasePrice">
                         <el-input v-model="ruleForm2.purchasePrice"></el-input>
                     </el-form-item>
+
+                    <el-form-item label="选择仓库：" prop="depotIndex" >
+                        <el-select v-model="depotIndex" filterable placeholder="---选择仓库---" :rules="rules1">
+                            <el-option v-for="(item,index) in options" :key="index" :label="item.depotName"
+                                       :value="index">
+                            </el-option>
+                        </el-select>
+                    </el-form-item>
+
                     <el-form-item>
                         <el-button type="primary" @click="submitForm('ruleForm2')">入库</el-button>
                         <el-button @click="resetForm('ruleForm2')">重置</el-button>
@@ -63,8 +71,12 @@
                 ruleForm2: {
                     barCode: '',
                     productNum: '',
-                    purchasePrice: ''
+                    purchasePrice: '',
+                    depotId: '',
+                    depotName: ""
                 },
+                depotIndex: '',
+                options: [],
                 rules2: {
                     barCode: [
                         {required: true, message: "请输入商品条形码", trigger: 'blur'}
@@ -76,12 +88,22 @@
                         {required: true, message: "请输入商品进价", trigger: 'blur'}
                     ]
                 },
+                rules1: {
+                    depotIndex: [
+                        {required: true, message: "请选择仓库", trigger: 'change'}
+                    ]
+                },
             };
         },
         methods: {
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
+                        var jsonData = JSON.stringify(this.options[this.depotIndex]);// 转成JSON格式
+                        var result = $.parseJSON(jsonData)
+                        this.ruleForm2.depotName = result.depotName;
+                        this.ruleForm2.depotId = result.id;
+
                         $.post('/stock/add', this.ruleForm2, (data) => {
                             //处理数据
                             if (data.code === 0) {
@@ -98,7 +120,21 @@
             },
             resetForm(formName) {
                 this.$refs[formName].resetFields();
-            }
+            },
+            getDepot() {
+                $.get('/depot/list', (data) => {
+                    if (data.code === 0) {
+                        this.options = data.data;
+                    } else {
+                        alert(data.msg)
+                    }
+
+                })
+            },
+        },
+
+        mounted() {
+            this.getDepot();
         }
     })
 </script>

@@ -12,6 +12,7 @@ import com.lpy.scm.utils.BeanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
@@ -22,30 +23,24 @@ import java.util.List;
  * @date 2019/3/26 15:09
  */
 @Controller
-@RequestMapping(name = "depot")
+@RequestMapping("depot")
 public class DepotController {
 
 
     @Autowired
     private DepotService depotService;
 
-    @RequestMapping("add")
+    @RequestMapping(value = "add", method = RequestMethod.POST)
     @ResponseBody
     public ApiResponse addDepot(AddDepotParam addDepotParam) {
         depotService.addDepot(addDepotParam);
         return ApiResponse.success().setMsg("添加成功");
     }
 
-    @RequestMapping("list")
+    @RequestMapping(value = "list", method = RequestMethod.GET)
     @ResponseBody
-    public PageResponse<DepotDTO> listDepot(int page, int row) throws ParamException {
-        if (page == 0) {
-            page = 1;
-        }
-        if (row == 0) {
-            row = 100;
-        }
-        PageInfo<DepotDo> depots = depotService.getDepots(page, row);
+    public PageResponse<DepotDTO> listDepot() throws ParamException {
+        PageInfo<DepotDo> depots = depotService.getDepots(1, 100);
         PageResponse<DepotDTO> depotDoPageResponse = new PageResponse<>();
         depotDoPageResponse.setTotal(depots.getTotal());
         depotDoPageResponse.setMsg("查询成功");
