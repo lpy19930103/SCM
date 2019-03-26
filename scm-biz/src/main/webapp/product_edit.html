@@ -43,19 +43,19 @@
                     <el-form-item label="商品名称：" prop="productName">
                         <el-input v-model="ruleForm2.productName"></el-input>
                     </el-form-item>
-                    <el-form-item label="商品进价：" prop="purchasePrice">
-                        <el-input v-model="ruleForm2.purchasePrice" @blur='getPrice'></el-input>
-                        元
-                    </el-form-item>
-                    <el-form-item label="商品售价：" prop="productPrice">
-                        <el-input v-model="ruleForm2.productPrice" @blur='getPrice'></el-input>
-                        元
-                    </el-form-item>
+                    <!--  <el-form-item label="商品进价：" prop="purchasePrice">
+                          <el-input v-model="ruleForm2.purchasePrice" @blur='getPrice'></el-input>
+                          元
+                      </el-form-item>
+                      <el-form-item label="商品售价：" prop="productPrice">
+                          <el-input v-model="ruleForm2.productPrice" @blur='getPrice'></el-input>
+                          元
+                      </el-form-item>
 
-                    <el-form-item label="入库数量：" prop="storageNum">
-                        <el-input v-model="ruleForm2.storageNum"></el-input>
-                        <p v-model="unitTip">{{unitTip}}</p>
-                    </el-form-item>
+                      <el-form-item label="入库数量：" prop="storageNum">
+                          <el-input v-model="ruleForm2.storageNum"></el-input>
+                          <p v-model="unitTip">{{unitTip}}</p>
+                      </el-form-item>-->
                     <el-form-item label="商品单位：" prop="productUnit">
                         <el-input v-model="ruleForm2.productUnit" @blur='getUnit'></el-input>
                     </el-form-item>
@@ -92,9 +92,9 @@
                     id: '',
                     code: '',  //条形码
                     productName: '', //商品名称
-                    productPrice: '', //商品售价
-                    purchasePrice: '', //商品进价
-                    storageNum: '', //入库数量
+                    // productPrice: '', //商品售价
+                    // purchasePrice: '', //商品进价
+                    // storageNum: '', //入库数量
                     brand: '', //商品品牌
                     productUnit: '', //商品单位
                     productIntro: '', //商品简介
@@ -115,12 +115,13 @@
                     productName: [
                         {required: true, message: "请输入商品名称", trigger: 'blur'}
                     ],
-                    productPrice: [
-                        {required: true, message: "请输入商品售价", trigger: 'blur'}
-                    ], storageNum: [
-                        {required: true, message: "请输入商品数量", trigger: 'blur'}
-                    ], productUnit: [
-                        {required: true, message: "请输入商品品牌", trigger: 'blur'}
+                    // productPrice: [
+                    //     {required: true, message: "请输入商品售价", trigger: 'blur'}
+                    // ], storageNum: [
+                    //     {required: true, message: "请输入商品数量", trigger: 'blur'}
+                    // ],
+                    productUnit: [
+                        {required: true, message: "请输入计量单位", trigger: 'blur'}
                     ],
                 },
                 options: [],
@@ -156,7 +157,7 @@
                 $.get('/product/' + id, (data) => {
                     if (data.code === 0) {
                         this.ruleForm2.code = data.data.code;
-                        this.ruleForm2.productName = data.data.name ;
+                        this.ruleForm2.productName = data.data.name;
                         this.ruleForm2.productPrice = data.data.salePrice;
                         this.ruleForm2.purchasePrice = data.data.purchasePrice;
                         this.ruleForm2.storageNum = data.data.num;
@@ -209,7 +210,7 @@
                             }
                         });
 
-                        console.log(value.id  +" ---- "  +this.ruleForm2.productPartId)
+                        console.log(value.id + " ---- " + this.ruleForm2.productPartId)
 
                         this.options.forEach((value, index) => {
                             if (value.id === this.ruleForm2.productPartId) {

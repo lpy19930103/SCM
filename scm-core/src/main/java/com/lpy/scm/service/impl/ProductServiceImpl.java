@@ -43,28 +43,28 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductDO> implements Pr
 
     @Override
     public void addProduct(AddProductParam addProductParam) {
-        long purchasePrice = new BigDecimal(addProductParam.getPurchasePrice()).multiply(new BigDecimal(100)).longValue();
-        long productPrice = new BigDecimal(addProductParam.getProductPrice()).multiply(new BigDecimal(100)).longValue();
+//        long purchasePrice = new BigDecimal(addProductParam.getPurchasePrice()).multiply(new BigDecimal(100)).longValue();
+//        long productPrice = new BigDecimal(addProductParam.getProductPrice()).multiply(new BigDecimal(100)).longValue();
         ProductDO productDO = new ProductDO();
         productDO.setBrand(addProductParam.getBrand());
         productDO.setCategoryId(addProductParam.getProductPartId());
         productDO.setCategoryName(addProductParam.getProductPartName());
         productDO.setName(addProductParam.getProductName());
         productDO.setCode(addProductParam.getCode());
-        productDO.setPurchasePrice(purchasePrice);
-        productDO.setSalePrice(productPrice);
+//        productDO.setPurchasePrice(purchasePrice);
+//        productDO.setSalePrice(productPrice);
         productDO.setName(addProductParam.getProductName());
         productDO.setUnit(addProductParam.getProductUnit());
         productDO.setDes(addProductParam.getProductIntro());
-        productDO.setNum(addProductParam.getStorageNum());
+//        productDO.setNum(addProductParam.getStorageNum());
         productDO.setCreateAt(new Date());
         productMapper.insertSelective(productDO);
     }
 
     @Override
     public void editProduct(AddProductParam addProductParam) {
-        long purchasePrice = new BigDecimal(addProductParam.getPurchasePrice()).multiply(new BigDecimal(100)).longValue();
-        long productPrice = new BigDecimal(addProductParam.getProductPrice()).multiply(new BigDecimal(100)).longValue();
+//        long purchasePrice = new BigDecimal(addProductParam.getPurchasePrice()).multiply(new BigDecimal(100)).longValue();
+//        long productPrice = new BigDecimal(addProductParam.getProductPrice()).multiply(new BigDecimal(100)).longValue();
         ProductDO productDO = new ProductDO();
         productDO.setId(addProductParam.getId());
         productDO.setBrand(addProductParam.getBrand());
@@ -72,12 +72,12 @@ public class ProductServiceImpl extends BaseServiceImpl<ProductDO> implements Pr
         productDO.setCategoryName(addProductParam.getProductPartName());
         productDO.setName(addProductParam.getProductName());
         productDO.setCode(addProductParam.getCode());
-        productDO.setPurchasePrice(purchasePrice);
-        productDO.setSalePrice(productPrice);
+//        productDO.setPurchasePrice(purchasePrice);
+//        productDO.setSalePrice(productPrice);
         productDO.setName(addProductParam.getProductName());
         productDO.setUnit(addProductParam.getProductUnit());
         productDO.setDes(addProductParam.getProductIntro());
-        productDO.setNum(addProductParam.getStorageNum());
+//        productDO.setNum(addProductParam.getStorageNum());
         productDO.setUpdateAt(new Date());
         Example example = new Example(ProductDO.class);
         example.createCriteria().andEqualTo("id", productDO.getId());

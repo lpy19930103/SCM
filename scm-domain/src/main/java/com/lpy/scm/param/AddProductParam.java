@@ -8,9 +8,9 @@ public class AddProductParam {
     private Long id;
     private String code;
     private String productName;
-    private Float productPrice;
-    private Float purchasePrice;
-    private Integer storageNum;
+//    private Float productPrice;
+//    private Float purchasePrice;
+//    private Integer storageNum;
     private String brand;
     private String productUnit;
     private String productIntro;
@@ -58,29 +58,29 @@ public class AddProductParam {
         this.productName = productName;
     }
 
-    public Float getProductPrice() {
-        return productPrice;
-    }
-
-    public void setProductPrice(Float productPrice) {
-        this.productPrice = productPrice;
-    }
-
-    public Float getPurchasePrice() {
-        return purchasePrice;
-    }
-
-    public void setPurchasePrice(Float purchasePrice) {
-        this.purchasePrice = purchasePrice;
-    }
-
-    public Integer getStorageNum() {
-        return storageNum;
-    }
-
-    public void setStorageNum(Integer storageNum) {
-        this.storageNum = storageNum;
-    }
+//    public Float getProductPrice() {
+//        return productPrice;
+//    }
+//
+//    public void setProductPrice(Float productPrice) {
+//        this.productPrice = productPrice;
+//    }
+//
+//    public Float getPurchasePrice() {
+//        return purchasePrice;
+//    }
+//
+//    public void setPurchasePrice(Float purchasePrice) {
+//        this.purchasePrice = purchasePrice;
+//    }
+//
+//    public Integer getStorageNum() {
+//        return storageNum;
+//    }
+//
+//    public void setStorageNum(Integer storageNum) {
+//        this.storageNum = storageNum;
+//    }
 
     public String getBrand() {
         return brand;
