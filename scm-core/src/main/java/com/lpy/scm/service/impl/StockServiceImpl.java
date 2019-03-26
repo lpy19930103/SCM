@@ -7,8 +7,7 @@ import com.lpy.scm.dao.StockMapper;
 import com.lpy.scm.dataobject.ProductDO;
 import com.lpy.scm.dataobject.StockDO;
 import com.lpy.scm.dto.StockDTO;
-import com.lpy.scm.exception.BizException;
-import com.lpy.scm.exception.ErrorEnum;
+
 import com.lpy.scm.exception.ExceptionCode;
 import com.lpy.scm.exception.ParamException;
 import com.lpy.scm.param.ProductQueryParam;

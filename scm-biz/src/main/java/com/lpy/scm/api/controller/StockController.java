@@ -3,9 +3,7 @@ package com.lpy.scm.api.controller;
 import com.github.pagehelper.PageInfo;
 import com.lpy.scm.bean.ApiResponse;
 import com.lpy.scm.bean.PageResponse;
-import com.lpy.scm.dataobject.ProductDO;
 import com.lpy.scm.dataobject.StockDO;
-import com.lpy.scm.dto.ProductDTO;
 import com.lpy.scm.dto.StockDTO;
 import com.lpy.scm.exception.ParamException;
 import com.lpy.scm.param.ProductQueryParam;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author lpy
