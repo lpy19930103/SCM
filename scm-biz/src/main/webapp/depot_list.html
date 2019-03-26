@@ -34,12 +34,12 @@
                     </el-table-column>
                     <el-table-column label="仓库名称" width="180">
                         <template slot-scope="scope">
-                            <span >{{ scope.row.depotName }}</span>
+                            <span>{{ scope.row.depotName }}</span>
                         </template>
                     </el-table-column>
                     <el-table-column label="仓库地址" width="180">
                         <template slot-scope="scope">
-                            <span >{{ scope.row.depotAddress }}</span>
+                            <span>{{ scope.row.depotAddress }}</span>
                         </template>
                     </el-table-column>
                     <el-table-column label="仓库描述" width="180">
@@ -108,7 +108,7 @@
                 })
             },
             handleEdit(index, row) {
-                location.href = `stock_edit.html?id=${row.id}`;
+                location.href = `depot_edit.html?id=${row.id}`;
             },
             handleDelete(index, row) {
                 var result = confirm('确认删除？');

@@ -7,10 +7,12 @@ import com.lpy.scm.dataobject.DepotDo;
 import com.lpy.scm.dto.DepotDTO;
 import com.lpy.scm.exception.ParamException;
 import com.lpy.scm.param.AddDepotParam;
+import com.lpy.scm.param.EditDepotParam;
 import com.lpy.scm.service.DepotService;
 import com.lpy.scm.utils.BeanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,6 +37,20 @@ public class DepotController {
     public ApiResponse addDepot(AddDepotParam addDepotParam) {
         depotService.addDepot(addDepotParam);
         return ApiResponse.success().setMsg("添加成功");
+    }
+
+    @RequestMapping(value = "edit", method = RequestMethod.POST)
+    @ResponseBody
+    public ApiResponse editDepot(EditDepotParam editDepotParam) {
+        depotService.editDepot(editDepotParam);
+        return ApiResponse.success().setMsg("修改成功");
+    }
+
+    @RequestMapping("delete/{id}")
+    @ResponseBody
+    public ApiResponse deleteDepot(@PathVariable(value = "id") Long id) {
+        depotService.deleteDepot(id);
+        return ApiResponse.success().setMsg("删除成功");
     }
 
     @RequestMapping(value = "list", method = RequestMethod.POST)

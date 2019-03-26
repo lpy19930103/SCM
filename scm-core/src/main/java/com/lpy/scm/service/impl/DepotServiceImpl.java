@@ -8,10 +8,12 @@ import com.lpy.scm.dao.DepotMapper;
 import com.lpy.scm.dataobject.DepotDo;
 import com.lpy.scm.exception.ParamException;
 import com.lpy.scm.param.AddDepotParam;
+import com.lpy.scm.param.EditDepotParam;
 import com.lpy.scm.service.DepotService;
 import com.lpy.scm.utils.AssertUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import java.util.Date;
 import java.util.List;
@@ -30,13 +32,26 @@ public class DepotServiceImpl extends BaseServiceImpl<DepotDo> implements DepotS
         DepotDo depotDo = new DepotDo();
         depotDo.setAdminId(addDepotParam.getAdminId());
         depotDo.setAdminName(addDepotParam.getAdminName());
-        Date date = new Date();
         depotDo.setDepotDes(addDepotParam.getDepotDes());
         depotDo.setDepotAddress(addDepotParam.getDepotAddress());
         depotDo.setDepotName(addDepotParam.getDepotName());
         depotDo.setCreater("admin");
-        depotDo.setCreateAt(date);
+        depotDo.setCreateAt(new Date());
         depotMapper.insertSelective(depotDo);
+    }
+
+    @Override
+    public void editDepot(EditDepotParam editDepotParam) {
+        DepotDo depotDo = new DepotDo();
+        depotDo.setAdminId(editDepotParam.getAdminId());
+        depotDo.setAdminName(editDepotParam.getAdminName());
+        depotDo.setDepotDes(editDepotParam.getDepotDes());
+        depotDo.setDepotAddress(editDepotParam.getDepotAddress());
+        depotDo.setDepotName(editDepotParam.getDepotName());
+        depotDo.setUpdateAt(new Date());
+        Example example = new Example(DepotDo.class);
+        example.createCriteria().andEqualTo("id", editDepotParam.getId());
+        depotMapper.updateByExampleSelective(depotDo, example);
     }
 
     @Override
@@ -44,5 +59,10 @@ public class DepotServiceImpl extends BaseServiceImpl<DepotDo> implements DepotS
         List<DepotDo> depotDos = queryByPage(pageNo, pageSize);
         AssertUtil.isNullList(depotDos, "10001", "未查询到数据");
         return new PageInfo<DepotDo>(depotDos);
+    }
+
+    @Override
+    public void deleteDepot(Long id) {
+        depotMapper.deleteByPrimaryKey(id);
     }
 }
