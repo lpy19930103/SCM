@@ -3,7 +3,7 @@ package com.lpy.scm.api.controller;
 import com.github.pagehelper.PageInfo;
 import com.lpy.scm.bean.ApiResponse;
 import com.lpy.scm.bean.PageResponse;
-import com.lpy.scm.dataobject.DepotDo;
+import com.lpy.scm.dataobject.DepotDO;
 import com.lpy.scm.dto.DepotDTO;
 import com.lpy.scm.exception.ParamException;
 import com.lpy.scm.param.AddDepotParam;
@@ -62,13 +62,13 @@ public class DepotController {
     @RequestMapping(value = "list", method = RequestMethod.POST)
     @ResponseBody
     public PageResponse<DepotDTO> listDepot(int pageNo, int pageSize) throws ParamException {
-        PageInfo<DepotDo> depots = depotService.getDepots(pageNo, pageSize);
+        PageInfo<DepotDO> depots = depotService.getDepots(pageNo, pageSize);
         PageResponse<DepotDTO> depotDoPageResponse = new PageResponse<>();
         depotDoPageResponse.setTotal(depots.getTotal());
         depotDoPageResponse.setMsg("查询成功");
         depotDoPageResponse.setCode(0);
         List<DepotDTO> depotDTOS = new ArrayList<>();
-        for (DepotDo depotDo : depots.getList()) {
+        for (DepotDO depotDo : depots.getList()) {
             depotDTOS.add(BeanUtil.convertObject(depotDo, DepotDTO.class));
         }
         depotDoPageResponse.setData(depotDTOS);

@@ -8,7 +8,7 @@ import java.util.Date;
  * @date 2019/3/26 14:51
  */
 @Table(name = "base_depot")
-public class DepotDo {
+public class DepotDO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
