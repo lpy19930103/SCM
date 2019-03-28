@@ -26,7 +26,7 @@ public class OrderItemDO implements Serializable {
     @Column(name = "goods_total")
     private String totalFee;
     @Column(name = "order_id")
-    private String orderId;
+    private Long orderId;
 
     public String getId() {
         return id;
@@ -92,11 +92,11 @@ public class OrderItemDO implements Serializable {
         this.totalFee = totalFee;
     }
 
-    public String getOrderId() {
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(String orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
 }
