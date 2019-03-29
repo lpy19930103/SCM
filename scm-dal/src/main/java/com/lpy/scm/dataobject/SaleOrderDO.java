@@ -20,10 +20,10 @@ public class SaleOrderDO {
     private Long customerId;
 
     @Column(name = "customer_name")
-    private Column customerName;
+    private String customerName;
 
     @Column(name = "customer_phone")
-    private Column customerPhone;
+    private String customerPhone;
 
     @Column(name = "emp_id")
     private Long empId;
