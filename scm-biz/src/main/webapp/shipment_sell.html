@@ -31,10 +31,11 @@
                          label-width="100px" class="demo-ruleForm">
                     <div>
                         <el-form-item label="客户姓名：" prop="customerName">
-                            <el-input v-model="ruleForm2.customerName"></el-input>
+                            <el-input type="text" v-model="ruleForm2.customerName" autocomplete="off"></el-input>
                         </el-form-item>
                         <el-form-item label="客户电话：" prop="customerPhone">
-                            <el-input v-model.number="ruleForm2.customerPhone"></el-input>
+                            <el-input type="text" v-model.number="ruleForm2.customerPhone"
+                                      autocomplete="off"></el-input>
                         </el-form-item>
                     </div>
                     <el-form-item label="商品条形码:" prop="barCode">
@@ -44,7 +45,7 @@
                         <el-input type="text" v-model.number="ruleForm2.sellNum" autocomplete="off"></el-input>
                     </el-form-item>
                     <el-button type="primary" @click="addProduct()">加入订单</el-button>
-                    <el-button @click="resetForm('ruleForm2')">重新出库</el-button>
+                    <!--<el-button @click="resetForm('ruleForm2')">重新出库</el-button>-->
                     </el-form-item>
                     <!-- 数据中心 -->
                     <el-table :data="tableData" style="width: 100%" stripe="true">
@@ -68,7 +69,7 @@
                                 <span style="margin-left: 10px">{{ scope.row.totalFee /100}}</span>
                             </template>
                         </el-table-column>
-                        <el-table-column label="单位" width="180">
+                        <el-table-column label="    单位" width="180">
                             <template slot-scope="scope">
                                 <span>{{ scope.row.goodsUnit }}</span>
                             </template>
@@ -86,11 +87,11 @@
                     </el-table>
                     <br>
                     <!-- 页码 -->
-                  <!--  <el-pagination background layout="prev, pager, next" :total="40" prev-text='上一页' next-text='下一页'>
-                    </el-pagination>-->
+                    <!--  <el-pagination background layout="prev, pager, next" :total="40" prev-text='上一页' next-text='下一页'>
+                      </el-pagination>-->
 
                     <el-form-item style="margin-bottom: 20px">
-                        <el-button type="primary" @click="submitForm('ruleForm2')">确认提交</el-button>
+                        <el-button type="primary" @click="submitForm()">确认提交</el-button>
                         <el-button @click="resetForm('ruleForm2')">重置</el-button>
                     </el-form-item>
                 </el-form>
@@ -112,12 +113,24 @@
         data() {
             return {
                 ruleForm2: {
-                    barCode: '',
-                    sellNum: '',
+                    barCode: '15514215334116',
+                    sellNum: '1',
+                    customerName: '张三',
+                    customerPhone: '18519121233',
+                },
+                orderParam: {
+                    goodsTotal: 0,
                     customerName: '',
                     customerPhone: '',
+                    items: null
                 },
                 rules2: {
+                    customerName: [
+                        {required: true, message: '请输入客户姓名', trigger: 'blur'}
+                    ],
+                    customerPhone: [
+                        {required: true, message: '请输入客户电话', trigger: 'blur'}
+                    ],
                     barCode: [
                         {required: true, message: '请输入商品条形码', trigger: 'blur'}
                     ],
@@ -168,14 +181,30 @@
                             this.product.num = this.ruleForm2.sellNum;
                             this.product.totalFee = data.data.salePrice * this.ruleForm2.sellNum;
                             this.tableData.push(this.product);
-                            this.$refs[this.product].resetFields();
                         } else {
                             alert(data.msg);
                         }
                     }
                 )
             },
-            submitForm(ruleForm2) {
+            submitForm() {
+                this.orderParam.customerName = this.ruleForm2.customerName;
+                this.orderParam.customerPhone = this.ruleForm2.customerPhone;
+                this.orderParam.items = this.tableData;
+                for (var i = 0; i < this.tableData.length; i++) {
+                    this.orderParam.goodsTotal += this.tableData[i].price * this.tableData[i].num
+                }
+                if (this.orderParam.items == null || this.orderParam.items.length < 1) {
+                    alert("请先添加商品")
+                } else {
+                    $.post('/order/add', JSON.stringify(this.orderParam), (data) => {
+                        if (data.code === 0) {
+                            // location.href = 'product_list.html';
+                        } else {
+                            alert(data.msg);
+                        }
+                    })
+                }
 
             },
         }
