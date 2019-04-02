@@ -75,9 +75,9 @@
                         </el-table-column>
                         <el-table-column label="管理" fixed="right" width="180px">
                             <template slot-scope="scope">
-                                <el-button size="mini" @click="handleEdit(scope.$index, scope.row)" type="primary"
-                                           plain><i class="el-icon-edit"></i>编辑
-                                </el-button>
+                                <!--<el-button size="mini" @click="handleEdit(scope.$index, scope.row)" type="primary"-->
+                                <!--plain><i class="el-icon-edit"></i>编辑-->
+                                <!--</el-button>-->
                                 <el-button size="mini" @click="handleDelete(scope.$index, scope.row)" type="danger"
                                            plain><i class="el-icon-delete"></i>删除
                                 </el-button>
@@ -86,8 +86,8 @@
                     </el-table>
                     <br>
                     <!-- 页码 -->
-                    <el-pagination background layout="prev, pager, next" :total="40" prev-text='上一页' next-text='下一页'>
-                    </el-pagination>
+                  <!--  <el-pagination background layout="prev, pager, next" :total="40" prev-text='上一页' next-text='下一页'>
+                    </el-pagination>-->
 
                     <el-form-item style="margin-bottom: 20px">
                         <el-button type="primary" @click="submitForm('ruleForm2')">确认提交</el-button>
@@ -128,6 +128,7 @@
                 tableData: [],
                 product: {
                     goodsId: 0,
+                    goodsCode: '',
                     goodsName: '',
                     goodsUnit: '',
                     price: 0,
@@ -150,9 +151,16 @@
                 console.log('submit!');
             },
             addProduct() {
+                for (var i = 0; i < this.tableData.length; i++) {
+                    if (this.ruleForm2.barCode === this.tableData[i].goodsCode) {
+                        this.tableData[i].num = this.tableData[i].num + this.ruleForm2.sellNum;
+                        return;
+                    }
+                }
                 $.get('/order/product/' + this.ruleForm2.barCode, (data) => {
                         if (data.code === 0) {
                             this.product.goodsId = data.data.id;
+                            this.product.goodsCode = data.data.code;
                             this.product.goodsName = data.data.name;
                             this.product.goodsUnit = data.data.unit;
                             this.product.price = data.data.salePrice;
