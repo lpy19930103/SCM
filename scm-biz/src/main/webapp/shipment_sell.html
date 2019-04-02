@@ -29,6 +29,14 @@
                 <!-- 搜索 -->
                 <el-form label-position='top' :model="ruleForm2" status-icon :rules="rules2" ref="ruleForm2"
                          label-width="100px" class="demo-ruleForm">
+                    <el-form :inline="true"  class="demo-form-inline">
+                        <el-form-item label="客户姓名：" prop="customerName">
+                            <el-input v-model="ruleForm2.customerName"></el-input>
+                        </el-form-item>
+                        <el-form-item label="客户电话：" prop="customerPhone">
+                            <el-input  v-model.number="ruleForm2.customerPhone"></el-input>
+                        </el-form-item>
+                    </el-form>
                     <el-form-item label="商品条形码:" prop="barCode">
                         <el-input type="text" v-model="ruleForm2.barCode" autocomplete="off"></el-input>
                     </el-form-item>
@@ -81,9 +89,7 @@
                     <!-- 页码 -->
                     <el-pagination background layout="prev, pager, next" :total="40" prev-text='上一页' next-text='下一页'>
                     </el-pagination>
-                    <el-form-item label="会员卡号：" prop="cardNum">
-                        <el-input v-model.number="ruleForm2.cardNum"></el-input>
-                    </el-form-item>
+
                     <el-form-item>
                         <el-button type="primary" @click="submitForm('ruleForm2')">确认提交</el-button>
                         <el-button @click="resetForm('ruleForm2')">重置</el-button>
@@ -101,12 +107,6 @@
 <!-- 引入elementUI.js -->
 <script src="./javascripts/elementUI.js"></script>
 <script>
-    //读取数据
-    //定义变量存储数据
-    let tableData;
-    $.get('/user/list', (data) => {
-        tableData = data;
-    })
     //实例化Vue对象
     new Vue({
         el: '#app',
@@ -115,7 +115,8 @@
                 ruleForm2: {
                     barCode: '',
                     sellNum: '',
-                    cardNum: ''
+                    customerName: '',
+                    customerPhone: '',
                 },
                 rules2: {
                     barCode: [
@@ -142,10 +143,7 @@
                     name: '王小虎',
                     address: '上海市普陀区金沙江路 1516 弄'
                 }],
-                formInline: {
-                    user: '',
-                    region: ''
-                }
+
             }
         },
         methods: {
