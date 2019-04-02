@@ -3,6 +3,8 @@ package com.lpy.scm.service;
 import com.github.pagehelper.PageInfo;
 import com.lpy.scm.base.service.BaseService;
 import com.lpy.scm.dataobject.SaleOrderDO;
+import com.lpy.scm.dto.ProductDTO;
+import com.lpy.scm.exception.ParamException;
 import com.lpy.scm.param.OrderParam;
 
 /**
@@ -15,5 +17,7 @@ public interface SaleOrderService extends BaseService<SaleOrderDO> {
     void order(OrderParam orderParam);
 
     PageInfo<SaleOrderDO> orderList(int pageNo, int pageSize);
+
+    ProductDTO queryProductByCode(String code) throws ParamException;
 
 }

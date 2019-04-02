@@ -6,13 +6,13 @@ package com.lpy.scm.dto;
  */
 public class OrderItemDTO {
     private String id;
-    private String goodsId;
+    private Long goodsId;
     private String goodsName;
     private String goodsUnit;
-    private String price;
+    private Long price;
     private String goodsImage;
     private Integer num;
-    private String totalFee;
+    private Long totalFee;
     private Long orderId;
 
     public String getId() {
@@ -23,11 +23,11 @@ public class OrderItemDTO {
         this.id = id;
     }
 
-    public String getGoodsId() {
+    public Long getGoodsId() {
         return goodsId;
     }
 
-    public void setGoodsId(String goodsId) {
+    public void setGoodsId(Long goodsId) {
         this.goodsId = goodsId;
     }
 
@@ -47,11 +47,11 @@ public class OrderItemDTO {
         this.goodsUnit = goodsUnit;
     }
 
-    public String getPrice() {
+    public Long getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Long price) {
         this.price = price;
     }
 
@@ -71,11 +71,11 @@ public class OrderItemDTO {
         this.num = num;
     }
 
-    public String getTotalFee() {
+    public Long getTotalFee() {
         return totalFee;
     }
 
-    public void setTotalFee(String totalFee) {
+    public void setTotalFee(Long totalFee) {
         this.totalFee = totalFee;
     }
 

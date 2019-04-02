@@ -12,19 +12,19 @@ public class OrderItemDO implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
     @Column(name = "goods_id")
-    private String goodsId;
+    private Long goodsId;
     @Column(name = "goods_name")
     private String goodsName;
     @Column(name = "goods_unit")
     private String goodsUnit;
     @Column(name = "goods_price")
-    private String price;
+    private Long price;
     @Column(name = "goods_image")
     private String goodsImage;
     @Column(name = "goods_num")
     private Integer num;
     @Column(name = "goods_total")
-    private String totalFee;
+    private Long totalFee;
     @Column(name = "order_id")
     private Long orderId;
 
@@ -36,11 +36,11 @@ public class OrderItemDO implements Serializable {
         this.id = id;
     }
 
-    public String getGoodsId() {
+    public Long getGoodsId() {
         return goodsId;
     }
 
-    public void setGoodsId(String goodsId) {
+    public void setGoodsId(Long goodsId) {
         this.goodsId = goodsId;
     }
 
@@ -60,11 +60,11 @@ public class OrderItemDO implements Serializable {
         this.goodsUnit = goodsUnit;
     }
 
-    public String getPrice() {
+    public Long getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Long price) {
         this.price = price;
     }
 
@@ -84,11 +84,11 @@ public class OrderItemDO implements Serializable {
         this.num = num;
     }
 
-    public String getTotalFee() {
+    public Long getTotalFee() {
         return totalFee;
     }
 
-    public void setTotalFee(String totalFee) {
+    public void setTotalFee(Long totalFee) {
         this.totalFee = totalFee;
     }
 

@@ -1,7 +1,5 @@
 package com.lpy.scm.dto;
 
-import javax.persistence.*;
-import java.util.Date;
 
 /**
  * @author lpy
