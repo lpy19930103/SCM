@@ -47,6 +47,7 @@ public class SaleOrderServiceImpl extends BaseServiceImpl<SaleOrderDO> implement
         for (OrderItemDTO orderItemDTO : orderParam.getItems()) {
             OrderItemDO orderItemDO = new OrderItemDO();
             orderItemDO.setOrderId(nextGlobalId);
+            orderItemDO.setGoodsId(orderItemDTO.getGoodsId());
             orderItemDO.setGoodsName(orderItemDTO.getGoodsName());
             orderItemDO.setGoodsImage(orderItemDTO.getGoodsImage());
             orderItemDO.setNum(orderItemDTO.getNum());

@@ -197,13 +197,29 @@
                 if (this.orderParam.items == null || this.orderParam.items.length < 1) {
                     alert("请先添加商品")
                 } else {
-                    $.post('/order/add', JSON.stringify(this.orderParam), (data) => {
+                    $.ajax({
+                            type: "post",
+                            dataType: 'json',
+                            contentType: 'application/json',
+                            url: '/order/add',
+                            data: JSON.stringify(this.orderParam),
+                            success: (data) => {
+                                if (data.code === 0) {
+                                    // location.href = 'product_list.html';
+                                } else {
+                                    alert(data.msg);
+                                }
+                            }
+
+                        }
+                    );
+               /*     $.post('/order/add', JSON.stringify(this.orderParam), (data) => {
                         if (data.code === 0) {
                             // location.href = 'product_list.html';
                         } else {
                             alert(data.msg);
                         }
-                    })
+                    })*/
                 }
 
             },
