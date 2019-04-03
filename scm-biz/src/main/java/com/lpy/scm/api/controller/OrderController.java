@@ -7,10 +7,7 @@ import com.lpy.scm.param.OrderParam;
 import com.lpy.scm.service.SaleOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author lpy
@@ -30,7 +27,7 @@ public class OrderController {
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     @ResponseBody
-    public ApiResponse queryProductByCode(OrderParam orderParam) throws ParamException {
+    public ApiResponse queryProductByCode(@RequestBody OrderParam orderParam) throws ParamException {
         saleOrderService.order(orderParam);
         return ApiResponse.success().setMsg("下单成功");
     }

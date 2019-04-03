@@ -11,5 +11,5 @@ import java.util.List;
  * @date 2019/3/28 16:45
  */
 public interface OrderItemService extends BaseService<OrderItemDO> {
-    List<OrderItemDO> queryItemByOrderId(Long orderId);
+    List<OrderItemDO> queryItemByOrderId(String orderId);
 }

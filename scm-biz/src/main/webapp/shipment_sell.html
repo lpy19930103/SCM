@@ -166,7 +166,7 @@
             addProduct() {
                 for (var i = 0; i < this.tableData.length; i++) {
                     if (this.ruleForm2.barCode === this.tableData[i].goodsCode) {
-                        this.tableData[i].num = this.tableData[i].num + this.ruleForm2.sellNum;
+                        this.tableData[i].num = parseInt(this.tableData[i].num) + parseInt(this.ruleForm2.sellNum);
                         return;
                     }
                 }
