@@ -16,7 +16,7 @@ public class OrderTask {
     private SaleOrderMapper saleOrderMapper;
 
 
-    @Scheduled(cron = "10 * * * * ? ") // 间隔10分执行
+    @Scheduled(cron = "* 0/10 * * * ? ") // 间隔10分执行
     public void orderClose() {
         saleOrderMapper.closeOrderTask();
         System.out.println("批量关闭未支付订单");
