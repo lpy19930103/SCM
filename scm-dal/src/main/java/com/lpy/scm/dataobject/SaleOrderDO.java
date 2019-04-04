@@ -42,6 +42,7 @@ public class SaleOrderDO {
     @Column(name = "out_time")
     private Date outTime;
 
+    //1:下单未付款,2:已付款,3已出库,4已配送,5申请退款,待审核,6,同意退款,退款中,7已退款,8已完成,9已关闭
     @Column(name = "order_type")
     private Integer orderType;
 
