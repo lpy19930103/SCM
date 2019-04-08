@@ -50,37 +50,37 @@
                 <el-table :data="tableData" style="width: 100%" stripe="true">
                     <el-table-column label="订单号" width="180">
                         <template slot-scope="scope">
-                            <span style="margin-left: 10px">{{ scope.row.date }}</span>
+                            <span style="margin-left: 10px">{{ scope.row.id }}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column label="名称" width="180">
+                    <el-table-column label="客户姓名" width="180">
                         <template slot-scope="scope">
-                            <span style="margin-left: 10px">{{ scope.row.name }}</span>
+                            <span style="margin-left: 10px">{{ scope.row.customerName }}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column label="数量" width="180">
+                    <el-table-column label="联系电话" width="180">
                         <template slot-scope="scope">
-                            <span style="margin-left: 10px">{{ scope.row.name }}</span>
+                            <span style="margin-left: 10px">{{ scope.row.customerPhone }}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column label="实际售价" width="180">
+                    <el-table-column label="总价" width="180">
                         <template slot-scope="scope">
-                            <span style="margin-left: 10px">{{ scope.row.name }}</span>
+                            <span>{{ scope.row.goodsTotal }}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column label="优惠（促销/会员）" width="180">
+                    <el-table-column label="订单状态" width="180">
                         <template slot-scope="scope">
-                            <span style="margin-left: 10px">{{ scope.row.name }}</span>
+                            <span style="margin-left: 10px">{{ scope.row.orderType }}</span>
                         </template>
                     </el-table-column>
-                    <el-table-column label="退款" width="180">
+                    <el-table-column label="审核状态" width="180">
                         <template slot-scope="scope">
-                            <span style="margin-left: 10px">{{ scope.row.name }}</span>
+                            <span style="margin-left: 10px">{{ scope.row.reviewStatus }}</span>
                         </template>
                     </el-table-column>
                     <el-table-column label="销售时间" width="180">
                         <template slot-scope="scope">
-                            <span style="margin-left: 10px">{{ scope.row.name }}</span>
+                            <span style="margin-left: 10px">{{ scope.row.createAt }}</span>
                         </template>
                     </el-table-column>
                     <el-table-column label="管理" fixed="right" width="180px">

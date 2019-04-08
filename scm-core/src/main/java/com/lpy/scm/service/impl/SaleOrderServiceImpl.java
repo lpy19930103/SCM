@@ -43,6 +43,7 @@ public class SaleOrderServiceImpl extends BaseServiceImpl<SaleOrderDO> implement
     private SystemConfigManager systemConfigManager;
 
 
+    //todo 商品对应仓库查询 ,商品数量增加,事务
     @Override
     public void order(OrderParam orderParam) {
         String nextGlobalId = systemConfigManager.getNextGlobalId(GlobalIdBizType.SCM_ORDER);
@@ -64,6 +65,8 @@ public class SaleOrderServiceImpl extends BaseServiceImpl<SaleOrderDO> implement
 
         SaleOrderDO saleOrderDO = new SaleOrderDO();
         saleOrderDO.setCreateAt(new Date());
+        saleOrderDO.setReviewStatus(0);
+
         saleOrderDO.setCustomerName(orderParam.getCustomerName());
         saleOrderDO.setCustomerPhone(orderParam.getCustomerPhone());
         saleOrderDO.setGoodsTotal(orderParam.getGoodsTotal());

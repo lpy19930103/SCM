@@ -2,6 +2,7 @@ package com.lpy.scm.dto;
 
 import javax.persistence.Id;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author lpy
@@ -13,8 +14,6 @@ public class SaleOrderDTO {
 
     private Long goodsTotal;
 
-    private Long customerId;
-
     private String customerName;
 
     private String customerPhone;
@@ -23,6 +22,7 @@ public class SaleOrderDTO {
 
     private String saleDes;
 
+    //审核状态:0未审核,1已审核
     private Integer reviewStatus;
 
     private String reviewName;
@@ -37,6 +37,26 @@ public class SaleOrderDTO {
     private Long depotId;
 
     private String depotName;
+
+    private Date createAt;
+
+    private List<OrderItemDTO> orderItemDTO;
+
+    public List<OrderItemDTO> getOrderItemDTO() {
+        return orderItemDTO;
+    }
+
+    public void setOrderItemDTO(List<OrderItemDTO> orderItemDTO) {
+        this.orderItemDTO = orderItemDTO;
+    }
+
+    public Date getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(Date createAt) {
+        this.createAt = createAt;
+    }
 
     public String getId() {
         return id;
@@ -54,13 +74,6 @@ public class SaleOrderDTO {
         this.goodsTotal = goodsTotal;
     }
 
-    public Long getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(Long customerId) {
-        this.customerId = customerId;
-    }
 
     public String getCustomerName() {
         return customerName;
