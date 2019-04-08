@@ -29,22 +29,22 @@
     </update>
 
     <select id="queryOrder" parameterType="com.lpy.scm.param.QueryOrderParam"
-            resultMap="com.lpy.scm.dataobject.SaleOrderDO">
+            resultType="com.lpy.scm.dataobject.SaleOrderDO">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM base_goods
+        FROM sale_order
         <choose>
 
             <when test="startTime != null and startTime != '' and endTime != null and endTime != ''">
                 WHERE
                 create_at between #{startTime} and #{endTime}
-                <if test="keyWords!=null and keyWords!=''">
+                <if test="keyWord!=null and keyWord!=''">
                     AND goods_name LIKE '%${keyWords}%'
                 </if>
             </when>
 
             <otherwise>
-                <if test="keyWords!=null and keyWords!=''">
+                <if test="keyWord!=null and keyWord!=''">
                     WHERE goods_name LIKE '%${keyWords}%'
                 </if>
             </otherwise>

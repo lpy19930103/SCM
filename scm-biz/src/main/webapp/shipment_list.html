@@ -147,6 +147,19 @@
                 this.ruleForm2.pageNo = val;
                 this.getProduct();
             },
+            orderList() {
+                $.post("/order/list", this.ruleForm2, (data) => {
+                    if (data.code === 0) {
+                        this.tableData = data.data;
+                        this.total = data.total
+                    } else {
+                        alert(data.msg)
+                    }
+                });
+            }
+        },
+        mounted() {
+            this.orderList()
         }
 
     })
