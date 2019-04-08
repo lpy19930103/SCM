@@ -3,15 +3,19 @@ package com.lpy.scm.api.controller;
 import com.github.pagehelper.PageInfo;
 import com.lpy.scm.bean.ApiResponse;
 import com.lpy.scm.bean.PageResponse;
+import com.lpy.scm.dataobject.SaleOrderDO;
 import com.lpy.scm.dto.ProductDTO;
 import com.lpy.scm.dto.SaleOrderDTO;
 import com.lpy.scm.exception.ParamException;
 import com.lpy.scm.param.OrderParam;
 import com.lpy.scm.param.QueryOrderParam;
 import com.lpy.scm.service.SaleOrderService;
+import com.lpy.scm.utils.BeanUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 /**
  * @author lpy
@@ -39,9 +43,13 @@ public class OrderController {
     @RequestMapping(value = "list", method = RequestMethod.POST)
     @ResponseBody
     public PageResponse<SaleOrderDTO> list(QueryOrderParam queryOrderParam) throws ParamException {
-        PageInfo<SaleOrderDTO> list = saleOrderService.orderList(queryOrderParam);
+        PageInfo<SaleOrderDO> list = saleOrderService.orderList(queryOrderParam);
         PageResponse<SaleOrderDTO> saleOrderDTOPageResponse = new PageResponse<>();
-        saleOrderDTOPageResponse.setData(list.getList());
+        ArrayList<SaleOrderDTO> saleOrderDTOS = new ArrayList<>();
+        for (SaleOrderDO saleOrderDO : list.getList()) {
+            saleOrderDTOS.add(BeanUtil.convertObject(saleOrderDO, SaleOrderDTO.class));
+        }
+        saleOrderDTOPageResponse.setData(saleOrderDTOS);
         saleOrderDTOPageResponse.setCode(0);
         saleOrderDTOPageResponse.setTotal(list.getTotal());
         saleOrderDTOPageResponse.setMsg("查询成功");

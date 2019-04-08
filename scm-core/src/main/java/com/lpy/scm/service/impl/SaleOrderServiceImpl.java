@@ -11,7 +11,6 @@ import com.lpy.scm.dataobject.ProductDO;
 import com.lpy.scm.dataobject.SaleOrderDO;
 import com.lpy.scm.dto.OrderItemDTO;
 import com.lpy.scm.dto.ProductDTO;
-import com.lpy.scm.dto.SaleOrderDTO;
 import com.lpy.scm.enums.system.GlobalIdBizType;
 import com.lpy.scm.exception.ParamException;
 import com.lpy.scm.manager.SystemConfigManager;
@@ -87,15 +86,11 @@ public class SaleOrderServiceImpl extends BaseServiceImpl<SaleOrderDO> implement
     }
 
     @Override
-    public PageInfo<SaleOrderDTO> orderList(QueryOrderParam queryOrderParam) throws ParamException {
+    public PageInfo<SaleOrderDO> orderList(QueryOrderParam queryOrderParam) throws ParamException {
         PageHelper.startPage(queryOrderParam.getPageNo(), queryOrderParam.getPageSize());
         List<SaleOrderDO> saleOrderDOS = saleOrderMapper.queryOrder(queryOrderParam);
         AssertUtil.isNullList(saleOrderDOS, "10001", "未查询到数据");
-        ArrayList<SaleOrderDTO> saleOrderDTOS = new ArrayList<>();
-        for (SaleOrderDO saleOrderDO : saleOrderDOS) {
-            saleOrderDTOS.add(BeanUtil.convertObject(saleOrderDO, SaleOrderDTO.class));
-        }
-        return new PageInfo<>(saleOrderDTOS);
+        return new PageInfo<>(saleOrderDOS);
     }
 
 

@@ -34,10 +34,6 @@ public class SaleOrderDTO {
     //1:下单未付款,2:已付款,3已出库,4已配送,5申请退款,待审核,6,同意退款,退款中,7已退款,8已完成,9已关闭
     private Integer orderType;
 
-    private Long depotId;
-
-    private String depotName;
-
     private Date createAt;
 
     private List<OrderItemDTO> orderItemDTO;
@@ -145,22 +141,6 @@ public class SaleOrderDTO {
 
     public void setOrderType(Integer orderType) {
         this.orderType = orderType;
-    }
-
-    public Long getDepotId() {
-        return depotId;
-    }
-
-    public void setDepotId(Long depotId) {
-        this.depotId = depotId;
-    }
-
-    public String getDepotName() {
-        return depotName;
-    }
-
-    public void setDepotName(String depotName) {
-        this.depotName = depotName;
     }
 
 }

@@ -12,8 +12,21 @@
         review_at,
         out_time,
         order_type,
-        depot_name
+        create_at
     </sql>
+
+    <resultMap id="BaseResultMap" type="com.lpy.scm.dataobject.SaleOrderDO">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="goods_total" property="goodsTotal" jdbcType="BIGINT"/>
+        <result column="customer_name" property="customerName" jdbcType="VARCHAR"/>
+        <result column="customer_phone" property="customerPhone" jdbcType="VARCHAR"/>
+        <result column="review_status" property="reviewStatus" jdbcType="INTEGER"/>
+        <result column="review_name" property="reviewName" jdbcType="VARCHAR"/>
+        <result column="review_at" property="reviewAt" jdbcType="TIMESTAMP"/>
+        <result column="out_time" property="outTime" jdbcType="TIMESTAMP"/>
+        <result column="order_type" property="orderType" jdbcType="INTEGER"/>
+        <result column="create_at" property="createAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
 
 
     <update id="closeOrderTask">
@@ -28,8 +41,10 @@
         and create_at &lt; now()-interval 10 minute
     </update>
 
+
+
     <select id="queryOrder" parameterType="com.lpy.scm.param.QueryOrderParam"
-            resultType="com.lpy.scm.dataobject.SaleOrderDO">
+            resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM sale_order
