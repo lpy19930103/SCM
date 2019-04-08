@@ -42,7 +42,6 @@
     </update>
 
 
-
     <select id="queryOrder" parameterType="com.lpy.scm.param.QueryOrderParam"
             resultMap="BaseResultMap">
         SELECT
@@ -54,13 +53,21 @@
                 WHERE
                 create_at between #{startTime} and #{endTime}
                 <if test="keyWord!=null and keyWord!=''">
-                    AND goods_name LIKE '%${keyWords}%'
+                    AND
+                    (id LIKE '%${keyWord}%'
+                    or customer_name LIKE '%${keyWord}%'
+                    or customer_phone LIKE '%${keyWord}%'
+                    )
                 </if>
             </when>
 
             <otherwise>
                 <if test="keyWord!=null and keyWord!=''">
-                    WHERE goods_name LIKE '%${keyWords}%'
+                    WHERE
+                    (id LIKE '%${keyWord}%'
+                    or customer_name LIKE '%${keyWord}%'
+                    or customer_phone LIKE '%${keyWord}%')
+
                 </if>
             </otherwise>
         </choose>
