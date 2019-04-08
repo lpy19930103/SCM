@@ -1,5 +1,6 @@
 package com.lpy.scm.service.impl;
 
+import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.lpy.scm.base.service.impl.BaseServiceImpl;
 import com.lpy.scm.dao.OrderItemMapper;
@@ -10,10 +11,12 @@ import com.lpy.scm.dataobject.ProductDO;
 import com.lpy.scm.dataobject.SaleOrderDO;
 import com.lpy.scm.dto.OrderItemDTO;
 import com.lpy.scm.dto.ProductDTO;
+import com.lpy.scm.dto.SaleOrderDTO;
 import com.lpy.scm.enums.system.GlobalIdBizType;
 import com.lpy.scm.exception.ParamException;
 import com.lpy.scm.manager.SystemConfigManager;
 import com.lpy.scm.param.OrderParam;
+import com.lpy.scm.param.QueryOrderParam;
 import com.lpy.scm.service.SaleOrderService;
 import com.lpy.scm.utils.AssertUtil;
 import com.lpy.scm.utils.BeanUtil;
@@ -70,11 +73,6 @@ public class SaleOrderServiceImpl extends BaseServiceImpl<SaleOrderDO> implement
 
     }
 
-    @Override
-    public PageInfo<SaleOrderDO> orderList(int pageNo, int pageSize) {
-        List<SaleOrderDO> saleOrderDOS = queryByPage(pageNo, pageSize);
-        return new PageInfo<SaleOrderDO>(saleOrderDOS);
-    }
 
     @Override
     public ProductDTO queryProductByCode(String code) throws ParamException {
@@ -83,6 +81,18 @@ public class SaleOrderServiceImpl extends BaseServiceImpl<SaleOrderDO> implement
         ProductDO productDO1 = productMapper.selectOne(productDO);
         AssertUtil.isNullObj(productDO1, "未查询到商品");
         return BeanUtil.convertObject(productDO1, ProductDTO.class);
+    }
+
+    @Override
+    public PageInfo<SaleOrderDTO> orderList(QueryOrderParam queryOrderParam) throws ParamException {
+        PageHelper.startPage(queryOrderParam.getPageNo(), queryOrderParam.getPageSize());
+        List<SaleOrderDO> saleOrderDOS = saleOrderMapper.queryOrder(queryOrderParam);
+        AssertUtil.isNullList(saleOrderDOS, "10001", "未查询到数据");
+        ArrayList<SaleOrderDTO> saleOrderDTOS = new ArrayList<>();
+        for (SaleOrderDO saleOrderDO : saleOrderDOS) {
+            saleOrderDTOS.add(BeanUtil.convertObject(saleOrderDO, SaleOrderDTO.class));
+        }
+        return new PageInfo<>(saleOrderDTOS);
     }
 
 

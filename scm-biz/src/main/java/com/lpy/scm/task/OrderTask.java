@@ -4,6 +4,7 @@ import com.lpy.scm.dao.SaleOrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 
 /**
@@ -15,7 +16,7 @@ public class OrderTask {
     @Autowired
     private SaleOrderMapper saleOrderMapper;
 
-
+    @Transactional
     @Scheduled(cron = "* 0/10 * * * ? ") // 间隔10分执行
     public void orderClose() {
         saleOrderMapper.closeOrderTask();

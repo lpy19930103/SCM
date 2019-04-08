@@ -1,7 +1,10 @@
 package com.lpy.scm.dao;
 
 import com.lpy.scm.dataobject.SaleOrderDO;
+import com.lpy.scm.param.QueryOrderParam;
 import tk.mybatis.mapper.common.Mapper;
+
+import java.util.List;
 
 
 /**
@@ -11,4 +14,6 @@ import tk.mybatis.mapper.common.Mapper;
 public interface SaleOrderMapper extends Mapper<SaleOrderDO> {
     //关闭订单
     void closeOrderTask();
+
+    List<SaleOrderDO> queryOrder(QueryOrderParam queryOrderParam);
 }
